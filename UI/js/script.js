@@ -20,6 +20,7 @@ enableRegister = () => {
 	}
 	// Calls the check name function 
 	this.check_name(name);
+	this.check_password(password);
 }
 
 // Register function
@@ -34,6 +35,17 @@ check_name = (name) => {
 		document.getElementById('submit').disabled = false;
 	} else {
 		document.getElementById('name_error').innerHTML = 'Invalid Name';
+		document.getElementById('submit').disabled = true;
+	}
+}
+
+// Checks the validity of password
+check_password = (password) => {
+	if (/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password)){
+		document.getElementById('pass_error').innerHTML = '';
+		document.getElementById('submit').disabled = false;
+	} else {
+		document.getElementById('pass_error').innerHTML = 'Password Must NOT be less than six digits with at least a number';
 		document.getElementById('submit').disabled = true;
 	}
 }
