@@ -40,11 +40,11 @@ Organization: Preparatory Project for Andela Bootcamp
                 <form>
                     <fieldset>
                         <h3>Login to Continue</h3>
-                        <label for="email">Enter Email</label><br>
-                        <input type="email" class="form-element" name="email" id="email" placeholder="enter email address"><br><br>
-                        <label for="password">Enter Password</label><br>
-                        <input type="password" class="form-element" name="password" id="password"><br><br>
-                        <button type="submit" class="button_1">Login</button>
+                        <label for="email">Enter Email <span class="error">*</span></label><br>
+                        <input type="email" oninput="enableLogin()" class="form-element" name="email" id="email" required placeholder="enter email address"><br><br>
+                        <label for="password">Enter Password <span class="error">*</span></label><br>
+                        <input type="password" oninput="enableLogin()" class="form-element" name="password" id="password" required><br><br>
+                        <button type="button" id="login" disabled="true" class="button_1" onclick="signin()">Login</button>
                     </fieldset>
                 </form>
     		</div>

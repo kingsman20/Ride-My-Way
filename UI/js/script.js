@@ -37,3 +37,20 @@ check_name = (name) => {
 		document.getElementById('submit').disabled = true;
 	}
 }
+
+// Enables Login if login form is valid
+enableLogin = () => {
+	let email = document.getElementById('email').value;
+	let password = document.getElementById('password').value;
+
+	if(email == "" || password == ""){
+		document.getElementById('login').disabled = true;
+	} else {
+		document.getElementById('login').disabled = false;
+	}
+}
+
+// login
+signin = () => { 
+	window.location.href = "driver_page.html";
+}
