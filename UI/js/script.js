@@ -18,9 +18,22 @@ enableRegister = () => {
 			document.getElementById('submit').disabled = false;
 		}
 	}
+	// Calls the check name function 
+	this.check_name(name);
 }
 
 // Register function
 register = () => {
 	window.location.href = "driver_page.html";
+}
+
+// Validates user's full name using regular expression
+check_name = (name) => {
+	if (/^[a-zA-Z ]+$/.test(name)){
+		document.getElementById('name_error').innerHTML = '';
+		document.getElementById('submit').disabled = false;
+	} else {
+		document.getElementById('name_error').innerHTML = 'Invalid Name';
+		document.getElementById('submit').disabled = true;
+	}
 }
