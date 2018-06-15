@@ -38,14 +38,37 @@ Organization: Preparatory Project for Andela Bootcamp
         <!-- main content area -->
     	<section id="boxes">
     		<div class="container">
-                <h1>Welcome</h1>
+                <h1>Welcome Kingsley [Driver] </h1><br>
+
+                <!-- Tab Area -->
+                <div class="tab">
+                  <button class="tablinks" onclick="driverMenu(event, 'addRide')" id="defaultOpen">Add Ride</button>
+                  <button class="tablinks" onclick="driverMenu(event, 'viewRequest')">View Request <span class="notify">4</span></button>
+                  <button class="tablinks" onclick="driverMenu(event, 'friends')">Friends List</button>
+                </div>
+
+                <div id="addRide" class="tabcontent">
+                  <h3>Add Ride Offer</h3>
+                  <p></p>
+                </div>
+
+                <div id="viewRequest" class="tabcontent">
+                  <h3>View Request</h3>
+                  <p>Request to ride offers you created</p> 
+                </div>
+
+                <div id="friends" class="tabcontent">
+                  <h3>Your Friends in Ride-My-Way</h3>
+                  <p></p>
+                </div>
+
     		</div>
     	</section>
         <!-- end main content area -->
 
         <!-- begin footer -->
     	<footer>
-    		<p>All Rights Reserverd. Designed by Obot Kingsley Udo. Copyright &copy; 2018</p>
+    		<p>All Rights Reserved. Designed by Obot Kingsley Udo. Copyright &copy; 2018</p>
     	</footer>
         <!-- end footer -->
 
