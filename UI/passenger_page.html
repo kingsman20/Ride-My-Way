@@ -1,0 +1,83 @@
+<!-- 
+App Name: Ride My Way
+Author: OBOT KINGSLEY UDO
+Organization: Preparatory Project for Andela Bootcamp 
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width" name="viewport"/>
+        <meta content="Affordable Rides Smooth" name="description"/>
+        <meta content="Ride Carpool" name="keywords"/>
+        <meta content="Obot Kingsley" name="author"/>
+        <title>
+            Ride My Way | Dashboard
+        </title>
+        <link href="css/style.css" rel="stylesheet" type="text/css">
+        </link>
+    </head>
+    <body>
+        <!-- begin header -->
+        <header>
+            <div class="container">
+                <div id="branding">
+                    <a href="index.html"><h1>Ride-My-<span class="highlight">Way</span></h1></a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="passenger_profile.html">Profile</a></li>
+                        <li><a href="#" onclick="logout()">Logout</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <!-- end header -->
+
+        <!-- main content area -->
+        <section id="boxes">
+            <div class="container">
+                <h1>Welcome Obot [Passenger] </h1><br>
+
+                <!-- Tab Area -->
+                <div class="tab">
+                  <button class="tablinks" onclick="passengerMenu(event, 'viewOffer')" id="defaultOpen">View Ride Offers</button>
+                  <button class="tablinks" onclick="passengerMenu(event, 'notification')">Messages <span class="notify">2</span></button>
+                  <button class="tablinks" onclick="passengerMenu(event, 'friends')">Friends List</button>
+                </div>
+
+                <div id="viewOffer" class="tabcontent">
+                  <h3>View Ride Offers</h3>
+                  <div>
+                    <span class="offer">Lagos to Port Harcourt  </span><a href="ride_details.html"><button type="button" id="login" class="button_1">View Details</button></a><hr>
+                    <span class="offer">Oshodi to Aba  </span><a href="ride_details.html"><button type="button" id="login" class="button_1">View Details</button></a><hr>
+                    <span class="offer">Yaba to Mile 1  </span><a href="ride_details.html"><button type="button" id="login" class="button_1">View Details</button></a><hr>
+                  </div>
+                </div>
+
+                <div id="notification" class="tabcontent">
+                  <h3>Notifications</h3>
+                  <h4>Lagos to Port Harcourt <span class="offer"> ( Accepted )</span></h4><hr>
+                  <h4>Ishodi to Yaba <span class="error"> ( Rejected )</span></h4><hr>
+                </div>
+
+                <div id="friends" class="tabcontent">
+                  <h3>Your Friends in Ride-My-Way</h3>
+                  <p></p>
+                </div>
+
+            </div>
+        </section>
+        <!-- end main content area -->
+
+        <!-- begin footer -->
+        <footer>
+            <p>All Rights Reserved. Designed by Obot Kingsley Udo. Copyright &copy; 2018</p>
+        </footer>
+        <!-- end footer -->
+
+    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript">document.getElementById("defaultOpen").click();</script>
+    </body>
+</html>

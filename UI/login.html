@@ -1,0 +1,62 @@
+<!-- 
+App Name: Ride My Way
+Author: OBOT KINGSLEY UDO
+Organization: Preparatory Project for Andela Bootcamp 
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width" name="viewport"/>
+        <meta content="Affordable Rides Smooth" name="description"/>
+        <meta content="Ride Carpool" name="keywords"/>
+        <meta content="Obot Kingsley" name="author"/>
+        <title>
+            Ride My Way | Login
+        </title>
+        <link href="css/style.css" rel="stylesheet" type="text/css">
+        </link>
+    </head>
+    <body>
+        <!-- begin header -->
+    	<header>
+    		<div class="container">
+    			<div id="branding">
+    				<a href="index.html"><h1>Ride-My-<span class="highlight">Way</span></h1></a>
+    			</div>
+    			<nav>
+    				<ul>
+    					<li><a href="register.html">Register</a></li>
+    				</ul>
+    			</nav>
+    		</div>
+    	</header>
+        <!-- end header -->
+
+        <!-- main content area -->
+    	<section id="boxes">
+    		<div class="container">
+                <form><br><br><br>
+                    <fieldset>
+                        <h3>Login to Continue</h3>
+                        <label for="email">Enter Email <span class="error">*</span></label><br>
+                        <input type="email" oninput="enableLogin()" class="form-element" name="email" id="email" required placeholder="enter email address"><br><br>
+                        <label for="password">Enter Password <span class="error">*</span></label><br>
+                        <input type="password" oninput="enableLogin()" class="form-element" name="password" id="password" required><br><br>
+                        <button type="button" id="login" disabled="true" class="button_1" onclick="signin()">Login</button>
+                    </fieldset>
+                </form><br><br><br>
+    		</div>
+    	</section>
+        <!-- end main content area -->
+
+        <!-- begin footer -->
+    	<footer>
+    		<p>All Rights Reserverd. Designed by Obot Kingsley Udo. Copyright &copy; 2018</p>
+    	</footer>
+        <!-- end footer -->
+
+    <script type="text/javascript" src="js/script.js"></script>
+    </body>
+</html>
