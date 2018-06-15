@@ -124,8 +124,7 @@ header a:hover {
     border: 1px solid #ccc;
     background-color: #35424a;
     width: 30%;
-    height: 300px;
-    margin-bottom: 80px;
+    min-height: 400px;
 }
 .tab button {
     display: block;
@@ -152,7 +151,7 @@ header a:hover {
     border: 1px solid #ccc;
     width: 70%;
     border-left: none;
-    height: 300px;
+    min-height: 400px;
 }
 
 .notify {
