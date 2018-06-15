@@ -99,3 +99,8 @@ passengerMenu = (evt, menu) => {
 
 // Get the element with id="defaultOpen" and click on it
 document.getElementById("defaultOpen").click();
+
+// logout function
+logout = () => {
+	console.log('He')
+}
