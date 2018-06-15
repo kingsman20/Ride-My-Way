@@ -43,7 +43,7 @@ Organization: Preparatory Project for Andela Bootcamp
                 <!-- Tab Area -->
                 <div class="tab">
                   <button class="tablinks" onclick="driverMenu(event, 'addRide')" id="defaultOpen">Add Ride</button>
-                  <button class="tablinks" onclick="driverMenu(event, 'viewRequest')">View Request <span class="notify">4</span></button>
+                  <button class="tablinks" onclick="driverMenu(event, 'viewRequest')">View Request <span class="notify">2</span></button>
                   <button class="tablinks" onclick="driverMenu(event, 'friends')">Friends List</button>
                 </div>
 
@@ -66,7 +66,16 @@ Organization: Preparatory Project for Andela Bootcamp
 
                 <div id="viewRequest" class="tabcontent">
                   <h3>View Request</h3>
-                  <p>Request to ride offers you created</p> 
+                  <div>
+                      <h4><span class="offer">Grace Friday:</span> Lagos to Port Harcourt </h4>
+                      <button type="button" id="login" class="button_1">Accept</button>
+                      <button type="button" id="login" class="button_2">Reject</button><hr>
+                  </div>
+                  <div>
+                      <h4><span class="offer">Mr. Olatunji Ayo:</span> Oshodi to Ikoyi </h4>
+                      <button type="button" id="login" class="button_1">Accept</button>
+                      <button type="button" id="login" class="button_2">Reject</button><hr>
+                  </div>
                 </div>
 
                 <div id="friends" class="tabcontent">

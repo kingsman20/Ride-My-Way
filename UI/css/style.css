@@ -24,6 +24,15 @@ ul {
     color: #ffffff;
     cursor: pointer;
 }
+.button_2 {
+    height: 38px;
+    background: #ff3232;
+    border: none;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: #ffffff;
+    cursor: pointer;
+}
 a {
     color: #ffffff;
     text-decoration: none;
@@ -39,6 +48,9 @@ fieldset {
 }
 .error {
     color: red;
+}
+.offer {
+    color: #35424a;
 }
 /* Header */
 
