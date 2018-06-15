@@ -97,9 +97,6 @@ passengerMenu = (evt, menu) => {
     evt.currentTarget.className += " active";
 }
 
-// Get the element with id="defaultOpen" and click on it
-document.getElementById("defaultOpen").click();
-
 // logout function
 logout = () => {
 	window.location.href = "index.html";
