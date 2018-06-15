@@ -102,5 +102,5 @@ document.getElementById("defaultOpen").click();
 
 // logout function
 logout = () => {
-	console.log('He')
+	window.location.href = "index.html";
 }
