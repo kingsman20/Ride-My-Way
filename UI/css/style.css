@@ -44,7 +44,10 @@ a {
     width: 80%;
 }
 fieldset {
-    margin-bottom: 150px;
+    margin-bottom: 100px;
+}
+fieldset ul {
+    padding: 10px;
 }
 .error {
     color: red;
@@ -173,6 +176,7 @@ header a:hover {
     padding: 3px;
 }
 
+
 /* footer */
 
 footer {
@@ -181,6 +185,7 @@ footer {
     color: #ffffff;
     background-color: #3B5998;
     text-align: center;
+    width: 100%;
 }
 /* Media Queries */
 
