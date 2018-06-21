@@ -52,4 +52,15 @@ describe('API Endpoint /rides', () => {
       });
   });
 
+  // POST - make a request to join a specific ride
+  it('should make a request to join a ride offer', (done) => {
+    chai.request(app)
+      .post('/api/v1/rides/1/requests')
+      .then((res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        done();
+      });
+  });
+
 });
