@@ -40,6 +40,16 @@ app.post('/api/v1/rides', (req, res) => {
   }
 });
 
+// GET - a specific ride offer
+app.get('/api/v1/rides/:id', (req, res) => {
+  const ride = rides.find(item => item.id === parseInt(req.params.id, 10));
+  if (!ride) {
+    res.status(404).send('Ride with ID NOT found');
+  } else {
+    res.send(ride);
+  }
+});
+
 app.listen(3000, () => {
   console.log('Listening on port 3000');
 });

@@ -39,4 +39,17 @@ describe('API Endpoint /rides', () => {
         expect(res.body).to.be.an('object');
       });
   });
+
+  // GET - Get the details of a specific ride
+  it('should get a specific ride offer', (done) => {
+    chai.request(app)
+      .get('/api/v1/rides/1')
+      .then((res) => {
+        expect(res).to.have.status(200);
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.a.property('driver');
+        done();
+      });
+  });
+
 });
