@@ -96,6 +96,11 @@ app.delete('/api/v1/rides/:id', (req, res) => {
   }
 });
 
+// Handle Invalid route
+app.get('/*', (req, res) => {
+  res.send('Page NOT found');
+});
+
 app.listen(3000, () => {
   console.log('Listening on port 3000');
 });
