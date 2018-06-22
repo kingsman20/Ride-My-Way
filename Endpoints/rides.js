@@ -1,4 +1,4 @@
-const courses = [
+const rides = [
   {
     id: 1,
     driver: 'Mr. Kingsley',
@@ -24,4 +24,4 @@ const courses = [
     time: '3:00 p.m',
   },
 ];
-export default courses;
+export default rides;

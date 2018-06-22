@@ -77,4 +77,15 @@ describe('API Endpoint /rides', () => {
         expect(res.body).to.be.an('object');
       });
   });
+
+  // DELETE - delete a ride offer
+  it('should delete a new ride', () => {
+    return chai.request(app)
+      .delete('/api/v1/rides/3')
+      .then((res) => {
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('object');
+      });
+  });
 });

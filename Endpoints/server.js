@@ -83,6 +83,19 @@ app.put('/api/v1/rides/:id', (req, res) => {
   }
 });
 
+// DELETE - delete a ride offer
+app.delete('/api/v1/rides/:id', (req, res) => {
+  // look up the ride. if it does not exist, return 404. Else delete and return deleted ride
+  const ride = rides.find(item => item.id === parseInt(req.params.id, 10));
+  if (!ride) {
+    res.status(404).send('Ride with given ID not found');
+  } else {
+    const position = rides.indexOf(ride);
+    rides.splice(position);
+    res.send(ride);
+  }
+});
+
 app.listen(3000, () => {
   console.log('Listening on port 3000');
 });
