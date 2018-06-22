@@ -63,4 +63,18 @@ describe('API Endpoint /rides', () => {
       });
   });
 
+  // PUT - update a ride offer
+  it('should update a ride offer', () => {
+    const ride = {
+      destination: 'Ikoyi',
+    };
+    return chai.request(app)
+      .put('/api/v1/rides/1')
+      .send(ride)
+      .then((res) => {
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('object');
+      });
+  });
 });
