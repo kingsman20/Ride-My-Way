@@ -18,6 +18,11 @@ and your favourite editor
 git clone https://github.com/kingsman20/Ride-My-Way.git
 ```
 
+### Uses Travis for continuous integration
+![Travis CI](https://img.shields.io/travis/USER/REPO.svg)
+
+### Coveralls helps to keep track of our codes that are covered
+![Coveralls](https://img.shields.io/coveralls/github/jekyll/jekyll.svg)
 
 ## License
 ![MIT License](https://img.shields.io/npm/l/express.svg)
