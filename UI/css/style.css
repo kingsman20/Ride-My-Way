@@ -15,23 +15,21 @@ ul {
     margin: 0;
     padding: 0;
 }
-.button_1 {
+
+.btn {
     height: 38px;
-    background: #3B5998;
     border: none;
     padding-left: 20px;
     padding-right: 20px;
     color: #ffffff;
     cursor: pointer;
 }
+
+.button_1 {
+    background: #3B5998;
+}
 .button_2 {
-    height: 38px;
     background: #ff3232;
-    border: none;
-    padding-left: 20px;
-    padding-right: 20px;
-    color: #ffffff;
-    cursor: pointer;
 }
 a {
     color: #ffffff;
@@ -92,6 +90,7 @@ header a:hover {
 
 #showcase {
     min-height: 400px;
+    width: 100%;
     background: url('../img/carpool.jpg') no-repeat 0;
 }
 #showcase p {
