@@ -2,12 +2,12 @@ import rides from '../models/rides';
 
 const ridesController = {
   // Get all ride offer
-  allRideOffer: (req, res) => {
+  allRidesOffer: (req, res) => {
     res.json(rides);
   },
 
   // Create Ride offer
-  createRidesOffer: (req, res) => {
+  createRideOffer: (req, res) => {
     if (!req.body.driver) {
       res.status(400).send('Enter valid driver\'s name');
     } else if (!req.body.location) {

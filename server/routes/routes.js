@@ -9,7 +9,7 @@ ridesRoute.get('/', (req, res) => {
 });
 
 ridesRoute.get('/api/v1/rides', ridesController.allRidesOffer);
-ridesRoute.post('/api/v1/rides', ridesController.createRidesOffer);
+ridesRoute.post('/api/v1/rides', ridesController.createRideOffer);
 ridesRoute.get('/api/v1/rides/:id', ridesController.rideOffer);
 ridesRoute.post('/api/v1/rides/:id/requests', ridesController.joinRideOffer);
 ridesRoute.put('/api/v1/rides/:id', ridesController.updateRideOffer);
