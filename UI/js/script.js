@@ -36,8 +36,7 @@ logout = () => {
 checkLogin = () => {
   const email = document.getElementById('email').value;
   const password = document.getElementById('password').value;
-  console.log(email + password);
-  if (email.length < 1) {
+  if (!(/^.+@.+\..+$/.test(email))) {
     document.getElementById('error').innerHTML = '*Provide a valid email address';
   } else if (password.length < 6) {
     document.getElementById('error').innerHTML = '*Password must at be six digits';
@@ -55,7 +54,7 @@ checkRegister = () => {
 
   if (name < 1) {
     document.getElementById('error').innerHTML = '*Provide a valid name';
-  } else if (email.length < 3) {
+  } else if (!(/^.+@.+\..+$/.test(email))) {
     document.getElementById('error').innerHTML = '*Enter a valid email';
   } else if (password.length < 6) {
     document.getElementById('error').innerHTML = '*Password must be at least six digits';
