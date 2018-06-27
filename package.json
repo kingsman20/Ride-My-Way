@@ -4,7 +4,7 @@
   "description": "A Carpooling App ",
   "main": "server/app.js",
   "scripts": {
-    "test": "mocha server/test/api_test.js --compilers js:babel-register",
+    "test": "mocha server/test/api_test.js --exit --compilers js:babel-register",
     "cover": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
     "start": "babel-node server/app.js"
   },
