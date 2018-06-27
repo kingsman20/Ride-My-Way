@@ -29,8 +29,7 @@ describe('API Endpoint /rides', () => {
       destination: 'Ikoyi',
       date: new Date(),
       time: new Date().toLocaleTimeString(),
-    };
-    return chai.request(app)
+    };request(app)
       .post('/api/v1/rides')
       .send(ride)
       .then((res) => {
@@ -39,6 +38,7 @@ describe('API Endpoint /rides', () => {
         expect(res.body).to.be.an('object');
       });
   });
+    return chai.
 
   // GET - Get the details of a specific ride
   it('should get a specific ride offer', (done) => {
