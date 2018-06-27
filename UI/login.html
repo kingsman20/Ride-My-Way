@@ -1,9 +1,3 @@
-<!-- 
-App Name: Ride My Way
-Author: OBOT KINGSLEY UDO
-Organization: Preparatory Project for Andela Bootcamp 
--->
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,7 +6,7 @@ Organization: Preparatory Project for Andela Bootcamp
         <meta content="Affordable Rides Smooth" name="description"/>
         <meta content="Ride Carpool" name="keywords"/>
         <meta content="Obot Kingsley" name="author"/>
-        <title>
+        <title> 
             Ride My Way | Login
         </title>
         <link href="css/style.css" rel="stylesheet" type="text/css">
@@ -20,6 +14,7 @@ Organization: Preparatory Project for Andela Bootcamp
     </head>
     <body>
         <!-- begin header -->
+        <div id="page">
     	<header>
     		<div class="container">
     			<div id="branding">
@@ -35,18 +30,18 @@ Organization: Preparatory Project for Andela Bootcamp
         <!-- end header -->
 
         <!-- main content area -->
-    	<section id="boxes">
-    		<div class="container">
-                <form><br><br><br>
-                    <fieldset>
-                        <h3>Login to Continue</h3>
-                        <label for="email">Enter Email <span class="error">*</span></label><br>
-                        <input type="email" oninput="enableLogin()" class="form-element" name="email" id="email" required placeholder="enter email address"><br><br>
-                        <label for="password">Enter Password <span class="error">*</span></label><br>
-                        <input type="password" oninput="enableLogin()" class="form-element" name="password" id="password" required><br><br>
-                        <button type="button" id="login" disabled="true" class="button_1" onclick="signin()">Login</button>
-                    </fieldset>
-                </form><br><br><br>
+    	<section id="main">
+    		<div class="login">
+                    <h1 class="heading">Login</h1>
+                    <form>
+                        <input type="email" name="email" id="email" placeholder="email" class="field">
+                        <input type="password" name="password" id="password" placeholder="password" class="field">
+                        <span class="error" id="error"></span>
+                        <input type="button" value="login" onclick="checkLogin()" class="btn button">
+                    </form>
+                    <div class="pass-link">
+                        <a href="#" >Lost your password?</a>
+                    </div>  
     		</div>
     	</section>
         <!-- end main content area -->
@@ -56,6 +51,7 @@ Organization: Preparatory Project for Andela Bootcamp
     		<p>All Rights Reserverd. Designed by Obot Kingsley Udo. Copyright &copy; 2018</p>
     	</footer>
         <!-- end footer -->
+    </div>
 
     <script type="text/javascript" src="js/script.js"></script>
     </body>

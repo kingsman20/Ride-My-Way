@@ -1,35 +1,42 @@
-body {
+html, body {
     font: 15px/1.5 Arial, Helvetica, sans-serif;
     padding: 0;
     margin: 0;
     background-color: #f4f4f4;
+    height: 100%;
 }
 /* Global Styles */
 
+#page {
+    min-height: 100%;
+    position: relative;
+}
 .container {
     width: 80%;
     margin: auto;
     overflow: hidden;
+    min-height: 100%;
+    position: relative;
 }
 ul {
     margin: 0;
     padding: 0;
 }
-
 .btn {
-    height: 38px;
+    height: 30px;
     border: none;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 5px;
     color: #ffffff;
     cursor: pointer;
 }
-
 .button_1 {
     background: #3B5998;
 }
 .button_2 {
     background: #ff3232;
+}
+.lg {
+    width: 30%;
 }
 a {
     color: #ffffff;
@@ -41,14 +48,9 @@ a {
     height: 25px;
     width: 80%;
 }
-fieldset {
-    margin-bottom: 100px;
-}
-fieldset ul {
-    padding: 10px;
-}
 .error {
     color: red;
+    margin: 10px 0 20px 0;
 }
 .offer {
     color: #35424a;
@@ -93,9 +95,9 @@ header a:hover {
     width: 100%;
     background: url('../img/carpool.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 #showcase p {
     font-size: 20px;
@@ -106,7 +108,7 @@ header a:hover {
     margin-bottom: 10px;
 }
 #register {
-    padding: 15px;
+    padding: 2px;
     color: white;
     background: #35424a;
 }
@@ -120,7 +122,8 @@ header a:hover {
 /* main */
 
 #main {
-    margin-top: 20px;
+    margin-top: 0;
+    padding-bottom: 100px;
 }
 #main h1 {
     text-align: center;
@@ -135,15 +138,83 @@ header a:hover {
 #main .box img {
     width: 90px;
 }
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 16px;
+}
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+tr:nth-child(even) {
+    background-color: #D6DBDF;
+}
+th {
+    background-color: #3B5998;
+    color: white;
+}
+/* Login */
 
+.login {
+    margin: 20px auto;
+    padding: 20px;
+    width: 400px;
+    height: 380px;
+    background-color: #85929E;
+    border-radius: 5px;
+}
+.register {
+   margin: 20px auto;
+    padding: 20px;
+    width: 400px;
+    min-height: 480px;
+    background-color: #85929E;
+    border-radius: 5px;
+}
+input {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    border: 2px solid transparent;
+    width: 90%;
+    font-size: 16px;
+    transition: border .2s, background-color .2s;
+}
+.select {
+    width: 90%;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+.heading {
+   color: #fff;
+}
+
+form {
+    padding: 20px;
+    text-align: center;
+}
+form .btn {
+    background-color: #3B5998;
+    color: #fff;
+    cursor: pointer;
+    padding: 5px;
+    height: 40px;
+}
+form .btn:hover, form .btn:active {
+    background-color: #1F78B4;
+    border: 2px solid #1F78B4;
+}
 /* Tab Section on Dashboard */
 * {box-sizing: border-box}
 .tab {
     float: left;
     border: 1px solid #ccc;
     background-color: #35424a;
-    width: 30%;
-    min-height: 400px;
+    margin-left: 8%;
+    width: 20%;
+    height: 500px;
 }
 .tab button {
     display: block;
@@ -157,6 +228,7 @@ header a:hover {
     cursor: pointer;
     transition: 0.3s;
     font-size: 17px;
+    border-bottom: 1px solid #fff;
 }
 .tab button:hover {
     background-color: #ddd;
@@ -166,11 +238,12 @@ header a:hover {
 }
 .tabcontent {
     float: left;
-    padding: 0px 12px;
+    padding: 0px 10px;
     border: 1px solid #ccc;
     width: 70%;
     border-left: none;
-    min-height: 400px;
+    background-color: lightgrey;
+    height: 500px;
 }
 
 .notify {
@@ -180,17 +253,52 @@ header a:hover {
     padding: 3px;
 }
 
+/* Profile */
+.profile {
+    background-color: lightgrey;
+    width: 450px;
+    margin: 55px auto;
+    margin-top: 0;
+    padding-bottom: 1px;
+    box-shadow: 1px 1px 5px -1px rgba(0,0,0,.3);
+}
+.profile-body {
+    padding: 5px 30px;
+}
+.profile-item-wrapper {
+    display: flex;
+    width: 100%;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(180,180,180,.3);
+}
+.profile-item-wrapper:last-child {
+    border-bottom: none;
+}
+.profile-item {
+    flex-basis: 25%;
+    font-weight: bold;
+    margin-top: 12px;
+    text-align: justify;
+}
+.item-details {
+    flex-basis: 80%;
+    text-align: left;
+}
 
+* {
+    box-sizing: border-box
+}
 /* footer */
 
 footer {
     padding: 20px;
     color: #ffffff;
-    background-color: #3B5998;
+    background-color: #35424a;
     text-align: center;
+    position: absolute;
+    bottom: 0;
     width: 100%;
-    bottom:0;
-    left:0;
+    height: 100px;
 }
 /* Media Queries */
 

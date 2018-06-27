@@ -1,103 +1,68 @@
-// Enables the Register button if values are valid
-enableRegister = () => {
-	let name = document.getElementById('name').value;
-	let email = document.getElementById('email').value;
-	let type = document.getElementById('type').value;
-	let password = document.getElementById('password').value;
-	let confirm = document.getElementById('confirm').value;
-
-	if(name == "" || email == "" || type == "" || password == "" || confirm == ""){
-		document.getElementById('submit').disabled = true;
-		document.getElementById('password_error').innerHTML = '';
-	} else {
-		if(password != confirm){
-			document.getElementById('submit').disabled = true;
-			document.getElementById('password_error').innerHTML = 'Password do NOT match';
-		} else {
-			document.getElementById('password_error').innerHTML = '';
-			document.getElementById('submit').disabled = false;
-		}
-	}
-	// Calls the check name function 
-	this.check_name(name);
-	this.check_password(password);
-}
-
-// Register function
-register = () => {
-	window.location.href = "driver_page.html";
-}
-
-// Validates user's full name using regular expression
-check_name = (name) => {
-	if (/^[a-zA-Z ]+$/.test(name)){
-		document.getElementById('name_error').innerHTML = '';
-		document.getElementById('submit').disabled = false;
-	} else {
-		document.getElementById('name_error').innerHTML = 'Invalid Name';
-		document.getElementById('submit').disabled = true;
-	}
-}
-
-// Checks the validity of password
-check_password = (password) => {
-	if (/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password)){
-		document.getElementById('pass_error').innerHTML = '';
-		document.getElementById('submit').disabled = false;
-	} else {
-		document.getElementById('pass_error').innerHTML = 'Password Must NOT be less than six digits with at least a number';
-		document.getElementById('submit').disabled = true;
-	}
-}
-
-// Enables Login if login form is valid
-enableLogin = () => {
-	let email = document.getElementById('email').value;
-	let password = document.getElementById('password').value;
-
-	if(email == "" || password == ""){
-		document.getElementById('login').disabled = true;
-	} else {
-		document.getElementById('login').disabled = false;
-	}
-}
-
-// login
-signin = () => { 
-	window.location.href = "driver_page.html";
-}
-
 // Driver's Tab on dashboard
 driverMenu = (evt, menu) => {
     let i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
+    tabcontent = document.getElementsByClassName('tabcontent');
     for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
+        tabcontent[i].style.display = 'none';
     }
-    tablinks = document.getElementsByClassName("tablinks");
+    tablinks = document.getElementsByClassName('tablinks');
     for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
+        tablinks[i].className = tablinks[i].className.replace(' active', '');
     }
-    document.getElementById(menu).style.display = "block";
-    evt.currentTarget.className += " active";
+    document.getElementById(menu).style.display = 'block';
+    evt.currentTarget.className += ' active';
 }
 
 // Passenger's Tab on dashboard
 passengerMenu = (evt, menu) => {
-    let i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(menu).style.display = "block";
-    evt.currentTarget.className += " active";
-}
+  let i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName('tabcontent');
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = 'none';
+  }
+  tablinks = document.getElementsByClassName('tablinks');
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(' active', '');
+  }
+  document.getElementById(menu).style.display = 'block';
+  evt.currentTarget.className += ' active';
+};
 
 // logout function
 logout = () => {
-	window.location.href = "index.html";
+  window.location.href = 'index.html';
+}
+
+checkLogin = () => {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  console.log(email + password);
+  if (email.length < 1) {
+    document.getElementById('error').innerHTML = '*Provide a valid email address';
+  } else if (password.length < 6) {
+    document.getElementById('error').innerHTML = '*Password must at be six digits';
+  } else {
+    document.getElementById('error').innerHTML = '';
+    window.location.href = 'driver_page.html';
+  }
+}
+
+checkRegister = () => {
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const confirm = document.getElementById('confirm').value;
+
+  if (name < 1) {
+    document.getElementById('error').innerHTML = '*Provide a valid name';
+  } else if (email.length < 3) {
+    document.getElementById('error').innerHTML = '*Enter a valid email';
+  } else if (password.length < 6) {
+    document.getElementById('error').innerHTML = '*Password must be at least six digits';
+  } else if(password != confirm) {
+    document.getElementById('error').innerHTML = '*Password do not match';
+  } else {
+    document.getElementById('error').innerHTML = '';
+    window.location.href = 'passenger_page.html';
+  }
 }
