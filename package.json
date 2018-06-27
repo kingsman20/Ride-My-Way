@@ -4,7 +4,7 @@
   "description": "A Carpooling App ",
   "main": "server/app.js",
   "scripts": {
-    "test": "mocha server/test/api_test.js --cache --exit --require js:babel-register",
+    "test": "mocha server/test/api_test.js --cache --exit --compilers js:babel-register",
     "cover": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
     "start": "babel-node server/app.js"
   },
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/kingsman20/Ride-My-Way.git"
   },
-  "keywords": [ 
+  "keywords": [
     "Carpooling",
     "Andela"
   ],
@@ -24,7 +24,8 @@
   "homepage": "https://github.com/kingsman20/Ride-My-Way#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "pg": "^7.4.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

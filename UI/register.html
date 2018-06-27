@@ -34,16 +34,13 @@
             <div class="register">
                     <h1 class="heading">Register</h1>
                     <form>
-                        <input type="text" placeholder="Full name" name="name" id="name">
-                        <input type="email" placeholder="email" id="email" name="email">
-                        <select class="select" id="type" name="type">
-                            <option>Passenger</option>
-                            <option>Driver</option>
-                        </select>
-                        <input type="password" id="password" name="password" placeholder="password" class="field">
-                        <input type="password" id="confirm" name="confirm" placeholder="comfirm password" class="field">
+                        <input type="text" required placeholder="Full name" name="name" id="name">
+                        <input type="email" required placeholder="email" id="email" name="email">
+                        <input type="text" required placeholder="phone" id="phone" name="phone">
+                        <input type="password" minlength="6" id="password" name="password" placeholder="password" class="field">
+                        <input type="password" minlength="6" id="confirm" name="confirm" placeholder="comfirm password" class="field">
                         <span class="error" id="error"></span>
-                        <input type="button" value="Register" onclick="checkRegister()" class="btn">
+                        <button type="submit" class="btn btn_primary">Register</button>
                     </form>
             </div>
         </section>
