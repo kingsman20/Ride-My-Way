@@ -1,16 +1,29 @@
-import rides from '../models/rides';
+import config from '../config/database';
+
+const pg = require('pg');
+
+const pool = new pg.Pool(config);
 
 const ridesController = {
   // Get all ride offer
   allRidesOffer: (req, res) => {
-    res.json(rides);
+    pool.connect((err, client, done) => {
+      if (err) {
+        res.status(400).send(err);
+      }
+      client.query('SELECT * from rides', (err, result) => {
+        done();
+        if (err) {
+          res.status(400).send({ status: 'failed', data: [{ message: err }] });
+        }
+        res.status(200).send({ status: 'success', data: { rides: result.rows } });
+      });
+    });
   },
 
   // Create Ride offer
   createRideOffer: (req, res) => {
-    if (!req.body.driver) {
-      res.status(400).send('Enter valid driver\'s name');
-    } else if (!req.body.location) {
+    if (!req.body.location) {
       res.status(400).send('Enter valid location');
     } else if (!req.body.destination) {
       res.status(400).send('Enter valid destination');
@@ -18,68 +31,97 @@ const ridesController = {
       res.status(400).send('Enter date of departure');
     } else if (!req.body.time) {
       res.status(400).send('Enter time of departure');
+    } else if (!req.body.price) {
+      res.status(400).send('Enter amount');
     } else {
-      const newRide = {
-        id: rides.length + 1,
-        driver: req.body.driver,
-        location: req.body.location,
-        destination: req.body.destination,
-        date: req.body.date,
-        time: req.body.time,
-      };
-      rides.push(newRide);
-      res.status(201).send(newRide);
+      pool.connect((err, client, done) => {
+        if (err) {
+          res.status(400).send(err);
+        }
+        client.query('INSERT INTO rides(location, destination, date, time, price, userId) values($1, $2, $3, $4, $5, $6)', [req.body.location, req.body.destination, req.body.date, req.body.time, req.body.price, 1], (err, result) => {
+          done();
+          if (err) {
+            res.status(400).send({ status: 'failed', data: [{ message: err }] });
+          }
+          res.status(200).send({ status: 'success', data: [{ message: 'Ride Offer Created Succesfully' }] });
+        });
+      });
     }
   },
 
   // Get a specific ride offer
   rideOffer: (req, res) => {
-    const ride = rides.find(item => item.id === parseInt(req.params.id, 10));
-    if (!ride) {
-      res.status(404).send('Ride with ID NOT found');
+    if (!req.params.id) {
+      res.status(404).send('Enter a valid ID');
     } else {
-      res.send(ride);
+      pool.connect((err, client, done) => {
+        if (err) {
+          res.status(400).send(err);
+        }
+        client.query('SELECT * FROM rides where id = $1', [req.params.id], (err, result) => {
+          done();
+          if (err) {
+            res.status(400).send({ status: 'failed', data: [{ message: err }] });
+          }
+          res.status(200).send({ status: 'success', data: { rides: result.rows } });
+        });
+      });
     }
   },
 
   // POST - make request to join a ride offer
   joinRideOffer: (req, res) => {
-    const ride = rides.find(item => item.id === parseInt(req.params.id, 10));
-    if (!ride) {
-      res.status(404).send('Ride with ID NOT found');
-    } else {
-      res.send(ride);
-    }
+    pool.connect((err, client, done) => {
+      if (err) {
+        res.status(400).send(err);
+      }
+      client.query('UPDATE rides SET requested=($1) WHERE id=($2)', [1, req.params.id], (err, result) => {
+        done();
+        if (err) {
+          res.status(400).send({ status: 'failed', data: [{ message: err }] });
+        }
+        res.status(200).send({ status: 'success', data: [{ message: 'Ride Updated Succesfully' }] });
+      });
+    });
   },
 
   // PUT - update a ride offer
   updateRideOffer: (req, res) => {
-    const ride = rides.find(item => item.id === parseInt(req.params.id, 10));
-    if (!ride) {
+    if (!req.params.id) {
       res.send('Ride with ID NOT found');
     } else {
-      if (req.body.driver) {
-        ride.driver = req.body.driver;
-      }
-      if (req.body.location) {
-        ride.location = req.body.location;
-      }
-      if (req.body.destination) {
-        ride.destination = req.body.destination;
-      }
-      res.send(ride);
+      pool.connect((err, client, done) => {
+        if (err) {
+          res.status(400).send(err);
+        }
+        client.query('UPDATE rides SET location=($1), destination=($2), date=($3), time=($4), price=($5) WHERE id=($6)', [req.body.location, req.body.destination, req.body.date, req.body.time, req.body.price, req.params.id], (err, result) => {
+          done();
+          if (err) {
+            res.status(400).send({ status: 'failed', data: [{ message: err }] });
+          }
+          res.status(200).send({ status: 'success', data: [{ message: 'Ride Updated Succesfully' }] });
+        });
+      });
     }
   },
 
   // Delete a ride offer
   deleteRideOffer: (req, res) => {
-    const ride = rides.find(item => item.id === parseInt(req.params.id, 10));
-    if (!ride) {
-      res.status(404).send('Ride with given ID not found');
+    if (!req.params.id) {
+      res.status(404).send('Enter a valid ID');
     } else {
-      const position = rides.indexOf(ride);
-      rides.splice(position);
-      res.send(ride);
+      pool.connect((err, client, done) => {
+        if (err) {
+          res.status(400).send(err);
+        }
+        client.query('DELETE FROM rides WHERE id=($1)', [req.params.id], (err, result) => {
+          done();
+          if (err) {
+            res.status(400).send({ status: 'failed', data: [{ message: err }] });
+          }
+          res.status(200).send({ status: 'success', data: [{ message: 'Ride Deleted Succesfully' }] });
+        });
+      });
     }
   },
 };
