@@ -7,7 +7,6 @@ install:
 services:
   - postgresql
 before_script:
-  - cp config/database.yml.travis config/database.yml
   - psql -c 'create database ride_my_way;' -U postgres
 cache:
   directories:
