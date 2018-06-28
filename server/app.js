@@ -2,6 +2,7 @@ import routes from './routes/routes';
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 
@@ -16,6 +17,25 @@ app.get('/', (req, res) => {
 
 // Ride Routes
 app.use(routes.ridesRoute);
+
+// User Authentication Route
+app.post('/auth/login', (req, res) => {
+  // mock user
+  const user = {
+    id: 1,
+    username: 'king',
+    email: 'king@gmail.com',
+  }
+  jwt.sign({ user }, 'secretkey', (err, token) => {
+    res.json({ token });
+  });
+});
+
+// app.post('/post', verifyToken, (req, res) => {
+//   res.json({ message: 'Post Received'});
+// });
+
+// verifytoken
 
 // Handle Invalid route
 app.get('/*', (req, res) => {
