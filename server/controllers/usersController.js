@@ -1,7 +1,6 @@
 import rides from '../models/users';
 
 const usersController = {
-
   // Create Ride offer
   createUser: (req, res) => {
     if (!req.body.driver) {
