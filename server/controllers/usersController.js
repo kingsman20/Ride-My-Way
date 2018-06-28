@@ -38,4 +38,4 @@ const usersController = {
   },
 };
 
-export default ridesController;
+export default usersController;

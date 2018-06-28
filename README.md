@@ -19,7 +19,7 @@ git clone https://github.com/kingsman20/Ride-My-Way.git
 ```
 
 
-## License
-![MIT License](https://img.shields.io/npm/l/express.svg)
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+## Travis Build
+![Travis](https://travis-ci.org/kingsman20/Ride-My-Way.svg?branch=develop)
 
+[![Coverage Status](https://coveralls.io/repos/github/kingsman20/Ride-My-Way/badge.svg?branch=develop)](https://coveralls.io/github/kingsman20/Ride-My-Way?branch=develop)
