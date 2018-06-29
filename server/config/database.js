@@ -1,11 +1,12 @@
+require('dotenv').config();
 const { Client } = require('pg');
 
 const client = new Client({
-  user: 'postgres',
-  host: '127.0.0.1',
-  database: 'ride-my-way', 
-  password: 'king@POSTGRES', 
-  port: 5432, 
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB, 
+  password: process.env.DB_PASS, 
+  port: process.env.DB_PORT,
   max: 10,
   idleTimeoutMillis: 30000,
 });

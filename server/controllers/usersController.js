@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import client from '../config/database';
 
 const jwt = require('jsonwebtoken');
@@ -13,13 +14,22 @@ const usersController = {
       res.status(400).send('Enter your phone number');
     } else if (!req.body.password) {
       res.status(400).send('Password is required');
+    } else if (!this.checkEmail) {
+      res.status(400).send({ status: 'failed', message: 'User already exist' });
     } else {
-      client.query('INSERT INTO users(name, email, phone, password) values($1, $2, $3, $4)', [req.body.name, req.body.email, req.body.phone, req.body.password], (err, result) => {
-        if (err) {
-          res.status(400).send({ status: 'failed', data: [{ message: err }] });
+      client.query('SELECT * FROM users WHERE email=($1) AND password=($2)', [req.body.email, req.body.password], (err, result) => {
+        if (result.rows.length > 0) {
+          res.status(400).send({ status: 'failed', message: 'Email already exist' });
+        } else {
+          const hash = bcrypt.hashSync(req.body.password, 10);
+          client.query('INSERT INTO users(name, email, phone, password) values($1, $2, $3, $4)', [req.body.name, req.body.email, req.body.phone, hash], (err, result) => {
+            if (err) {
+              res.status(400).send({ status: 'failed', data: [{ message: err }] });
+            }
+            res.status(201).send({ status: 'success', data: [{ message: 'User registered succesfully' }] });
+          });
         }
-        res.status(201).send({ status: 'success', data: [{ message: 'User registered succesfully' }] });
-      });
+      }
     }
   },
 
@@ -30,9 +40,10 @@ const usersController = {
       res.status(400).send('Enter your password');
     } else {
       client.query('SELECT * FROM users WHERE email=($1) AND password=($2)', [req.body.email, req.body.password], (err, result) => {
-        jwt.sign({ result }, 'secretkey', (err, token) => {
-          res.json({ token });
-        });
+        // jwt.sign({ result }, 'secretkey', { expiresIn: '30s' }, (err, token) => {
+        //   console.log(token);
+        // });
+        console.log(result);
         if (err) {
           res.status(400).send({ status: 'failed', data: [{ message: err }] });
         } else if (result.rows.length < 1) {

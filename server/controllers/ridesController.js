@@ -42,7 +42,7 @@ const ridesController = {
         if (err) {
           res.status(400).send({ status: 'failed', data: [{ message: err }] });
         }
-        res.status(200).send({ status: 'success', data: { rides: result.rows } });
+        res.status(200).send({ status: 'success', data: result.rows });
       });
     }
   },
