@@ -4,7 +4,7 @@
   "description": "A Carpooling App ",
   "main": "server/app.js",
   "scripts": {
-    "test": "mocha server/test/api_test.js --cache --exit --compilers js:babel-register",
+    "test": "mocha server/test/api_test.js --cache --exit --require babel-register",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "start": "babel-node server/app.js"
   },
@@ -34,6 +34,7 @@
     "babel-preset-env": "^1.7.0",
     "chai": "^4.1.2",
     "chai-http": "^4.0.0",
+    "coffeescript": "^2.3.1",
     "coveralls": "^3.0.1",
     "eslint": "^5.0.0",
     "eslint-config-airbnb": "^17.0.0",

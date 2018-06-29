@@ -3,12 +3,24 @@ import ridesController from '../controllers/ridesController';
 
 const ridesRoute = express.Router();
 
-ridesRoute.get('/api/v1/rides', ridesController.allRidesOffer);
-ridesRoute.post('/api/v1/rides', ridesController.createRideOffer);
-ridesRoute.get('/api/v1/rides/:id', ridesController.rideOffer);
-ridesRoute.put('/api/v1/rides/:id/requests', ridesController.joinRideOffer);
-ridesRoute.put('/api/v1/rides/:id', ridesController.updateRideOffer);
-ridesRoute.delete('/api/v1/rides/:id', ridesController.deleteRideOffer);
+const verifyToken = (req, res, next) => {
+  const bearerHeader = req.headers['authorization'];
+  if (typeof bearerHeader !== 'undefined') {
+    const bearer = bearerHeader.split(' ');
+    const bearerToken = bearer[1];
+    req.token = bearerToken;
+    next();
+  } else {
+    res.status(403).send('Access denied');
+  }
+};
+
+ridesRoute.get('/api/v1/rides', verifyToken, ridesController.allRidesOffer);
+ridesRoute.post('/api/v1/rides', verifyToken, ridesController.createRideOffer);
+ridesRoute.get('/api/v1/rides/:id', verifyToken, ridesController.rideOffer);
+ridesRoute.put('/api/v1/rides/:id/requests', verifyToken, ridesController.joinRideOffer);
+ridesRoute.put('/api/v1/rides/:id', verifyToken, ridesController.updateRideOffer);
+ridesRoute.delete('/api/v1/rides/:id', verifyToken, ridesController.deleteRideOffer);
 
 const routes = { ridesRoute };
 

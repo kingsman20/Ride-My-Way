@@ -12,8 +12,6 @@ Git
 and your favourite editor
 ```
 
-### Installing
-![Downloads](https://img.shields.io/npm/dw/localeval.svg)
 ```
 git clone https://github.com/kingsman20/Ride-My-Way.git
 ```
@@ -22,4 +20,5 @@ git clone https://github.com/kingsman20/Ride-My-Way.git
 ## Travis Build
 ![Travis](https://travis-ci.org/kingsman20/Ride-My-Way.svg?branch=develop)
 
+## Coveralls
 [![Coverage Status](https://coveralls.io/repos/github/kingsman20/Ride-My-Way/badge.svg?branch=develop)](https://coveralls.io/github/kingsman20/Ride-My-Way?branch=develop)

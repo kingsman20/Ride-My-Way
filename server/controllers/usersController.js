@@ -1,39 +1,68 @@
-import rides from '../models/users';
+import client from '../config/database';
+
+const jwt = require('jsonwebtoken');
 
 const usersController = {
   // Create Ride offer
-  createUser: (req, res) => {
-    if (!req.body.driver) {
-      res.status(400).send('Enter valid driver\'s name');
-    } else if (!req.body.location) {
-      res.status(400).send('Enter valid location');
-    } else if (!req.body.destination) {
-      res.status(400).send('Enter valid destination');
-    } else if (!req.body.date) {
-      res.status(400).send('Enter date of departure');
-    } else if (!req.body.time) {
-      res.status(400).send('Enter time of departure');
+  register: (req, res) => {
+    if (!req.body.name) {
+      res.status(400).send('Enter your full name');
+    } else if (!req.body.email) {
+      res.status(400).send('Enter valid email address');
+    } else if (!req.body.phone) {
+      res.status(400).send('Enter your phone number');
+    } else if (!req.body.password) {
+      res.status(400).send('Password is required');
     } else {
-      const newRide = {
-        id: rides.length + 1,
-        driver: req.body.driver,
-        location: req.body.location,
-        destination: req.body.destination,
-        date: req.body.date,
-        time: req.body.time,
-      };
-      rides.push(newRide);
-      res.status(201).send(newRide);
+      client.query('INSERT INTO users(name, email, phone, password) values($1, $2, $3, $4)', [req.body.name, req.body.email, req.body.phone, req.body.password], (err, result) => {
+        if (err) {
+          res.status(400).send({ status: 'failed', data: [{ message: err }] });
+        }
+        res.status(201).send({ status: 'success', data: [{ message: 'User registered succesfully' }] });
+      });
     }
   },
 
-  // POST - make request to join a ride offer
   login: (req, res) => {
-    const ride = rides.find(item => item.id === parseInt(req.params.id, 10));
-    if (!ride) {
-      res.status(404).send('Ride with ID NOT found');
+    if (!req.body.email) {
+      res.status(400).send('Enter vaild email address');
+    } else if (!req.body.password) {
+      res.status(400).send('Enter your password');
     } else {
-      res.send(ride);
+      client.query('SELECT * FROM users WHERE email=($1) AND password=($2)', [req.body.email, req.body.password], (err, result) => {
+        jwt.sign({ result }, 'secretkey', (err, token) => {
+          res.json({ token });
+        });
+        if (err) {
+          res.status(400).send({ status: 'failed', data: [{ message: err }] });
+        } else if (result.rows.length < 1) {
+          res.status(401).send({ status: 'failed', data: [{ message: 'Invalid username or password' }] });
+          return false;
+        }
+        res.status(201).send({ status: 'success', data: [{ message: 'logged In' }] });
+      });
+    }
+  },
+
+  rideRequests: (req, res) => {
+    client.query('SELECT * from requests', (err, result) => {
+      if (err) {
+        res.status(400).send({ status: 'failed', data: [{ message: err }] });
+      }
+      res.status(200).send({ status: 'success', data: { rides: result.rows } });
+    });
+  },
+
+  requestStatus: (req, res) => {
+    if (!req.params.rideId) {
+      res.send('Ride with ID NOT found');
+    } else {
+      client.query('UPDATE requests SET status=($1) WHERE id=($2)', [req.body.status, req.params.id], (err, result) => {
+        if (err) {
+          res.status(400).send({ status: 'failed', data: [{ message: err }] });
+        }
+        res.status(200).send({ status: 'success', data: [{ message: 'Ride Updated Succesfully' }] });
+      });
     }
   },
 };
