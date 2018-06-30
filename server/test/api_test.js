@@ -13,8 +13,8 @@ describe('API Endpoint /rides', () => {
       .get('/api/v1/rides')
       .then((res) => {
         expect(res.body).to.be.an('object');
-        done();
       });
+      done();
   });
 
   // POST - Create a new Ride
@@ -31,13 +31,13 @@ describe('API Endpoint /rides', () => {
       .send(ride)
       .then((res) => {
         expect(res.body).to.be.an('object');
-        done();
       });
+      done();
   });
 
   // POST - Fail in creating
   it('should not create a new ride', (done) => {
-    
+
     const ride = {
       location: 'Yaba',
       date: new Date(),
@@ -49,8 +49,8 @@ describe('API Endpoint /rides', () => {
       .send(ride)
       .then((res) => {
         expect(res.body).to.be.an('object');
-        done();
       });
+      done();
   });
 
   // GET - Get the details of a specific ride
@@ -58,9 +58,9 @@ describe('API Endpoint /rides', () => {
     chai.request(app)
       .get('/api/v1/rides/1')
       .then((res) => {
-        expect(res.body).to.be.an('object');
-        done();   
+        expect(res.body).to.be.an('object');  
       });
+      done();
   });
 
   // POST - make a request to join a specific ride
@@ -69,8 +69,8 @@ describe('API Endpoint /rides', () => {
       .put('/api/v1/rides/1/requests')
       .then((res) => {
         expect(res.body).to.be.an('object');
-        done();
       });
+      done();
   });
 
   // PUT - update a ride offer
@@ -83,7 +83,7 @@ describe('API Endpoint /rides', () => {
       .send(ride)
       .then((res) => {
         expect(res.body).to.be.an('object');
-        done();
       });
+      done();
   });
 });

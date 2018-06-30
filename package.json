@@ -4,7 +4,7 @@
   "description": "A Carpooling App ",
   "main": "server/app.js",
   "scripts": {
-    "test": "nyc mocha --timeout 10000 server/test/api_test.js --cache --exit --require babel-register",
+    "test": "nyc mocha server/test/api_test.js --cache --exit --require babel-register",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "start": "babel-node server/app.js"
   },
