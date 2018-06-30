@@ -1,7 +1,11 @@
+import express from 'express';
 import bcrypt from 'bcrypt';
 import client from '../config/database';
 
+const app = express();
 const jwt = require('jsonwebtoken');
+
+app.set('superSecret', process.env.SECRET);
 
 const usersController = {
   // Create User
@@ -40,14 +44,20 @@ const usersController = {
     } else if (!req.body.password || req.body.password.length < 6) {
       res.status(400).send({ status: 'failed', message: 'Password must not be less than six characters' });
     } else {
-      client.query('SELECT password FROM users WHERE email=($1)', [req.body.email], (err, result) => {
+      client.query('SELECT password, userid FROM users WHERE email=($1)', [req.body.email], (err, result) => {
         if (err) {
           res.status(400).send({ status: 'failed', message: 'Login Failed' });
         } else {
           const hash = result.rows[0].password;
           const password = bcrypt.compareSync(req.body.password, hash);
           if (password) {
-            res.status(201).send({ status: 'success', message: 'Login Succesful' });
+            const payload = {
+              id: result.rows[0].userid,
+            };
+            const token = jwt.sign(payload, app.get('superSecret'), {
+              expiresIn: 1440, // expires in 24 hours
+            });
+            res.status(201).send({ status: 'success', message: 'Login Succesful', token: token });
           } else {
             res.status(201).send({ status: 'success', message: 'Invalid Username or password' });
           }

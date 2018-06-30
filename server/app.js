@@ -14,7 +14,7 @@ const port = parseInt(process.env.PORT, 10) || 3000;
 app.get('/', (req, res) => {
   res.send('Welcome to Ride-My-Way');
 });
-
+ 
 // Ride Routes
 app.use(userRoute.usersRoute);
 
