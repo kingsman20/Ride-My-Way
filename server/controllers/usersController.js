@@ -4,75 +4,81 @@ import client from '../config/database';
 const jwt = require('jsonwebtoken');
 
 const usersController = {
-  // Create Ride offer
+  // Create User
   register: (req, res) => {
     if (!req.body.name) {
-      res.status(400).send('Enter your full name');
+      res.status(400).send({ status: 'failed', message: 'Enter your full name' });
     } else if (!req.body.email) {
-      res.status(400).send('Enter valid email address');
+      res.status(400).send({ status: 'failed', message: 'Enter valid email' });
     } else if (!req.body.phone) {
-      res.status(400).send('Enter your phone number');
-    } else if (!req.body.password) {
-      res.status(400).send('Password is required');
-    } else if (!this.checkEmail) {
-      res.status(400).send({ status: 'failed', message: 'User already exist' });
+      res.status(400).send({ status: 'failed', message: 'Phone number is required' });
+    } else if (!req.body.password || req.body.password.length < 6) {
+      res.status(400).send({ status: 'failed', message: 'Password must not be less than six characters' });
+    } else if (!req.body.confirm || req.body.password !== req.body.confirm) {
+      res.status(400).send({ status: 'failed', message: 'Password do not match' });
     } else {
-      client.query('SELECT * FROM users WHERE email=($1) AND password=($2)', [req.body.email, req.body.password], (err, result) => {
+      client.query('SELECT * FROM users WHERE email=($1)', [req.body.email], (err, result) => {
         if (result.rows.length > 0) {
           res.status(400).send({ status: 'failed', message: 'Email already exist' });
         } else {
           const hash = bcrypt.hashSync(req.body.password, 10);
           client.query('INSERT INTO users(name, email, phone, password) values($1, $2, $3, $4)', [req.body.name, req.body.email, req.body.phone, hash], (err, result) => {
             if (err) {
-              res.status(400).send({ status: 'failed', data: [{ message: err }] });
+              res.status(400).send({ status: 'failed', message: 'Registration Failed' });
+            } else {
+              res.status(201).send({ status: 'success', message: 'User registered succesfully' });
             }
-            res.status(201).send({ status: 'success', data: [{ message: 'User registered succesfully' }] });
           });
         }
-      }
+      });
     }
   },
 
   login: (req, res) => {
     if (!req.body.email) {
-      res.status(400).send('Enter vaild email address');
-    } else if (!req.body.password) {
-      res.status(400).send('Enter your password');
+      res.status(400).send({ status: 'failed', message: 'Enter valid email address' });
+    } else if (!req.body.password || req.body.password.length < 6) {
+      res.status(400).send({ status: 'failed', message: 'Password must not be less than six characters' });
     } else {
-      client.query('SELECT * FROM users WHERE email=($1) AND password=($2)', [req.body.email, req.body.password], (err, result) => {
-        // jwt.sign({ result }, 'secretkey', { expiresIn: '30s' }, (err, token) => {
-        //   console.log(token);
-        // });
-        console.log(result);
+      client.query('SELECT password FROM users WHERE email=($1)', [req.body.email], (err, result) => {
         if (err) {
-          res.status(400).send({ status: 'failed', data: [{ message: err }] });
-        } else if (result.rows.length < 1) {
-          res.status(401).send({ status: 'failed', data: [{ message: 'Invalid username or password' }] });
-          return false;
+          res.status(400).send({ status: 'failed', message: 'Login Failed' });
+        } else {
+          const hash = result.rows[0].password;
+          const password = bcrypt.compareSync(req.body.password, hash);
+          if (password) {
+            res.status(201).send({ status: 'success', message: 'Login Succesful' });
+          } else {
+            res.status(201).send({ status: 'success', message: 'Invalid Username or password' });
+          }
         }
-        res.status(201).send({ status: 'success', data: [{ message: 'logged In' }] });
       });
     }
   },
 
   rideRequests: (req, res) => {
-    client.query('SELECT * from requests', (err, result) => {
+    client.query('SELECT * from requests where rideId=($1)', [req.params.id], (err, result) => {
       if (err) {
-        res.status(400).send({ status: 'failed', data: [{ message: err }] });
+        res.status(400).send({ status: 'failed', message: err });
+      } else if (result.rows < 1) {
+        res.status(200).send({ status: 'failed', message: 'Requested ride ID does not exist' });
+      } else {
+        res.status(200).send({ status: 'success', data: result.rows });
       }
-      res.status(200).send({ status: 'success', data: { rides: result.rows } });
     });
   },
 
   requestStatus: (req, res) => {
     if (!req.params.rideId) {
-      res.send('Ride with ID NOT found');
+      res.status(200).send({ status: 'failed', message: 'Ride with ID not found' });
+    } else if (!req.body.status) {
+      res.status(200).send({ status: 'failed', message: 'Provide message status' });
     } else {
-      client.query('UPDATE requests SET status=($1) WHERE id=($2)', [req.body.status, req.params.id], (err, result) => {
+      client.query('UPDATE requests SET status=($1) WHERE rideId=($2) AND id=($3)', [req.body.status, req.params.rideId, req.params.id], (err, result) => {
         if (err) {
-          res.status(400).send({ status: 'failed', data: [{ message: err }] });
+          res.status(400).send({ status: 'failed', message: err });
         }
-        res.status(200).send({ status: 'success', data: [{ message: 'Ride Updated Succesfully' }] });
+        res.status(200).send({ status: 'success', message: 'Ride Updated Succesfully' });
       });
     }
   },

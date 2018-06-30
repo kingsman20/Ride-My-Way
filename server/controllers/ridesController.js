@@ -5,7 +5,7 @@ const ridesController = {
   allRidesOffer: (req, res) => {
     client.query('SELECT * from rides', (err, result) => {
       if (err) {
-        res.status(400).send({ status: 'failed', data: [{ message: err }] });
+        res.status(400).send({ status: 'failed', message: err });
       }
       res.status(200).send({ status: 'success', data: { rides: result.rows } });
     });
@@ -14,21 +14,21 @@ const ridesController = {
   // Create Ride offer
   createRideOffer: (req, res) => {
     if (!req.body.location) {
-      res.status(400).send('Enter valid location');
+      res.status(400).send({ status: 'failed', message: 'Enter valid location' });
     } else if (!req.body.destination) {
-      res.status(400).send('Enter valid destination');
+      res.status(400).send({ status: 'failed', message: 'Enter valid destination' });
     } else if (!req.body.date) {
-      res.status(400).send('Enter date of departure');
+      res.status(400).send({ status: 'failed', message: 'Enter date of departure' });
     } else if (!req.body.time) {
-      res.status(400).send('Enter time of departure');
+      res.status(400).send({ status: 'failed', message: 'Enter time of departure' });
     } else if (!req.body.price) {
-      res.status(400).send('Enter amount');
+      res.status(400).send({ status: 'failed', message: 'Enter price' });
     } else {
-      client.query('INSERT INTO rides(location, destination, date, time, price, userId) values($1, $2, $3, $4, $5, $6)', [req.body.location, req.body.destination, req.body.date, req.body.time, req.body.price, 1], (err, result) => {
+      client.query('INSERT INTO rides(location, destination, date, time, price, userId) values($1, $2, $3, $4, $5, $6)', [req.body.location, req.body.destination, req.body.date, req.body.time, req.body.price, 6], (err, result) => {
         if (err) {
-          res.status(400).send({ status: 'failed', data: [{ message: err }] });
+          res.status(400).send({ status: 'failed', message: err });
         }
-        res.status(201).send({ status: 'success', data: [{ message: 'Ride Offer Created Succesfully' }] });
+        res.status(201).send({ status: 'success', message: 'Ride Offer Created Succesfully' });
       });
     }
   },
@@ -40,33 +40,38 @@ const ridesController = {
     } else {
       client.query('SELECT * FROM rides where id = $1', [req.params.id], (err, result) => {
         if (err) {
-          res.status(400).send({ status: 'failed', data: [{ message: err }] });
+          res.status(400).send({ status: 'failed', message: err });
+        } else if (result.rows < 1) {
+          res.status(200).send({ status: 'failed', message: 'Ride does not exist' });
+        } else {
+          res.status(200).send({ status: 'success', data: result.rows });
         }
-        res.status(200).send({ status: 'success', data: result.rows });
       });
     }
   },
 
   // POST - make request to join a ride offer
   joinRideOffer: (req, res) => {
-    client.query('UPDATE rides SET requested=($1) WHERE id=($2)', [1, req.params.id], (err, result) => {
+    client.query('INSERT INTO requests(rideId, userId, status) values($1, $2, $3)', [req.params.id, 6, 'Requested'], (err, result) => {
       if (err) {
-        res.status(400).send({ status: 'failed', data: [{ message: err }] });
+        res.status(400).send({ status: 'failed', message: err });
+      } else {
+        res.status(200).send({ status: 'success', message: 'Ride requested succesfully' });
       }
-      res.status(200).send({ status: 'success', data: [{ message: 'Ride Updated Succesfully' }] });
     });
   },
 
   // PUT - update a ride offer
   updateRideOffer: (req, res) => {
     if (!req.params.id) {
-      res.send('Ride with ID NOT found');
+      res.status(400).send({ status: 'failed', message: 'Ride does not exist' });
     } else {
       client.query('UPDATE rides SET location=($1), destination=($2), date=($3), time=($4), price=($5) WHERE id=($6)', [req.body.location, req.body.destination, req.body.date, req.body.time, req.body.price, req.params.id], (err, result) => {
         if (err) {
-          res.status(400).send({ status: 'failed', data: [{ message: err }] });
+          res.status(400).send({ status: 'failed', message: err });
+        } else {
+          res.status(200).send({ status: 'success', message: 'Ride Updated Succesfully' });
         }
-        res.status(200).send({ status: 'success', data: [{ message: 'Ride Updated Succesfully' }] });
       });
     }
   },
@@ -74,13 +79,14 @@ const ridesController = {
   // Delete a ride offer
   deleteRideOffer: (req, res) => {
     if (!req.params.id) {
-      res.status(404).send('Enter a valid ID');
+      res.status(400).send({ status: 'failed', message: 'Ride does not exist' });
     } else {
       client.query('DELETE FROM rides WHERE id=($1)', [req.params.id], (err, result) => {
         if (err) {
-          res.status(400).send({ status: 'failed', data: [{ message: err }] });
+          res.status(400).send({ status: 'failed', message: err });
+        } else {
+          res.status(200).send({ status: 'success', message: 'Ride Deleted Succesfully' });
         }
-        res.status(200).send({ status: 'success', data: [{ message: 'Ride Deleted Succesfully' }] });
       });
     }
   },

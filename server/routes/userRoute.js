@@ -18,9 +18,9 @@ const verifyToken = (req, res, next) => {
 
 usersRoute.post('/api/v1/auth/signup', usersController.register);
 usersRoute.post('/api/v1/auth/login', usersController.login);
-usersRoute.post('/api/v1/users/rides', verifyToken, ridesController.createRideOffer);
-usersRoute.get('/api/v1/users/rides/:id/requests', verifyToken, usersController.rideRequests);
-usersRoute.put('/api/v1/users/rides/:rideId/requests/:requestId', verifyToken, usersController.requestStatus);
+usersRoute.post('/api/v1/users/rides', ridesController.createRideOffer);
+usersRoute.get('/api/v1/users/rides/:id/requests', usersController.rideRequests);
+usersRoute.put('/api/v1/users/rides/:rideId/requests/:requestId', usersController.requestStatus);
 
 const userRoutes = { usersRoute };
 
