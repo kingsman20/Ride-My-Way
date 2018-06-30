@@ -37,6 +37,7 @@ describe('API Endpoint /rides', () => {
 
   // POST - Fail in creating
   it('should not create a new ride', (done) => {
+    
     const ride = {
       location: 'Yaba',
       date: new Date(),
