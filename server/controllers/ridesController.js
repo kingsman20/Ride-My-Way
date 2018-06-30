@@ -93,4 +93,3 @@ const ridesController = {
 };
 
 export default ridesController;
- 

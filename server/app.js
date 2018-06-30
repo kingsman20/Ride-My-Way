@@ -1,5 +1,6 @@
 import routes from './routes/routes';
 import userRoute from './routes/userRoute';
+import client from './config/database';
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -14,12 +15,23 @@ const port = parseInt(process.env.PORT, 10) || 3000;
 app.get('/', (req, res) => {
   res.send('Welcome to Ride-My-Way');
 });
- 
+
+// Heroku
+app.get('/db', async (req, res) => {
+  try {
+    const result = await client.query('SELECT * FROM test_table');
+    res.render('pages/db', result);
+    client.release();
+  } catch (err) {
+    res.send(`Error = ${err}`);
+  }
+});
+
 // Ride Routes
-app.use(userRoute.usersRoute);
+app.use(routes.ridesRoute);
 
 // User Routes
-app.use(routes.ridesRoute);
+app.use(userRoute.usersRoute);
 
 // Handle Invalid route
 app.get('/*', (req, res) => {
