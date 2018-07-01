@@ -55,9 +55,9 @@ const usersController = {
               id: result.rows[0].id,
             };
             const token = jwt.sign(payload, app.get('superSecret'), {
-              expiresIn: 1440, // expires in 24 hours
+              expiresIn: 1440, // expires in 24 mins
             });
-            res.status(201).send({ status: 'success', message: 'Login Succesful', token: token });
+            res.status(201).send({ status: 'success', message: 'Login Succesful', token });
           } else {
             res.status(201).send({ status: 'success', message: 'Invalid Username or password' });
           }
@@ -66,18 +66,24 @@ const usersController = {
     }
   },
 
+  // Get all requests for a ride offer
   rideRequests: (req, res) => {
-    client.query('SELECT * from requests where rideId=($1)', [req.params.id], (err, result) => {
-      if (err) {
-        res.status(400).send({ status: 'failed', message: err });
-      } else if (result.rows < 1) {
-        res.status(200).send({ status: 'failed', message: 'Requested ride ID does not exist' });
-      } else {
-        res.status(200).send({ status: 'success', data: result.rows });
-      }
-    });
+    if (!req.params.id) {
+      res.status(404).send({ status: 'failed', message: 'Invalid ID' });
+    } else {
+      client.query('SELECT * from requests where rideId=($1)', [req.params.id], (err, result) => {
+        if (err) {
+          res.status(400).send({ status: 'failed', message: err });
+        } else if (result.rows < 1) {
+          res.status(200).send({ status: 'failed', message: 'Requested ride ID does not exist' });
+        } else {
+          res.status(200).send({ status: 'success', data: result.rows });
+        }
+      });
+    }
   },
 
+  // Respond to Ride offer
   requestStatus: (req, res) => {
     if (!req.params.rideId) {
       res.status(200).send({ status: 'failed', message: 'Ride with ID not found' });

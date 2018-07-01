@@ -23,7 +23,7 @@ app.use(routes.ridesRoute);
 
 // Handle Invalid route
 app.get('/*', (req, res) => {
-  res.send('Page NOT found');
+  res.status(404).send('Page NOT found');
 });
 
 app.listen(port);
