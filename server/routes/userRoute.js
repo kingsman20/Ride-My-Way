@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 import usersController from '../controllers/usersController';
 import ridesController from '../controllers/ridesController';
 
-const app = express();
 const usersRoute = express.Router();
 
 usersRoute.post('/api/v1/auth/signup', usersController.register);

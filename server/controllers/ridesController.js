@@ -1,3 +1,4 @@
+import jwt from 'jsonwebtoken';
 import client from '../config/database';
 
 const ridesController = {
@@ -13,6 +14,9 @@ const ridesController = {
 
   // Create Ride offer
   createRideOffer: (req, res) => {
+    const token = req.body.token || req.query.token || req.headers['x-access-token'];
+    const decoded = jwt.decode(token);
+    const uid = decoded.id;
     if (!req.body.location) {
       res.status(400).send({ status: 'failed', message: 'Enter valid location' });
     } else if (!req.body.destination) {
@@ -24,7 +28,7 @@ const ridesController = {
     } else if (!req.body.price) {
       res.status(400).send({ status: 'failed', message: 'Enter price' });
     } else {
-      client.query('INSERT INTO rides(location, destination, date, time, price, userId) values($1, $2, $3, $4, $5, $6)', [req.body.location, req.body.destination, req.body.date, req.body.time, req.body.price, 6], (err, result) => {
+      client.query('INSERT INTO rides(location, destination, date, time, price, userId) values($1, $2, $3, $4, $5, $6)', [req.body.location, req.body.destination, req.body.date, req.body.time, req.body.price, uid], (err, result) => {
         if (err) {
           res.status(400).send({ status: 'failed', message: err });
         }
@@ -52,7 +56,10 @@ const ridesController = {
 
   // POST - make request to join a ride offer
   joinRideOffer: (req, res) => {
-    client.query('INSERT INTO requests(rideId, userId, status) values($1, $2, $3)', [req.params.id, 6, 'Requested'], (err, result) => {
+    const token = req.body.token || req.query.token || req.headers['x-access-token'];
+    const decoded = jwt.decode(token);
+    const uid = decoded.id;
+    client.query('INSERT INTO requests(rideId, userId, status) values($1, $2, $3)', [req.params.id, uid, 'Requested'], (err, result) => {
       if (err) {
         res.status(400).send({ status: 'failed', message: err });
       } else {

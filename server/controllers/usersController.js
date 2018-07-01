@@ -52,7 +52,7 @@ const usersController = {
           const password = bcrypt.compareSync(req.body.password, hash);
           if (password) {
             const payload = {
-              id: result.rows[0].userid,
+              id: result.rows[0].id,
             };
             const token = jwt.sign(payload, app.get('superSecret'), {
               expiresIn: 1440, // expires in 24 hours

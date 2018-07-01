@@ -16,22 +16,22 @@ app.get('/', (req, res) => {
   res.send('Welcome to Ride-My-Way');
 });
 
-// Heroku
-app.get('/db', async (req, res) => {
-  try {
-    const result = await client.query('SELECT * FROM test_table');
-    res.send({ status: 'success', data: result });
-    client.release();
-  } catch (err) {
-    res.send(`Error = ${err}`);
-  }
-});
-
-// Ride Routes
-app.use(routes.ridesRoute);
+// Heroku TEST
+// app.get('/db', async (req, res) => {
+//   try {
+//     const result = await client.query('SELECT * FROM test_table');
+//     res.send({ status: 'success', data: result });
+//     client.release();
+//   } catch (err) {
+//     res.send(`Error = ${err}`);
+//   }
+// });
 
 // User Routes
 app.use(userRoute.usersRoute);
+
+// Ride Routes
+app.use(routes.ridesRoute);
 
 // Handle Invalid route
 app.get('/*', (req, res) => {
