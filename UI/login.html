@@ -34,10 +34,11 @@
     		<div class="login">
                     <h1 class="heading">Login</h1>
                     <form>
-                        <input type="email" name="email" id="email" required placeholder="email" class="field">
-                        <input type="password" name="password" required id="password" placeholder="password" class="field" minlength="6">
+                        <input type="email" name="email" id="email" required minlength="6" placeholder="email" class="field">
+                        <input type="password" name="password" required id="password" placeholder="password" class="field" minlength="6" maxlength="25">
                         <span class="error" id="error"></span>
-                        <button type="submit" class="btn btn_primary">Login</button>
+                        <button type="submit"n class="btn btn_primary">Login</button>
+                        <p>Forgotten Password? <a href="#">Click Here</a></p>
                     </form>
     		</div>
     	</section>

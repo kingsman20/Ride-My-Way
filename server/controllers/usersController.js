@@ -44,7 +44,7 @@ const usersController = {
     } else if (!req.body.password || req.body.password.length < 6) {
       res.status(400).send({ status: 'failed', message: 'Password must not be less than six characters' });
     } else {
-      client.query('SELECT password, userid FROM users WHERE email=($1)', [req.body.email], (err, result) => {
+      client.query('SELECT password, id FROM users WHERE email=($1)', [req.body.email], (err, result) => {
         if (err) {
           res.status(400).send({ status: 'failed', message: 'Login Failed' });
         } else {

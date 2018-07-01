@@ -131,7 +131,6 @@ header a:hover {
 /* main */
 
 #main {
-    margin-top: 30px;
     padding-bottom: 100px;
 }
 #main h1 {
@@ -190,12 +189,6 @@ input {
     font-size: 16px;
     transition: border .2s, background-color .2s;
 }
-.select {
-    width: 90%;
-    padding: 10px;
-    font-size: 16px;
-    margin-bottom: 10px;
-}
 .heading {
    color: #fff;
    margin-bottom: 0;
@@ -211,6 +204,9 @@ form .btn {
     cursor: pointer;
     padding: 5px;
     height: 40px;
+}
+form p {
+    font-size: 18px;
 }
 form .btn:hover, form .btn:active {
     background-color: #1F78B4;
