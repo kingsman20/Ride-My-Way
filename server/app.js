@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 app.get('/db', async (req, res) => {
   try {
     const result = await client.query('SELECT * FROM test_table');
-    res.render('pages/db', result);
+    res.send({ status: 'success', data: result });
     client.release();
   } catch (err) {
     res.send(`Error = ${err}`);
