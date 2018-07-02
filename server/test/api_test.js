@@ -6,6 +6,15 @@ chai.use(require('chai-http'));
 const app = require('../app.js'); // Our app
 
 describe('API Endpoint /rides', () => {
+  // GET - return the home page
+  it('should return the welcome page', (done) => {
+    chai.request(app)
+      .get('/')
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+      });
+    done();
+  });
 
   // GET - List all rides
   it('should return all rides', (done) => {
@@ -14,7 +23,7 @@ describe('API Endpoint /rides', () => {
       .then((res) => {
         expect(res.body).to.be.an('object');
       });
-      done();
+    done();
   });
 
   // POST - Create a new Ride
@@ -85,5 +94,16 @@ describe('API Endpoint /rides', () => {
         expect(res.body).to.be.an('object');
       });
       done();
+  });
+
+  // Invalid route
+  // GET - return the home page
+  it('should return the welcome page', (done) => {
+    chai.request(app)
+      .get('/*')
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+      });
+    done();
   });
 });

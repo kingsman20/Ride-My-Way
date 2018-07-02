@@ -55,7 +55,7 @@ const usersController = {
               id: result.rows[0].id,
             };
             const token = jwt.sign(payload, app.get('superSecret'), {
-              expiresIn: 1440, // expires in 24 mins
+              expiresIn: 3600, // expires in 24 mins
             });
             res.status(201).send({ status: 'success', message: 'Login Succesful', token });
           } else {
