@@ -6,26 +6,35 @@
 <body>
     <div id="header">
         <div class="logo"><a href="#"><span>Ride</span>-My-Way</a></div>
+        <a href="index.html"><div class="left">Logout</div></a>
     </div>
     <div id="container">
         <div class="sidebar">
             <ul id="nav">
               <div class="profile">
-                  <img src="img/laravel.png" class="image">
+                  <img src="img/laravel.png" class="image"><br><br>
               </div>
-              <li><a href="#" class="selected">Hello</a></li>
-              <li><a href="#">Hi</a></li>
-              <li><a href="#">Help</a></li>
-              <li><a href="#">Search</a></li>
+              <li><a href="dashboard.html" class="selected">Add Ride Offer</a></li>
+              <li><a href="rides.html">Ride Offers</a></li>
+              <li><a href="requests.html">Ride Requests</a></li>
+              <li><a href="notifications.html">Notifications <span class="notify">2</span></a></li>
+              <li><a href="profile.html">Profile</a></li>
             </ul>
         </div>
         <div class="content">
           <div class="panel">
-            <h1>Some Content </h1>
+            <h1>Dashboard</h1>
             <div id="box">
-                <div class="box-top">Add Ride</div>
+                <div class="box-top">Add Ride Offer</div>
                 <div class="box-panel">
-                    this is a box content   
+                  <form>
+                    <input type="text" name="location" required class="input" placeholder="location">
+                    <input type="text" name="destination" required class="input" placeholder="destination">
+                    <input type="number" name="amount" required class="input" placeholder="amount">
+                    <input type="date" name="date" required class="input" placeholder="date of departure">
+                    <input type="time" name="time" required class="input" placeholder="time of departure">
+                    <input type="submit" value="Create" class="btn">
+                  </form>   
                 </div>
             </div>
           </div>
@@ -33,7 +42,13 @@
             <div id="box">
                 <div class="box-top">History</div>
                 <div class="box-panel">
-                    this is a box content   
+                    <div>
+                      <p class="bold">Number of Rides Taken: <span>4</span></p>
+                    </div>
+                    <div>
+                      <p class="bold">Number of Rides Given: <span>2</span></p>
+                    </div><br>
+                    <a href="">VIEW RECORDS</a>
                 </div>
             </div>
           </div>

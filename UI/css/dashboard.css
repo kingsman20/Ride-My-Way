@@ -28,6 +28,11 @@ div#header {
     color: #fff;
     margin: 0 auto;
 }
+.left {
+	float: right;
+	color: #fff;
+	margin: 20px 40px 0 0;
+}
 div#container {
 	width: 100%;
 	margin: 0 auto;
@@ -46,17 +51,30 @@ div#container {
 	padding: 15px;
 }
 .content .panel {
-	width: 50%;
-	margin-right: 10px;
+	width: 45%;
 	float: left;
 }
-.content .history {
-	width: 40%;
-	margin-right: 20px;
-	float: right;
+.panel2 {
+	width: 80%;
+	float: left;
 }
-ul#nav {
-
+.notify {
+    background-color: red;
+    color: white;
+    border-radius: 10px;
+    padding: 3px;
+}
+.content .history {
+	margin-top: 36px;
+	width: 35%;
+	float: right;
+	margin-right: 12%;
+}
+.success {
+	color: green;
+}
+.error {
+	color: red;
 }
 ul#nav li {
 	list-style: none;
@@ -73,25 +91,28 @@ ul#nav li a {
 	transition: 0.2s;
 }
 ul#nav li a:hover {
-	background-color: gray;
+	background-color: #2980b9;
 	color: #fff;
 	padding-left: 10px;
 }
-ul#nav li a .selected {
-	color: brown;
+.selected {
+	background-color: #2980b9;
 }
 div#box {
 	margin-top: 15px;
 }
 div#box .box-top {
 	color: #fff;
+	font-size: 20px;
 	text-shadow: 0px 0px 1px #ddd;
 	background-color: #2980b9;
-	padding: 5px;
+	padding: 15px;
 }
 div#box .box-panel {
 	padding: 15px;
 	background-color: #fff;
+	border: 1px solid;
+    box-shadow: 2px 5px #888888;
 }
 .profile {
 	height: 145px;
@@ -103,4 +124,140 @@ div#box .box-panel {
 	margin: 20px 0 20px 40px;
 	border: 1px solid black;
 	border-radius: 100px;
+}
+input {
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    border: 1px solid #2980b9;
+    width: 90%;
+    font-size: 16px;
+    transition: border .2s, background-color .2s;
+}
+form {
+    padding: 20px;
+    text-align: center;
+}
+.btn {
+    color: #fff;
+    cursor: pointer;
+    padding: 5px;
+    height: 40px;
+}
+.button_1 {
+    background: #3B5998;
+}
+.button_2 {
+    background: #ff3232;
+}
+form p {
+    font-size: 18px;
+}
+form .btn:hover, form .btn:active {
+    background-color: #1F78B4;
+    border: 2px solid #1F78B4;
+}
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 40%;
+    height: 350px;
+}
+.card .container {
+    padding: 2px 16px;
+}
+.bold {
+	font-size: 20px;
+}
+.bold span {
+	font-size: 24px;
+	color: #3B5998;
+}
+.btn {
+    height: 30px;
+    border: none;
+    padding: 5px;
+    color: #ffffff;
+    cursor: pointer;
+}
+.button_1 {
+    background: #3B5998;
+}
+/* Responsive Table on page*/
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table caption {
+  font-size: 1.5em;
+  margin: .5em 0 .75em;
+}
+
+table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: .35em;
+}
+
+table th,
+table td {
+  padding: .625em;
+  text-align: center;
+  font-size: 20px;
+}
+
+table th {
+  font-size: .85em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+
+  table caption {
+    font-size: 1.3em;
+  }
+  
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  
+  table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  table td:last-child {
+    border-bottom: 0;
+  }
 }

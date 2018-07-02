@@ -1,0 +1,72 @@
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/dashboard.css">
+</head>
+<body>
+    <div id="header">
+        <div class="logo"><a href="#"><span>Ride</span>-My-Way</a></div>
+        <a href="index.html"><div class="left">Logout</div></a>
+    </div>
+    <div id="container">
+        <div class="sidebar">
+            <ul id="nav">
+              <div class="profile">
+                  <img src="img/laravel.png" class="image"><br><br>
+              </div>
+              <li><a href="dashboard.html">Add Ride Offer</a></li>
+              <li><a href="rides.html">Ride Offers</a></li>
+              <li><a href="requests.html" class="selected">Ride Requests</a></li>
+              <li><a href="notifications.html">Notifications <span class="notify">2</span></a></li>
+              <li><a href="profile.html">Profile</a></li>
+            </ul>
+        </div>
+        <div class="content">
+          <div class="panel2">
+            <h1>Dashboard</h1>
+            <div id="box">
+                <div class="box-top">Requests to your ride offer</div>
+                <div class="box-panel">
+                  <div>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th scope="col">Location</th>
+                          <th scope="col">Destination</th>
+                          <th scope="col">Date</th>
+                          <th scope="col">User</th>
+                          <th scope="col">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td data-label="Account">Lagos</td>
+                          <td data-label="Due Date">Ibadan</td>
+                          <td data-label="Amount">03/07/2018</td>
+                          <td data-label="Amount">Salisu Adamu</td>
+                          <td data-label="Period"><button class="btn button_1">Accept</button>&nbsp;<button class="btn button_2">Reject</button></td>
+                        </tr>
+                        <tr>
+                          <td scope="row" data-label="Account">Port Harcourt</td>
+                          <td data-label="Due Date">Abuja</td>
+                          <td data-label="Amount">23/07/2018</td>
+                          <td data-label="Amount">Grace Peter</td>
+                          <td data-label="Period"><button class="btn button_1">Accept</button>&nbsp;<button class="btn button_2">Reject</button></td>
+                        </tr>
+                        <tr>
+                          <td scope="row" data-label="Account">Owerri</td>
+                          <td data-label="Due Date">Aba</td>
+                          <td data-label="Amount">03/01/2016</td>
+                          <td data-label="Amount">Charles Umoh</td>
+                          <td data-label="Period"><button class="btn button_1">Accept</button>&nbsp;<button class="btn button_2">Reject</button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div> 
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+</body>
+</html>
