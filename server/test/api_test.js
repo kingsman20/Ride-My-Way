@@ -148,7 +148,7 @@ describe('API Endpoint /rides', () => {
       done();
   });
 
-  // Register  new user
+  // Registration failed
   it('should not create a user', (done) => {
     const user = {
       name: 'Micheal Brad',
@@ -162,7 +162,7 @@ describe('API Endpoint /rides', () => {
       .then((res) => {
         expect(res.body).to.be.an('object');
       });
-      done();
+    done();
   });
 
   // Invalid route

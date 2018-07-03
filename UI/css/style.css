@@ -332,3 +332,10 @@ footer {
         margin-bottom: 5px;
     }
 }
+@media(max-width: 360px) {
+    #page {
+        min-height: 120%;
+        width: 120%;
+        position: relative;
+    }
+}
