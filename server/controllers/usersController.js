@@ -47,6 +47,8 @@ const usersController = {
       client.query('SELECT password, id FROM users WHERE email=($1)', [req.body.email], (err, result) => {
         if (err) {
           res.status(400).send({ status: 'failed', message: 'Login Failed' });
+        } else if (result.rows < 1) {
+          res.status(400).send({ status: 'success', message: 'Invalid Username or password' });
         } else {
           const hash = result.rows[0].password;
           const password = bcrypt.compareSync(req.body.password, hash);
@@ -55,11 +57,11 @@ const usersController = {
               id: result.rows[0].id,
             };
             const token = jwt.sign(payload, app.get('superSecret'), {
-              expiresIn: 3600, // expires in 24 mins
+              expiresIn: 86400, // expires in 24 hours
             });
             res.status(201).send({ status: 'success', message: 'Login Succesful', token });
           } else {
-            res.status(201).send({ status: 'success', message: 'Invalid Username or password' });
+            res.status(400).send({ status: 'failed', message: 'Invalid Username or password' });
           }
         }
       });

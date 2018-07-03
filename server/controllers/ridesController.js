@@ -40,7 +40,7 @@ const ridesController = {
   // Get a specific ride offer
   rideOffer: (req, res) => {
     if (!req.params.id) {
-      res.status(404).send('Enter a valid ID');
+      res.status(404).send({ status: 'failed', message: 'Enter a valid ID' });
     } else {
       client.query('SELECT * FROM rides where id = $1', [req.params.id], (err, result) => {
         if (err) {

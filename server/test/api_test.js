@@ -20,6 +20,7 @@ describe('API Endpoint /rides', () => {
   it('should return all rides', (done) => {
     chai.request(app)
       .get('/api/v1/rides')
+      .set('x-access-token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTMwNjA1MTIwLCJleHAiOjE1MzA2OTE1MjB9.ScqrFr586KCNPmEirCMKDuJHCUFci1QX_2LriT0lNsg')
       .then((res) => {
         expect(res.body).to.be.an('object');
       });
@@ -93,12 +94,79 @@ describe('API Endpoint /rides', () => {
       .then((res) => {
         expect(res.body).to.be.an('object');
       });
+    done();
+  });
+
+  // Login successful
+  it('should login the user', (done) => {
+    const user = {
+      email: 'kingsman@gmail.com',
+      password: 'secret',
+    };
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send(user)
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res).to.be.json;
+      });
+    done();
+  });
+
+  // Login failed
+  it('should return Invalid username or password', (done) => {
+    const user = {
+      email: 'kingsman@gmail.com',
+      password: 'wrong_password',
+    };
+    chai.request(app)
+      .post('/api/v1/auth/login')
+      .send(user)
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+        expect(res).to.be.json;
+        expect(res.body).to.have.a.property('message');
+      });
+    done();
+  });
+
+  // Register  new user
+  it('should create a new user', (done) => {
+    const user = {
+      name: 'Micheal Brad',
+      email: 'micheal@gmail.com',
+      phone: '0930392893',
+      password: 'password',
+      confirm: 'password',
+    };
+    chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send(user)
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+      });
+      done();
+  });
+
+  // Register  new user
+  it('should not create a user', (done) => {
+    const user = {
+      name: 'Micheal Brad',
+      email: 'micheal@gmail.com',
+      phone: '0930392893',
+      password: 'password',
+    };
+    chai.request(app)
+      .post('/api/v1/auth/signup')
+      .send(user)
+      .then((res) => {
+        expect(res.body).to.be.an('object');
+      });
       done();
   });
 
   // Invalid route
-  // GET - return the home page
-  it('should return the welcome page', (done) => {
+  it('should return Invalid route', (done) => {
     chai.request(app)
       .get('/*')
       .then((res) => {
