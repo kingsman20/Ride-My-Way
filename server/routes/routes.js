@@ -17,7 +17,7 @@ ridesRoute.use((req, res, next) => {
       }
     });
   } else {
-    res.status(403).send({ success: false, message: 'No token provided.' });
+    res.status(400).send({ success: false, message: 'No token provided.' });
   }
 });
 
@@ -25,8 +25,6 @@ ridesRoute.get('/api/v1/rides', ridesController.allRidesOffer);
 ridesRoute.post('/api/v1/rides', ridesController.createRideOffer);
 ridesRoute.get('/api/v1/rides/:id', ridesController.rideOffer);
 ridesRoute.post('/api/v1/rides/:id/requests', ridesController.joinRideOffer);
-ridesRoute.put('/api/v1/rides/:id', ridesController.updateRideOffer);
-ridesRoute.delete('/api/v1/rides/:id', ridesController.deleteRideOffer);
 
 const routes = { ridesRoute };
 

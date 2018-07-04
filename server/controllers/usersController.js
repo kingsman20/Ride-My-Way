@@ -48,7 +48,7 @@ const usersController = {
         if (err) {
           res.status(400).send({ status: 'failed', message: 'Login Failed' });
         } else if (result.rows < 1) {
-          res.status(400).send({ status: 'success', message: 'Invalid Username or password' });
+          res.status(400).send({ status: 'failed', message: 'Invalid Username or password' });
         } else {
           const hash = result.rows[0].password;
           const password = bcrypt.compareSync(req.body.password, hash);
@@ -59,7 +59,7 @@ const usersController = {
             const token = jwt.sign(payload, app.get('superSecret'), {
               expiresIn: 86400, // expires in 24 hours
             });
-            res.status(201).send({ status: 'success', message: 'Login Succesful', token });
+            res.status(200).send({ status: 'success', message: 'Login Succesful', token });
           } else {
             res.status(400).send({ status: 'failed', message: 'Invalid Username or password' });
           }
@@ -88,9 +88,9 @@ const usersController = {
   // Respond to Ride offer
   requestStatus: (req, res) => {
     if (!req.params.rideId) {
-      res.status(200).send({ status: 'failed', message: 'Ride with ID not found' });
+      res.status(400).send({ status: 'failed', message: 'Ride with ID not found' });
     } else if (!req.body.status) {
-      res.status(200).send({ status: 'failed', message: 'Provide message status' });
+      res.status(400).send({ status: 'failed', message: 'Provide message status' });
     } else {
       client.query('UPDATE requests SET status=($1) WHERE rideId=($2) AND id=($3)', [req.body.status, req.params.rideId, req.params.id], (err, result) => {
         if (err) {

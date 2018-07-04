@@ -46,7 +46,7 @@ const ridesController = {
         if (err) {
           res.status(400).send({ status: 'failed', message: err });
         } else if (result.rows < 1) {
-          res.status(200).send({ status: 'failed', message: 'Ride does not exist' });
+          res.status(400).send({ status: 'failed', message: 'Ride does not exist' });
         } else {
           res.status(200).send({ status: 'success', data: result.rows });
         }
@@ -66,36 +66,6 @@ const ridesController = {
         res.status(200).send({ status: 'success', message: 'Ride requested succesfully' });
       }
     });
-  },
-
-  // PUT - update a ride offer
-  updateRideOffer: (req, res) => {
-    if (!req.params.id) {
-      res.status(400).send({ status: 'failed', message: 'Ride does not exist' });
-    } else {
-      client.query('UPDATE rides SET location=($1), destination=($2), date=($3), time=($4), price=($5) WHERE id=($6)', [req.body.location, req.body.destination, req.body.date, req.body.time, req.body.price, req.params.id], (err, result) => {
-        if (err) {
-          res.status(400).send({ status: 'failed', message: err });
-        } else {
-          res.status(200).send({ status: 'success', message: 'Ride Updated Succesfully' });
-        }
-      });
-    }
-  },
-
-  // Delete a ride offer
-  deleteRideOffer: (req, res) => {
-    if (!req.params.id) {
-      res.status(400).send({ status: 'failed', message: 'Ride does not exist' });
-    } else {
-      client.query('DELETE FROM rides WHERE id=($1)', [req.params.id], (err, result) => {
-        if (err) {
-          res.status(400).send({ status: 'failed', message: err });
-        } else {
-          res.status(200).send({ status: 'success', message: 'Ride Deleted Succesfully' });
-        }
-      });
-    }
   },
 };
 

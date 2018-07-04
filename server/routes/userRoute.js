@@ -25,7 +25,6 @@ usersRoute.use((req, res, next) => {
   }
 });
 
-
 usersRoute.post('/api/v1/users/rides', ridesController.createRideOffer);
 usersRoute.get('/api/v1/users/rides/:id/requests', usersController.rideRequests);
 usersRoute.put('/api/v1/users/rides/:rideId/requests/:requestId', usersController.requestStatus);
