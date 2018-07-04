@@ -26,8 +26,8 @@ describe('API Endpoint /rides', () => {
         res.should.have.status(200);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
-        done();
       });
+      done();
   });
 
   // POST - Create a new Ride
@@ -46,8 +46,8 @@ describe('API Endpoint /rides', () => {
         res.should.have.status(201);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
-        done();
       });
+      done();
   });
 
   // POST - Fail in creating
@@ -79,8 +79,8 @@ describe('API Endpoint /rides', () => {
         res.should.have.status(200);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
-        done();
       });
+      done();
   });
 
   // GET - fails to get a ride
@@ -92,8 +92,8 @@ describe('API Endpoint /rides', () => {
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
         res.body.should.have.property('status').eql('failed');
-        done();
       });
+      done();
   });
 
   // POST - make a request to join a specific ride
@@ -105,8 +105,8 @@ describe('API Endpoint /rides', () => {
         res.should.have.status(200);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
-        done();
       });
+      done();
   });
 
   // POST - make a request to join a specific ride
@@ -136,8 +136,8 @@ describe('API Endpoint /rides', () => {
         expect(res.body).to.be.an('object');
         res.body.should.have.property('token');
         res.body.should.have.property('status').eql('success');
-        done();
       });
+      done();
   });
 
   // Login failed
@@ -154,15 +154,15 @@ describe('API Endpoint /rides', () => {
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
         res.body.should.have.property('status').eql('failed');
-        done();
       });
+      done();
   });
 
   // Register  new user
   it('should create a new user', (done) => {
     const user = {
       name: 'Micheal Travis',
-      email: 'travis3@gmail.com',
+      email: 'npminstall@gmail.com',
       phone: '0930392893',
       password: 'password',
       confirm: 'password',
@@ -175,8 +175,8 @@ describe('API Endpoint /rides', () => {
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
         res.body.should.have.property('status').eql('success');
-        done();
       });
+      done();
   });
 
   // Registration failed
@@ -208,8 +208,8 @@ describe('API Endpoint /rides', () => {
         res.should.have.status(200);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
-        done();
       });
+      done();
   });
 
   // GET - Fail in getting the requests for a specific ride
