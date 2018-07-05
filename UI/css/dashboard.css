@@ -271,8 +271,19 @@ a.mobile {
 a.mobile:active {
  background-color: #4a4a4a; 
 }
-
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 720px) {
+  .content .panel {
+    width: 100%;
+  }
+  .content .history {
+    width: 100%;
+    float: left;
+  }
+  .sidebar {
+    min-height: 125%;
+  }
+}
+@media only screen and (max-width: 480px) {
   .sidebar {
     width: 100%;
     display: none;
@@ -280,9 +291,12 @@ a.mobile:active {
   .content {
     margin-left: 0;
   }
+  .content .history {
+    margin-bottom: 20px;
+  }
 }
 
-@media only screen and (min-width: 320px) {
+@media only screen and (min-width: 480px) {
   .sidebar {
     height: 100%;
   }

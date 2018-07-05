@@ -6,7 +6,10 @@
   "scripts": {
     "test": "nyc mocha server/test/api_test.js --cache --exit --require babel-register",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "start": "babel-node server/app.js"
+    "start": "babel-node server/app.js",
+    "create:user": "babel-node ./server/models/users.js --presets env",
+    "create:rides": "babel-node ./server/models/rides.js --presets env",
+    "create:requests": "babel-node ./server/models/requests.js --presets env"
   },
   "repository": {
     "type": "git",

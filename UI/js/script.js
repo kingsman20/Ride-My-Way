@@ -1,19 +1,10 @@
-loginFunc = (event) => {
+check = (event) => {
   event.preventDefault();
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  console.log(email);
+  window.location = './dashboard.html';
+};
 
-  fetch('https://still-basin-40207.herokuapp.com/api/v1/auth/login', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json, text/plain, */*',
-      'Content-type': 'application/json',
-      'Access-Control-Allow-Credentials': true,
-    },
-    body: JSON.stringify({ email: email, password:password })
-  })
+getRides = () => {
+  fetch('https://still-basin-40207.herokuapp.com/api/v1/rides?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTMwNjcyOTk3LCJleHAiOjE1MzA3NTkzOTd9.3BoBigJJGqeu3kn6WvXHl3A0xUhMFxNzdejh7vIOM0Y')
     .then((res) => res.json())
-    .then((data) => console.log(data))
-    .catch((err) => console.log(err));
+    .then((data) => console.log(data));
 };

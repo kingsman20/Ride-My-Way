@@ -12,111 +12,8 @@ describe('API Endpoint /rides', () => {
     chai.request(app)
       .get('/')
       .end((err, res) => {
-        res.should.have.status(200);
+        expect(res).to.have.status(200);
         expect(res).to.be.json;
-        done();
-      });
-  });
-
-  // GET - List all rides
-  it('should return all rides', (done) => {
-    chai.request(app)
-      .get('/api/v1/rides?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTMwNjcyOTk3LCJleHAiOjE1MzA3NTkzOTd9.3BoBigJJGqeu3kn6WvXHl3A0xUhMFxNzdejh7vIOM0Y')
-      .end((err, res) => {
-        res.should.have.status(200);
-        expect(res).to.be.json;
-        expect(res.body).to.be.an('object');
-      });
-      done();
-  });
-
-  // POST - Create a new Ride
-  it('should post a new ride', (done) => {
-    const ride = {
-      location: 'Yaba',
-      destination: 'Ikoyi',
-      date: new Date(),
-      time: new Date().toLocaleTimeString(),
-      price: 2000
-    };
-    chai.request(app)
-      .post('/api/v1/rides?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTMwNjcyOTk3LCJleHAiOjE1MzA3NTkzOTd9.3BoBigJJGqeu3kn6WvXHl3A0xUhMFxNzdejh7vIOM0Y')
-      .send(ride)
-      .end((err, res) => {
-        res.should.have.status(201);
-        expect(res).to.be.json;
-        expect(res.body).to.be.an('object');
-      });
-      done();
-  });
-
-  // POST - Fail in creating
-  it('should not create a new ride', (done) => {
-
-    const ride = {
-      location: 'Yaba',
-      date: new Date(),
-      time: new Date().toLocaleTimeString(),
-      price: 2000,
-    };
-    chai.request(app)
-      .post('/api/v1/rides?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTMwNjcyOTk3LCJleHAiOjE1MzA3NTkzOTd9.3BoBigJJGqeu3kn6WvXHl3A0xUhMFxNzdejh7vIOM0Y')
-      .send(ride)
-      .end((err, res) => {
-        res.should.have.status(400);
-        expect(res).to.be.json;
-        expect(res.body).to.be.an('object');
-        res.body.should.have.property('status').eql('failed');
-        done();
-    });
-  });
-
-  // GET - Get the details of a specific ride
-  it('should get a specific ride offer', (done) => {
-    chai.request(app)
-      .get('/api/v1/rides/6?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTMwNjcyOTk3LCJleHAiOjE1MzA3NTkzOTd9.3BoBigJJGqeu3kn6WvXHl3A0xUhMFxNzdejh7vIOM0Y')
-      .end((err, res) => {
-        res.should.have.status(200);
-        expect(res).to.be.json;
-        expect(res.body).to.be.an('object');
-      });
-      done();
-  });
-
-  // GET - fails to get a ride
-  it('should not get any ride offer', (done) => {
-    chai.request(app)
-      .get('/api/v1/rides/100000?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTMwNjcyOTk3LCJleHAiOjE1MzA3NTkzOTd9.3BoBigJJGqeu3kn6WvXHl3A0xUhMFxNzdejh7vIOM0Y')
-      .end((err, res) => {
-        res.should.have.status(400);
-        expect(res).to.be.json;
-        expect(res.body).to.be.an('object');
-        res.body.should.have.property('status').eql('failed');
-      });
-      done();
-  });
-
-  // POST - make a request to join a specific ride
-  it('should make a request to join a ride offer', (done) => {
-    chai.request(app)
-      .post('/api/v1/rides/1/requests?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTMwNjcyOTk3LCJleHAiOjE1MzA3NTkzOTd9.3BoBigJJGqeu3kn6WvXHl3A0xUhMFxNzdejh7vIOM0Y')
-      .send({ uid: 1 })
-      .end((err, res) => {
-        res.should.have.status(200);
-        expect(res).to.be.json;
-        expect(res.body).to.be.an('object');
-      });
-      done();
-  });
-
-  // POST - make a request to join a specific ride
-  it('should make fail in making request to join a ride', (done) => {
-    chai.request(app)
-      .post('/api/v1/rides/100000/requests')
-      .end((err, res) => {
-        res.should.have.status(403);
-        expect(res).to.be.json;
-        expect(res.body).to.be.an('object');
         done();
       });
   });
@@ -131,13 +28,97 @@ describe('API Endpoint /rides', () => {
       .post('/api/v1/auth/login')
       .send(user)
       .end((err, res) => {
-        res.should.have.status(200);
+        expect(res).to.have.status(200);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
-        res.body.should.have.property('token');
-        res.body.should.have.property('status').eql('success');
+        expect(res.body).to.have.property('token');
+        expect(res.body).to.have.property('status').eql('success');
       });
       done();
+  });
+
+  // GET - List all rides
+  it('should return all rides', (done) => {
+    chai.request(app)
+      .get('/api/v1/rides?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsIm5hbWUiOiJLaW5nc2xleSBNaWNoZWFsIiwiaWF0IjoxNTMwNzc5MTI0LCJleHAiOjE1MzA4NjU1MjR9.wKwd2jAd0wktlNTyZV76guJDqEyi0o6q9ICCpHproo4')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('object');
+      });
+      done();
+  });
+
+  // POST - Create a new Ride
+  it('should post a new ride', (done) => {
+    const ride = {
+      location: 'Yaba',
+      destination: 'Ikoyi',
+      date: '01/12/2018',
+      time: '01:01',
+      price: 2000,
+    };
+    chai.request(app)
+      .post('/api/v1/rides?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsIm5hbWUiOiJLaW5nc2xleSBNaWNoZWFsIiwiaWF0IjoxNTMwNzc5MTI0LCJleHAiOjE1MzA4NjU1MjR9.wKwd2jAd0wktlNTyZV76guJDqEyi0o6q9ICCpHproo4')
+      .send(ride)
+      .end((err, res) => {
+        expect(res).to.have.status(201);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('status').eql('success');
+      });
+    done();
+  });
+
+  // POST - Fail in creating
+  it('should not create a new ride', (done) => {
+    chai.request(app)
+      .post('/api/v1/rides')
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('status').eql('failed');
+        expect(res.body).to.have.property('message').eql('No token provided');
+        done();
+    });
+  });
+
+  // GET - Get the details of a specific ride
+  it('should get a specific ride offer', (done) => {
+    chai.request(app)
+      .get('/api/v1/rides/6?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsIm5hbWUiOiJLaW5nc2xleSBNaWNoZWFsIiwiaWF0IjoxNTMwNzc5MTI0LCJleHAiOjE1MzA4NjU1MjR9.wKwd2jAd0wktlNTyZV76guJDqEyi0o6q9ICCpHproo4')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('object');
+      });
+      done();
+  });
+
+  // GET - fails to get a ride
+  it('should not get any ride offer', (done) => {
+    chai.request(app)
+      .get('/api/v1/rides/100000?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsIm5hbWUiOiJLaW5nc2xleSBNaWNoZWFsIiwiaWF0IjoxNTMwNzc5MTI0LCJleHAiOjE1MzA4NjU1MjR9.wKwd2jAd0wktlNTyZV76guJDqEyi0o6q9ICCpHproo4')
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('status').eql('failed');
+      });
+      done();
+  });
+
+  // POST - make a request to join a specific ride
+  it('should not make request to join a ride', (done) => {
+    chai.request(app)
+      .post('/api/v1/rides/100000/requests')
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('object');
+        done();
+      });
   });
 
   // Login failed
@@ -150,10 +131,10 @@ describe('API Endpoint /rides', () => {
       .post('/api/v1/auth/login')
       .send(user)
       .end((err, res) => {
-        res.should.have.status(400);
+        expect(res).to.have.status(401);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
-        res.body.should.have.property('status').eql('failed');
+        expect(res.body).to.have.property('status').eql('failed');
       });
       done();
   });
@@ -162,8 +143,8 @@ describe('API Endpoint /rides', () => {
   it('should create a new user', (done) => {
     const user = {
       name: 'Micheal Travis',
-      email: 'npminstall@gmail.com',
-      phone: '0930392893',
+      email: 'npminstallfil@gmail.com',
+      phone: '09303928939',
       password: 'password',
       confirm: 'password',
     };
@@ -171,10 +152,10 @@ describe('API Endpoint /rides', () => {
       .post('/api/v1/auth/signup')
       .send(user)
       .end((err, res) => {
-        res.should.have.status(201);
+        expect(res).to.have.status(201);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
-        res.body.should.have.property('status').eql('success');
+        expect(res.body).to.have.property('status').eql('success');
       });
       done();
   });
@@ -183,19 +164,17 @@ describe('API Endpoint /rides', () => {
   it('should not create a user', (done) => {
     const user = {
       name: 'Micheal Brad',
-      email: 'micheal@gmail.com',
-      phone: '0930392893',
-      password: 'password',
+      email: 'michealn@gmail.com',
     };
     chai.request(app)
       .post('/api/v1/auth/signup')
       .send(user)
       .end((err, res) => {
-        res.should.have.status(400);
+        expect(res).to.have.status(400);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
-        res.body.should.have.property('status').eql('failed');
-        res.body.should.have.property('message').eql('Password do not match');
+        expect(res.body).to.have.property('status').eql('failed');
+        expect(res.body).to.have.property('message').eql('Password do not match');
         done();
       });
   });
@@ -203,9 +182,9 @@ describe('API Endpoint /rides', () => {
   // GET - Get the details of a specific ride
   it('should get all request for a ride offer', (done) => {
     chai.request(app)
-      .get('/api/v1/users/rides/5/requests?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTMwNjcyOTk3LCJleHAiOjE1MzA3NTkzOTd9.3BoBigJJGqeu3kn6WvXHl3A0xUhMFxNzdejh7vIOM0Y')
+      .get('/api/v1/users/rides/5/requests?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsIm5hbWUiOiJLaW5nc2xleSBNaWNoZWFsIiwiaWF0IjoxNTMwNzc5MTI0LCJleHAiOjE1MzA4NjU1MjR9.wKwd2jAd0wktlNTyZV76guJDqEyi0o6q9ICCpHproo4')
       .end((err, res) => {
-        res.should.have.status(200);
+        expect(res).to.have.status(201);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
       });
@@ -217,7 +196,7 @@ describe('API Endpoint /rides', () => {
     chai.request(app)
       .get('/api/v1/users/rides/5/requests')
       .end((err, res) => {
-        res.should.have.status(403);
+        expect(res).to.have.status(400);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
         done();
@@ -227,7 +206,7 @@ describe('API Endpoint /rides', () => {
   // PUT - respond to a ride offer
   it('should respond to a ride offer', (done) => {
     chai.request(app)
-      .put('/api/v1/users/rides/5/requests/3?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNTMwNjcyOTk3LCJleHAiOjE1MzA3NTkzOTd9.3BoBigJJGqeu3kn6WvXHl3A0xUhMFxNzdejh7vIOM0Y')
+      .put('/api/v1/users/rides/5/requests/3?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsIm5hbWUiOiJLaW5nc2xleSBNaWNoZWFsIiwiaWF0IjoxNTMwNzc5MTI0LCJleHAiOjE1MzA4NjU1MjR9.wKwd2jAd0wktlNTyZV76guJDqEyi0o6q9ICCpHproo4')
       .end((err, res) => {
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
@@ -240,11 +219,23 @@ describe('API Endpoint /rides', () => {
     chai.request(app)
       .put('/api/v1/users/rides/5/requests/3')
       .end((err, res) => {
-        res.should.have.status(403);
+        expect(res).to.have.status(400);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
         done();
       });
+  });
+
+  // POST - make a request to join a specific ride
+  it('should make a request to join a ride offer', (done) => {
+    chai.request(app)
+      .post('/api/v1/rides/1/requests?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsIm5hbWUiOiJLaW5nc2xleSBNaWNoZWFsIiwiaWF0IjoxNTMwNzc5MTI0LCJleHAiOjE1MzA4NjU1MjR9.wKwd2jAd0wktlNTyZV76guJDqEyi0o6q9ICCpHproo4')
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('object');
+      });
+    done();
   });
 
   // Invalid route
@@ -252,7 +243,10 @@ describe('API Endpoint /rides', () => {
     chai.request(app)
       .get('/*')
       .then((res) => {
+        expect(res).to.have.status(400);
         expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('status').eql('failed');
+        expect(res.body).to.have.property('message').eql('Invalid Route');
       });
     done();
   });

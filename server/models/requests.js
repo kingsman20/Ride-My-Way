@@ -1,14 +1,11 @@
 import client from '../config/database';
 
 const queryString = `
-  CREATE TABLE IF NOT EXISTS rides (
+  CREATE TABLE IF NOT EXISTS requests (
     id SERIAL PRIMARY KEY,
     userid INTEGER NOT NULL,
-    location VARCHAR(100) NOT NULL,
-    destination VARCHAR(100),
-    date DATE,
-    time TIME(100),
-    price SMALLINT,
+    rideid INTEGER NOT NULL,
+    status VARCHAR(100),
     createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
   );
 `;

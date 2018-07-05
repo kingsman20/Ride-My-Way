@@ -1,4 +1,4 @@
-import routes from './routes/routes';
+import routes from './routes/rideRoute';
 import userRoute from './routes/userRoute';
 
 const express = require('express');
@@ -12,7 +12,7 @@ const port = parseInt(process.env.PORT, 10) || 3000;
 
 // List of Routes
 app.get('/', (req, res) => {
-  res.status(200).send({status: 'success', message: 'Welcome to Ride-My-Way'});
+  res.status(200).send({ status: 'success', message: 'Welcome to Ride-My-Way' });
 });
 
 // User Routes
@@ -23,7 +23,7 @@ app.use(routes.ridesRoute);
 
 // Handle Invalid route
 app.get('/*', (req, res) => {
-  res.status(404).send({status: 'failed', message: 'Invalid Route'});
+  res.status(400).send({ status: 'failed', message: 'Invalid Route' });
 });
 
 app.listen(port);
