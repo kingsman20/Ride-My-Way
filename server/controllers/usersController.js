@@ -51,7 +51,7 @@ const usersController = {
     });
   },
 
-  // Get all requests for a ride offer
+  // Get all requests for a ride offer you created
   rideRequests: (req, res) => {
     const token = req.body.token || req.query.token || req.headers['x-access-token'];
     const decoded = jwt.decode(token);
@@ -69,11 +69,23 @@ const usersController = {
 
   // Respond to Ride offer
   requestStatus: (req, res) => {
-    client.query('UPDATE requests SET status=($1) WHERE rideId=($2) AND id=($3)', [req.body.status, req.params.rideId, req.params.id], (err, result) => {
+    const token = req.body.token || req.query.token || req.headers['x-access-token'];
+    const decoded = jwt.decode(token);
+    const userid = decoded.id;
+    client.query('SELECT * FROM requests where rideid = ($1) AND userid=($2)', [req.params.rideId, userid], (err, result) => {
       if (err) {
-        res.status(500).send({ status: 'failed', message: err });
+        res.status(500).send({ status: 'failed', message: 'An unknow error occurred. Try Again' });
+      } else if (result.rows.length < 0) {
+        res.status(400).send({ status: 'failed', message: 'You can\'t respond to this ride request' });
+      } else {
+        client.query('UPDATE requests SET status=($1) WHERE rideId=($2) AND id=($3)', [req.body.status, req.params.rideId, req.params.requestid], (err, result) => {
+          if (err) {
+            res.status(500).send({ status: 'failed', message: err });
+          } else {
+            res.status(200).send({ status: 'success', message: 'Responded to ride request succesfully' });
+          }
+        });
       }
-      res.status(200).send({ status: 'success', message: 'Ride Updated Succesfully' });
     });
   },
 };

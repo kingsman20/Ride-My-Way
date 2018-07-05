@@ -52,8 +52,10 @@ const validate = {
   },
 
   validateRideResponse: (req, res, next) => {
-    if (!req.params.rideId || !checks.checkNumber(req.params.id)) {
-      res.status(404).send({ status: 'failed', message: 'Ride with ID not found' });
+    if (!req.params.rideId || !checks.checkNumber(req.params.rideId)) {
+      res.status(404).send({ status: 'failed', message: 'Invalid Ride ID' });
+    } else if (!req.params.requestId || !checks.checkNumber(req.params.requestId)) {
+      res.status(400).send({ status: 'failed', message: 'Invalid Ride ID' });
     } else if (!req.body.status) {
       res.status(400).send({ status: 'failed', message: 'Provide message status e.g Accepted or Rejected' });
     } else {

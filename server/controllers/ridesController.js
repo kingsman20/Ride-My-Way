@@ -52,7 +52,7 @@ const ridesController = {
       if (err) {
         res.status(500).send({ status: 'failed', message: 'An unknow error occurred. Try Again' });
       } else if (result.rows.length > 0) {
-        res.status(400).send({ status: 'failed', message: 'You can\'t request  a ride you created' });
+        res.status(400).send({ status: 'failed', message: 'You can\'t request a ride you created' });
       } else {
         client.query('INSERT INTO requests(rideId, userId, status) values($1, $2, $3)', [req.params.id, userid, 'Requested'], (err, result) => {
           if (err) {
