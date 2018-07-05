@@ -84,7 +84,6 @@ describe('API Endpoint /rides', () => {
   it('should not post a new ride', (done) => {
     chai.request(app)
       .post('/api/v1/rides')
-      .send(ride)
       .end((err, res) => {
         expect(res).to.have.status(401);
         expect(res).to.be.json;
@@ -93,10 +92,9 @@ describe('API Endpoint /rides', () => {
     done();
   });
 
-  it('should not post a new ride', (done) => {
+  it('should not post a new ride . Ride details not provided ', (done) => {
     chai.request(app)
       .post('/api/v1/rides?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsIm5hbWUiOiJLaW5nc2xleSBNaWNoZWFsIiwiaWF0IjoxNTMwNzc5MTI0LCJleHAiOjE1MzA4NjU1MjR9.wKwd2jAd0wktlNTyZV76guJDqEyi0o6q9ICCpHproo4')
-      .send(ride)
       .end((err, res) => {
         expect(res).to.have.status(400);
         expect(res).to.be.json;
