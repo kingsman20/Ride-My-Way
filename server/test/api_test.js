@@ -1,10 +1,9 @@
-const chai = require('chai');
-const { expect } = require('chai');
+import chai from 'chai';
+import chaiHttp from 'chai-http';
+import app from '../app';
 
-chai.use(require('chai-http'));
-const should = chai.should();
-
-const app = require('../app.js'); // Our app
+chai.use(chaiHttp);
+const expect = require('chai').expect;
 
 describe('API Endpoint /rides', () => {
   // GET - return the home page
@@ -75,7 +74,7 @@ describe('API Endpoint /rides', () => {
     chai.request(app)
       .post('/api/v1/rides')
       .end((err, res) => {
-        expect(res).to.have.status(400);
+        expect(res).to.have.status(401);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('status').eql('failed');
@@ -92,6 +91,7 @@ describe('API Endpoint /rides', () => {
         expect(res).to.have.status(200);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('status').eql('success');
       });
       done();
   });
@@ -114,9 +114,10 @@ describe('API Endpoint /rides', () => {
     chai.request(app)
       .post('/api/v1/rides/100000/requests')
       .end((err, res) => {
-        expect(res).to.have.status(400);
+        expect(res).to.have.status(401);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('status').eql('failed');
         done();
       });
   });
@@ -143,7 +144,7 @@ describe('API Endpoint /rides', () => {
   it('should create a new user', (done) => {
     const user = {
       name: 'Micheal Travis',
-      email: 'npminstallfil@gmail.com',
+      email: 'npminstallfisl@gmail.com',
       phone: '09303928939',
       password: 'password',
       confirm: 'password',
@@ -196,7 +197,7 @@ describe('API Endpoint /rides', () => {
     chai.request(app)
       .get('/api/v1/users/rides/5/requests')
       .end((err, res) => {
-        expect(res).to.have.status(400);
+        expect(res).to.have.status(401);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
         done();
@@ -219,7 +220,7 @@ describe('API Endpoint /rides', () => {
     chai.request(app)
       .put('/api/v1/users/rides/5/requests/3')
       .end((err, res) => {
-        expect(res).to.have.status(400);
+        expect(res).to.have.status(401);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
         done();

@@ -1,8 +1,7 @@
+import express from 'express';
+import bodyParser from 'body-parser';
 import routes from './routes/rideRoute';
 import userRoute from './routes/userRoute';
-
-const express = require('express');
-const bodyParser = require('body-parser');
 
 const app = express();
 

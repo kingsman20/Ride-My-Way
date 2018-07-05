@@ -1,4 +1,3 @@
-import jwt from 'jsonwebtoken';
 import client from '../config/database';
 
 const ridesController = {
@@ -17,15 +16,11 @@ const ridesController = {
 
   // Create Ride offer
   createRideOffer: (req, res) => {
-    const token = req.body.token || req.query.token || req.headers['x-access-token'];
-    const decoded = jwt.decode(token);
-    const userid = decoded.id;
-    const creator = decoded.name;
-    client.query('INSERT INTO rides(location, destination, date, time, price, userId) values($1, $2, $3, $4, $5, $6)', [req.body.location, req.body.destination, req.body.date, req.body.time, req.body.price, userid], (err, result) => {
+    client.query('INSERT INTO rides(location, destination, date, time, price, userId) values($1, $2, $3, $4, $5, $6)', [req.body.location, req.body.destination, req.body.date, req.body.time, req.body.price, req.decoded.id], (err, result) => {
       if (err) {
         res.status(500).send({ status: 'failed', message: err });
       } else {
-        res.status(201).send({ status: 'success', message: 'Ride Offer Created Succesfully', data: {location: req.body.location, destination: req.body.destination, date: req.body.date, time: req.body.time, creator } });
+        res.status(201).send({ status: 'success', message: 'Ride Offer Created Succesfully', data: { location: req.body.location, destination: req.body.destination, date: req.body.date, time: req.body.time, creator: req.decoded.name } });
       }
     });
   },
@@ -45,16 +40,13 @@ const ridesController = {
 
   // POST - make request to join a ride offer
   joinRideOffer: (req, res) => {
-    const token = req.body.token || req.query.token || req.headers['x-access-token'];
-    const decoded = jwt.decode(token);
-    const userid = decoded.id;
-    client.query('SELECT * FROM rides where id = ($1) AND userid=($2)', [req.params.id, userid], (err, result) => {
+    client.query('SELECT * FROM rides where id = ($1) AND userid=($2)', [req.params.id, req.decoded.id], (err, result) => {
       if (err) {
         res.status(500).send({ status: 'failed', message: 'An unknow error occurred. Try Again' });
       } else if (result.rows.length > 0) {
         res.status(400).send({ status: 'failed', message: 'You can\'t request a ride you created' });
       } else {
-        client.query('INSERT INTO requests(rideId, userId, status) values($1, $2, $3)', [req.params.id, userid, 'Requested'], (err, result) => {
+        client.query('INSERT INTO requests(rideId, userId, status) values($1, $2, $3)', [req.params.id, req.decoded.id, 'Requested'], (err, result) => {
           if (err) {
             res.status(500).send({ status: 'failed', message: 'An unknown error occurred. Try Again' });
           } else {
