@@ -16,7 +16,7 @@ const validate = {
       res.status(400).send({ status: 'failed', message: 'Your name is required' });
     } else if (!req.body.email || !checks.checkEmail(req.body.email) || req.body.email.trim().length < 5) {
       res.status(400).send({ status: 'failed', message: 'Enter valid email address e.g name@example.com' });
-    } else if (!req.body.phone || !checks.checkNumber(req.body.phone) || req.body.phone.trim().length < 11) {
+    } else if (!req.body.phone || !checks.checkNumber(req.body.phone) || req.body.phone.trim().length < 11 || req.body.phone.trim().length > 11) {
       res.status(400).send({ status: 'failed', message: 'Provide a valid phone number e.g 08012345678' });
     } else if (!req.body.password || req.body.password.trim().length < 6) {
       res.status(400).send({ status: 'failed', message: 'Password must not be less than six characters' });
