@@ -48,11 +48,19 @@ const ridesController = {
     const token = req.body.token || req.query.token || req.headers['x-access-token'];
     const decoded = jwt.decode(token);
     const userid = decoded.id;
-    client.query('INSERT INTO requests(rideId, userId, status) values($1, $2, $3)', [req.params.id, userid, 'Requested'], (err, result) => {
+    client.query('SELECT * FROM rides where id = ($1) AND userid=($2)', [req.params.id, userid], (err, result) => {
       if (err) {
-        res.status(500).send({ status: 'failed', message: err });
+        res.status(500).send({ status: 'failed', message: 'An unknow error occurred. Try Again' });
+      } else if (result.rows.length > 0) {
+        res.status(400).send({ status: 'failed', message: 'You can\'t request  a ride you created' });
       } else {
-        res.status(200).send({ status: 'success', message: 'Ride requested succesfully' });
+        client.query('INSERT INTO requests(rideId, userId, status) values($1, $2, $3)', [req.params.id, userid, 'Requested'], (err, result) => {
+          if (err) {
+            res.status(500).send({ status: 'failed', message: 'An unknown error occurred. Try Again' });
+          } else {
+            res.status(200).send({ status: 'success', message: 'Ride requested succesfully' });
+          }
+        });
       }
     });
   },
