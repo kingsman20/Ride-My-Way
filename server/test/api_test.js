@@ -48,6 +48,18 @@ describe('API Endpoint /rides', () => {
       done();
   });
 
+  // GET - List all rides
+  it('should not return all rides', (done) => {
+    chai.request(app)
+      .get('/api/v1/rides')
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('object');
+      });
+      done();
+  });
+
   // POST - Create a new Ride
   it('should post a new ride', (done) => {
     const ride = {
@@ -65,6 +77,30 @@ describe('API Endpoint /rides', () => {
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('status').eql('success');
+      });
+    done();
+  });
+
+  it('should not post a new ride', (done) => {
+    chai.request(app)
+      .post('/api/v1/rides')
+      .send(ride)
+      .end((err, res) => {
+        expect(res).to.have.status(401);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('object');
+      });
+    done();
+  });
+
+  it('should not post a new ride', (done) => {
+    chai.request(app)
+      .post('/api/v1/rides?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsIm5hbWUiOiJLaW5nc2xleSBNaWNoZWFsIiwiaWF0IjoxNTMwNzc5MTI0LCJleHAiOjE1MzA4NjU1MjR9.wKwd2jAd0wktlNTyZV76guJDqEyi0o6q9ICCpHproo4')
+      .send(ride)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('object');
       });
     done();
   });
