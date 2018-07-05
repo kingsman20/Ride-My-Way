@@ -114,7 +114,7 @@ describe('API Endpoint /rides', () => {
     chai.request(app)
       .post('/api/v1/rides/100000/requests')
       .end((err, res) => {
-        expect(res).to.have.status(404);
+        expect(res).to.have.status(400);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
         done();
@@ -174,7 +174,7 @@ describe('API Endpoint /rides', () => {
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('status').eql('failed');
-        expect(res.body).to.have.property('message').eql('Password do not match');
+        expect(res.body).to.have.property('message').eql('Provide a valid phone number e.g 08012345678');
         done();
       });
   });
