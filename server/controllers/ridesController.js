@@ -16,11 +16,11 @@ const ridesController = {
 
   // Create Ride offer
   createRideOffer: (req, res) => {
-    client.query('INSERT INTO rides(location, destination, date, time, price, userId) values($1, $2, $3, $4, $5, $6)', [req.body.location, req.body.destination, req.body.date, req.body.time, req.body.price, req.decoded.id], (err, result) => {
+    client.query('INSERT INTO rides(location, destination, date, time, price, userId) values($1, $2, $3, $4, $5, $6) RETURNING *', [req.body.location, req.body.destination, req.body.date, req.body.time, req.body.price, req.decoded.id], (err, result) => {
       if (err) {
         res.status(500).send({ status: 'failed', message: err });
       } else {
-        res.status(201).send({ status: 'success', message: 'Ride Offer Created Succesfully', data: { location: req.body.location, destination: req.body.destination, date: req.body.date, time: req.body.time, creator: req.decoded.name } });
+        res.status(201).send({ status: 'success', message: 'Ride Offer Created Succesfully', data: { id: result.rows[0].id, location: result.rows[0].location, destination: result.rows[0].destination, date: result.rows[0].date, time: result.rows[0].time, creator_id: req.decoded.id, creator_name: req.decoded.name } });
       }
     });
   },

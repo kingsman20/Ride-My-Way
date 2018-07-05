@@ -15,11 +15,18 @@ const usersController = {
         res.status(400).send({ status: 'failed', message: 'Email already exist' });
       } else {
         const hash = bcrypt.hashSync(req.body.password, 10);
-        client.query('INSERT INTO users(name, email, phone, password) values($1, $2, $3, $4)', [req.body.name, req.body.email, req.body.phone, hash], (err, result) => {
+        client.query('INSERT INTO users(name, email, phone, password) values($1, $2, $3, $4) RETURNING *', [req.body.name, req.body.email, req.body.phone, hash], (err, result) => {
           if (err) {
             res.status(500).send({ status: 'failed', message: 'Registration Failed' });
           } else {
-            res.status(200).send({ status: 'success', message: 'User registered succesfully', user: { name: req.body.name, email: req.body.email, phone: req.body.phone } });
+            const payload = {
+              id: result.rows[0].id,
+              name: result.rows[0].name,
+            };
+            const token = jwt.sign(payload, app.get('superSecret'), {
+              expiresIn: 86400, // expires in 24 hours
+            });
+            res.status(200).send({ status: 'success', message: 'User registered succesfully', token, data: { id: result.rows[0].id, name: result.rows[0].name, email: result.rows[0].email, phone: result.rows[0].phone } });
           }
         });
       }
@@ -43,7 +50,7 @@ const usersController = {
           const token = jwt.sign(payload, app.get('superSecret'), {
             expiresIn: 86400, // expires in 24 hours
           });
-          res.status(200).send({ status: 'success', message: 'Login Succesful', token });
+          res.status(200).send({ status: 'success', message: 'Login Succesful', token, data: { id: result.rows[0].id, name: result.rows[0].name } });
         } else {
           res.status(401).send({ status: 'failed', message: 'Invalid Username or password' });
         }
