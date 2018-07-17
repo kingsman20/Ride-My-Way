@@ -135,7 +135,7 @@ describe('API Endpoint /rides', () => {
     chai.request(app)
       .post('/api/v1/rides/100000/requests')
       .end((err, res) => {
-        expect(res).to.have.status(404);
+        expect(res).to.have.status(401);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('status').eql('failed');
