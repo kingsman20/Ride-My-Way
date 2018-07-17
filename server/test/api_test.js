@@ -65,9 +65,9 @@ describe('API Endpoint /rides', () => {
     const ride = {
       location: 'Yaba',
       destination: 'Ikoyi',
-      date: '01/12/2018',
+      date: '2018-02-03',
       time: '01:01',
-      price: 2000,
+      seats: 8,
     };
     chai.request(app)
       .post('/api/v1/rides?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsIm5hbWUiOiJLaW5nc2xleSBNaWNoZWFsIiwiaWF0IjoxNTMxODE5NDU2LCJleHAiOjE1MzE5MDU4NTZ9.7QeUjkGtizt5H11AG6Wn_HxUVY8P_lU5DdxKj5QYaIM')
@@ -130,25 +130,12 @@ describe('API Endpoint /rides', () => {
       done();
   });
 
-  // GET - fails to get a ride
-  it('should not get any ride offer', (done) => {
-    chai.request(app)
-      .get('/api/v1/rides/100000?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsIm5hbWUiOiJLaW5nc2xleSBNaWNoZWFsIiwiaWF0IjoxNTMxODE5NDU2LCJleHAiOjE1MzE5MDU4NTZ9.7QeUjkGtizt5H11AG6Wn_HxUVY8P_lU5DdxKj5QYaIM')
-      .end((err, res) => {
-        expect(res).to.have.status(400);
-        expect(res).to.be.json;
-        expect(res.body).to.be.an('object');
-        expect(res.body).to.have.property('status').eql('failed');
-      });
-      done();
-  });
-
   // POST - make a request to join a specific ride
   it('should not make request to join a ride', (done) => {
     chai.request(app)
       .post('/api/v1/rides/100000/requests')
       .end((err, res) => {
-        expect(res).to.have.status(401);
+        expect(res).to.have.status(404);
         expect(res).to.be.json;
         expect(res.body).to.be.an('object');
         expect(res.body).to.have.property('status').eql('failed');
@@ -271,6 +258,19 @@ describe('API Endpoint /rides', () => {
         expect(res.body).to.be.an('object');
       });
     done();
+  });
+
+  // GET - fails to get a ride
+  it('should not get any ride offer', (done) => {
+    chai.request(app)
+      .get('/api/v1/rides/100000?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsIm5hbWUiOiJLaW5nc2xleSBNaWNoZWFsIiwiaWF0IjoxNTMxODE5NDU2LCJleHAiOjE1MzE5MDU4NTZ9.7QeUjkGtizt5H11AG6Wn_HxUVY8P_lU5DdxKj5QYaIM')
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res).to.be.json;
+        expect(res.body).to.be.an('object');
+        expect(res.body).to.have.property('status').eql('failed');
+      });
+      done();
   });
 
   // Invalid route
