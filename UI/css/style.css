@@ -1,8 +1,8 @@
 html, body {
-    font: 15px/1.5 Arial, Helvetica, sans-serif;
+    font-family: 'PT Sans', sans-serif;
     padding: 0;
     margin: 0;
-    background-color: #f2f2f2;
+    background-color: #ffffff;
     height: 100%;
 }
 /* Global Styles */
@@ -59,7 +59,13 @@ a {
 }
 .error {
     color: red;
-    margin: 10px 0 20px 0;
+    font-size: 18px;
+    text-align: center;
+}
+.success {
+    color: green;
+    font-size: 18px;
+    text-align: center;
 }
 .offer {
     color: #35424a;
@@ -119,7 +125,7 @@ header a:hover {
 #register {
     padding: 2px;
     color: white;
-    background: #35424a;
+    background: #d0d2d1;
 }
 #register h1 {
     float: left;
@@ -169,15 +175,18 @@ th {
     padding: 20px;
     width: 400px;
     height: 380px;
-    background-color: #85929E;
+    background-color: #d0d2d1;
     border-radius: 5px;
+}
+.login span {
+    text-align: center;
 }
 .register {
    margin: 20px auto;
     padding: 20px;
     width: 400px;
     min-height: 480px;
-    background-color: #85929E;
+    background-color: #d0d2d1;
     border-radius: 5px;
 }
 input {
@@ -190,7 +199,7 @@ input {
     transition: border .2s, background-color .2s;
 }
 .heading {
-   color: #fff;
+   color: #1F78B4;
    margin-bottom: 0;
 }
 
@@ -204,6 +213,9 @@ form .btn {
     cursor: pointer;
     padding: 5px;
     height: 40px;
+}
+form a {
+    color: #1F78B4;
 }
 form p {
     font-size: 18px;
@@ -336,6 +348,13 @@ footer {
     #page {
         min-height: 120%;
         width: 120%;
+        position: relative;
+    }
+}
+@media(max-width: 360px) {
+    #page {
+        min-height: 130%;
+        width: 125%;
         position: relative;
     }
 }

@@ -7,20 +7,22 @@
     <meta content="Ride Carpool" name="keywords"/>
     <meta content="Obot Kingsley" name="author"/>
       <link rel="stylesheet" type="text/css" href="css/dashboard.css">
+      <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
   </head>
-<body>
+<body onload="authUser()">
     <div id="header">
-        <div class="logo"><a href="#"><span>Ride</span>-My-Way</a></div>
-        <a href="index.html"><div class="left">Logout</div></a>
+        <div class="logo"><a href="index.html"><span>Ride</span>-My-Way</a></div>
+        <a href="#"><div class="left" onclick="userLogout()">Logout</div></a>
     </div>
+    <a href="#" class="mobile">Menu</a>
     <div id="container">
         <div class="sidebar">
             <ul id="nav">
               <div class="profile">
                   <img src="img/laravel.png" class="image"><br><br>
               </div>
-              <li><a href="dashboard.html">Add Ride Offer</a></li>
-              <li><a href="rides.html">Ride Offers</a></li>
+              <li><a href="dashboard.html">Ride Offers</a></li>
+              <li><a href="rides.html">Add Ride Offer</a></li>
               <li><a href="requests.html">Ride Requests</a></li>
               <li><a href="notifications.html" class="selected">Notifications <span class="notify">2</span></a></li>
             </ul>

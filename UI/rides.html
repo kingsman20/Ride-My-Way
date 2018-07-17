@@ -1,69 +1,71 @@
 <html>
 <head>
-    <title></title>
-    <meta charset="utf-8"/>
+  <meta charset="utf-8"/>
   <meta content="width=device-width" name="viewport"/>
   <meta content="Affordable Rides Smooth" name="description"/>
   <meta content="Ride Carpool" name="keywords"/>
   <meta content="Obot Kingsley" name="author"/>
+    <title></title>
     <link rel="stylesheet" type="text/css" href="css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
 </head>
-<body>
+<body onload="authUser()">
     <div id="header">
-        <div class="logo"><a href="#"><span>Ride</span>-My-Way</a></div>
-        <a href="index.html"><div class="left">Logout</div></a>
+        <div class="logo"><a href="index.html"><span>Ride</span>-My-Way</a></div>
+        <a href="#"><div class="left" onclick="userLogout()">Logout</div></a>
     </div>
+    <a href="#" class="mobile">
+      <div>
+        Menu
+        <ul>
+          <li><div onclick="rideOffersPage()">Ride Offers</div></li>
+          <li><div onclick="addRidePage()">Add Ride Offer</div></li>
+          <li><div onclick="rideRequestPage()">Ride Request</div></li>
+          <li><div onclick="notificationsPage()">Notifications</div></li>
+        </ul>
+      </div>
+    </a>
     <div id="container">
         <div class="sidebar">
             <ul id="nav">
               <div class="profile">
                   <img src="img/laravel.png" class="image"><br><br>
               </div>
-              <li><a href="dashboard.html">Add Ride Offer</a></li>
-              <li><a href="rides.html" class="selected">Ride Offers</a></li>
+              <li><a href="dashboard.html">Ride Offers</a></li>
+              <li><a href="rides.html" class="selected">Add Ride Offer</a></li>
               <li><a href="requests.html">Ride Requests</a></li>
               <li><a href="notifications.html">Notifications <span class="notify">2</span></a></li>
             </ul>
         </div>
         <div class="content">
-          <div class="panel2">
+          <div class="panel">
             <h1>Dashboard</h1>
             <div id="box">
-                <div class="box-top">Available Ride Offer</div>
+                <div class="box-top">Add Ride Offer</div>
                 <div class="box-panel">
-                  <div>
-                    <table id="rides">
-                      <thead>
-                        <tr>
-                          <th scope="col">Location</th>
-                          <th scope="col">Destination</th>
-                          <th scope="col">Date</th>
-                          <th scope="col">More Details</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td data-label="Account">Lagos</td>
-                          <td data-label="Due Date">Ibadan</td>
-                          <td data-label="Amount">03/07/2018</td>
-                          <td data-label="Period"><a href="ride_details.html"><button class="btn button_1">details</button></a></td>
-                        </tr>
-                        <tr>
-                          <td scope="row" data-label="Account">Port Harcourt</td>
-                          <td data-label="Due Date">Abuja</td>
-                          <td data-label="Amount">23/07/2018</td>
-                          <td data-label="Period"><a href="ride_details.html"><button class="btn button_1">details</button></a></td>
-                        </tr>
-                        <tr>
-                          <td scope="row" data-label="Account">Owerri</td>
-                          <td data-label="Due Date">Aba</td>
-                          <td data-label="Amount">03/01/2016</td>
-                          <td data-label="Period"><a href="ride_details.html"><button class="btn button_1">details</button></a></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    <button onclick="getRides()">Get Ride Offer</button>
-                  </div>
+                  <div class="error" id="error"></div>
+                  <div class="success" id="success"></div>
+                  <form onsubmit="createRideOffer(event)">
+                    <input type="text" name="location" id="location" required class="input" placeholder="location">
+                    <input type="text" name="destination" id="destination" required class="input" placeholder="destination">
+                    <input type="date" name="date" id="date" required class="input" placeholder="date of departure">
+                    <input type="time" name="time" id="time" required class="input" placeholder="time of departure">
+                    <input type="Number" name="seats" id="seats" required class="input" placeholder="Seats available">
+                    <input type="submit" value="Create" class="btn button_1">
+                  </form>   
+                </div>
+            </div>
+          </div>
+          <div class="history">
+            <div id="box">
+                <div class="box-top">History</div>
+                <div class="box-panel">
+                    <div>
+                      <p class="bold">Number of Rides Taken: <span>4</span></p>
+                    </div>
+                    <div>
+                      <p class="bold">Number of Rides Given: <span>2</span></p>
+                    </div><br>
                 </div>
             </div>
           </div>

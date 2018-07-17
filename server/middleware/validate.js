@@ -33,11 +33,11 @@ const validate = {
     } else if (!req.body.destination || req.body.destination.trim().length < 3) {
       res.status(400).send({ status: 'failed', message: 'Enter valid destination' });
     } else if (!req.body.date || !checks.checkDate(req.body.date)) {
-      res.status(400).send({ status: 'failed', message: 'Enter date of departure in the format mm/dd/yyyy' });
+      res.status(400).send({ status: 'failed', message: 'Enter date of departure in the format yyyy-mm-dd' });
     } else if (!req.body.time || !checks.checkTime(req.body.time)) {
       res.status(400).send({ status: 'failed', message: 'Enter time of departure in the format HH:MM' });
-    } else if (!req.body.price || !checks.checkNumber(req.body.price) || req.body.price.length < 2) {
-      res.status(400).send({ status: 'failed', message: 'Price is in naira. Enter a valid digit e.g 1500' });
+    } else if (!req.body.seats || !checks.checkNumber(req.body.seats)) {
+      res.status(400).send({ status: 'failed', message: 'Enter number of seats available' });
     } else {
       next();
     }
@@ -56,7 +56,7 @@ const validate = {
       res.status(404).send({ status: 'failed', message: 'Invalid Ride ID' });
     } else if (!req.params.requestId || !checks.checkNumber(req.params.requestId)) {
       res.status(400).send({ status: 'failed', message: 'Invalid Ride ID' });
-    } else if (!req.body.status) {
+    } else if (!req.body.status || (req.body.status != 'Accepted' && req.body.status != 'Rejected')) {
       res.status(400).send({ status: 'failed', message: 'Provide message status e.g Accepted or Rejected' });
     } else {
       next();

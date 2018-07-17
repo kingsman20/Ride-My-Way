@@ -26,7 +26,7 @@ const usersController = {
             const token = jwt.sign(payload, app.get('superSecret'), {
               expiresIn: 86400, // expires in 24 hours
             });
-            res.status(200).send({ status: 'success', message: 'User registered succesfully', token, data: { id: result.rows[0].id, name: result.rows[0].name, email: result.rows[0].email, phone: result.rows[0].phone } });
+            res.status(201).send({ status: 'success', message: 'User registered succesfully', token, data: { id: result.rows[0].id, name: result.rows[0].name, email: result.rows[0].email, phone: result.rows[0].phone } });
           }
         });
       }
@@ -38,7 +38,7 @@ const usersController = {
       if (err) {
         res.status(500).send({ status: 'failed', message: 'Login Failed' });
       } else if (result.rows < 1) {
-        res.status(400).send({ status: 'failed', message: 'Invalid Username or password' });
+        res.status(400).send({ status: 'failed', message: 'Invalid username or password' });
       } else {
         const hash = result.rows[0].password;
         const password = bcrypt.compareSync(req.body.password, hash);

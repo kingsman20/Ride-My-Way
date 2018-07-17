@@ -1,14 +1,153 @@
-check = (event) => {
+const loginUser = (event) => {
   event.preventDefault();
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  fetch('https://still-basin-40207.herokuapp.com/api/v1/auth/login', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({ email, password }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.status === 'success') {
+        localStorage.setItem('user', JSON.stringify(data));
+        window.location = './dashboard.html';
+      } else {
+        document.getElementById('error').innerHTML = data.message;
+        document.getElementById('success').innerHTML = '';
+      }
+    });
+};
+
+const registerUser = (event) => {
+  event.preventDefault();
+  const name = document.getElementById('name').value;
+  const phone = document.getElementById('phone').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const confirm = document.getElementById('confirm').value;
+
+  fetch('https://still-basin-40207.herokuapp.com/api/v1/auth/signup', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({ name, email, phone, password, confirm }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if(data.status === 'success') {
+        sessionStorage.setItem('register', 'Registered Successfully. Login to continue');
+        window.location = './login.html';
+      } else {
+        document.getElementById('error').innerHTML = data.message;
+      }
+    });
+  // window.location = './dashboard.html';
+};
+
+const getRides = () => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if(!user) {
+    window.location = './login.html';
+  } else {
+    const token = user.token;
+    fetch('https://still-basin-40207.herokuapp.com/api/v1/rides', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-type': 'application/json',
+        'x-access-token': token,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        let rides = '<table><thead><tr><th scope="col">Location</th><th scope="col">Destination</th><th scope="col">Date</th><th scope="col">More Details</th></tr></thead></tbody>';
+        data.data.rides.map((ride) => {
+          rides += `
+          <tr>
+            <td data-label="Location">${ride.location}</td>
+            <td data-label="Destination">${ride.destination}</td>
+            <td data-label="Date">${ride.date}</td>
+            <td data-label="More Details"><a href="ride_details.html"><button class="btn button_1">details</button></a></td>
+          </tr>
+      `;
+        });
+        rides += '</tbody></table>';
+        document.getElementById('allRides').innerHTML = rides;
+      });
+  }
+};
+
+const checkRegistrationStatus = () => {
+  const register = sessionStorage.getItem('register');
+  if (register) {
+    document.getElementById('success').innerHTML = sessionStorage.getItem('register');
+    document.getElementById('error').innerHTML = '';
+    sessionStorage.removeItem('register');
+  } else {
+    document.getElementById('success').innerHTML = '';
+    document.getElementById('error').innerHTML = '';
+  }
+};
+
+const createRideOffer = (event) => {
+  event.preventDefault();
+  const location = document.getElementById('location').value;
+  const destination = document.getElementById('destination').value;
+  const date = document.getElementById('date').value;
+  const time = document.getElementById('time').value;
+  const seats = document.getElementById('seats').value;
+
+  const user = JSON.parse(localStorage.getItem('user'));
+  const token = user.token;
+
+  fetch('http://localhost:3000/api/v1/rides', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-type': 'application/json',
+      'x-access-token': token,
+    },
+    body: JSON.stringify({ location, destination, date, time, seats }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.status === 'success') {
+        document.getElementById('success').innerHTML = data.message;
+        document.getElementById('error').innerHTML = '';
+      } else {
+        document.getElementById('success').innerHTML = '';
+        document.getElementById('error').innerHTML = data.message;
+      }
+    });
+};
+
+const authUser = () => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if(!user) {
+    window.location = './login.html';
+  }
+};
+
+rideOffersPage = () => {
   window.location = './dashboard.html';
 };
 
-getRides = () => {
-  fetch('https://still-basin-40207.herokuapp.com/api/v1/rides?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTEsIm5hbWUiOiJLaW5nc2xleSBNaWNoZWFsIiwiaWF0IjoxNTMwNzc5MTI0LCJleHAiOjE1MzA4NjU1MjR9.wKwd2jAd0wktlNTyZV76guJDqEyi0o6q9ICCpHproo4')
-    .then((res) => res.json())
-    .then((data) => console.log(data));
+addRidePage = () => {
+  window.location = './rides.html';
 };
 
-login = () => {
-	
+rideRequestPage = () => {
+  window.location = './requests.html';
 }
+
+const userLogout = () => {
+  localStorage.removeItem('user');
+  window.location = './index.html';
+};

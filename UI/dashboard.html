@@ -1,63 +1,56 @@
 <html>
 <head>
-  <meta charset="utf-8"/>
+    <title></title>
+    <meta charset="utf-8"/>
   <meta content="width=device-width" name="viewport"/>
   <meta content="Affordable Rides Smooth" name="description"/>
   <meta content="Ride Carpool" name="keywords"/>
   <meta content="Obot Kingsley" name="author"/>
-    <title></title>
     <link rel="stylesheet" type="text/css" href="css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
 </head>
-<body>
+<body onload="getRides()">
     <div id="header">
         <div class="logo"><a href="index.html"><span>Ride</span>-My-Way</a></div>
-        <a href="index.html"><div class="left">Logout</div></a>
+        <a href="#"><div class="left" onclick="userLogout()">Logout</div></a>
     </div>
-    <a href="#" class="mobile">Menu</a>
+    <a href="#" class="mobile">
+      <div>
+        Menu
+        <ul>
+          <li><div onclick="rideOffersPage()">Ride Offers</div></li>
+          <li><div onclick="addRidePage()">Add Ride Offer</div></li>
+          <li><div onclick="rideRequestPage()">Ride Request</div></li>
+          <li><div onclick="notificationsPage()">Notifications</div></li>
+        </ul>
+      </div>
+    </a>
     <div id="container">
         <div class="sidebar">
             <ul id="nav">
               <div class="profile">
                   <img src="img/laravel.png" class="image"><br><br>
               </div>
-              <li><a href="dashboard.html" class="selected">Add Ride Offer</a></li>
-              <li><a href="rides.html">Ride Offers</a></li>
+              <li><a href="dashboard.html" class="selected">Ride Offers</a></li>
+              <li><a href="rides.html">Add Ride Offer</a></li>
               <li><a href="requests.html">Ride Requests</a></li>
               <li><a href="notifications.html">Notifications <span class="notify">2</span></a></li>
             </ul>
         </div>
         <div class="content">
-          <div class="panel">
+          <div class="panel3">
             <h1>Dashboard</h1>
             <div id="box">
-                <div class="box-top">Add Ride Offer</div>
+                <div class="box-top">Available Ride Offer</div>
                 <div class="box-panel">
-                  <form>
-                    <input type="text" name="location" required class="input" placeholder="location">
-                    <input type="text" name="destination" required class="input" placeholder="destination">
-                    <input type="number" name="amount" required class="input" placeholder="amount">
-                    <input type="date" name="date" required class="input" placeholder="date of departure">
-                    <input type="time" name="time" required class="input" placeholder="time of departure">
-                    <input type="submit" value="Create" class="btn button_1">
-                  </form>   
-                </div>
-            </div>
-          </div>
-          <div class="history">
-            <div id="box">
-                <div class="box-top">History</div>
-                <div class="box-panel">
-                    <div>
-                      <p class="bold">Number of Rides Taken: <span>4</span></p>
-                    </div>
-                    <div>
-                      <p class="bold">Number of Rides Given: <span>2</span></p>
-                    </div><br>
-                    <a href="">VIEW RECORDS</a>
+                  <div id="allRides">
+                    
+                  </div>
                 </div>
             </div>
           </div>
         </div>
     </div>
+    <script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>
