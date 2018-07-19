@@ -46,11 +46,19 @@ const ridesController = {
       } else if (result.rows.length > 0) {
         res.status(400).send({ status: 'failed', message: 'You can\'t request a ride you created' });
       } else {
-        client.query('INSERT INTO requests(rideId, userId, status) values($1, $2, $3)', [req.params.id, req.decoded.id, 'Requested'], (err, result) => {
+        client.query(`SELECT * FROM requests WHERE rideid=${req.params.id} AND userid=${req.decoded.id}`, (err, result) => {
           if (err) {
-            res.status(500).send({ status: 'failed', message: 'An unknown error occurred. Try Again' });
+            res.status(500).send({ status: 'failed', message: 'An unknow error occurred. Try Again' });
+          } else if (result.rows.length > 0) {
+            res.status(400).send({ status: 'failed', message: 'You have already requested this ride. Please wait for responds' });
           } else {
-            res.status(200).send({ status: 'success', message: 'Ride requested succesfully' });
+            client.query('INSERT INTO requests(rideId, userId, status) values($1, $2, $3)', [req.params.id, req.decoded.id, 'Requested'], (err, result) => {
+              if (err) {
+                res.status(500).send({ status: 'failed', message: 'An unknown error occurred. Try Again' });
+              } else {
+                res.status(200).send({ status: 'success', message: 'Ride requested succesfully' });
+              }
+            });
           }
         });
       }

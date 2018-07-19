@@ -16,6 +16,9 @@ usersRoute.post('/api/v1/users/rides', validate.validateCreateRide, ridesControl
 usersRoute.get('/api/v1/users/rides/:id/requests', validate.validateGetRideRequests, usersController.rideRequests);
 usersRoute.put('/api/v1/users/rides/:rideId/requests/:requestId', validate.validateRideResponse, usersController.requestStatus);
 
+usersRoute.get('/api/v1/users/rides', usersController.getUserRides);
+usersRoute.get('/api/v1/users/:userId', usersController.getUser);
+
 const userRoutes = { usersRoute };
 
 export default userRoutes;

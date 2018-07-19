@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="css/dashboard.css">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
 </head>
-<body onload="authUser()">
+<body onload="getRideDetails()">
     <div id="header">
         <div class="logo"><a href="index.html"><span>Ride</span>-My-Way</a></div>
         <a href="#"><div class="left" onclick="userLogout()">Logout</div></a>
@@ -12,6 +12,7 @@
     <a href="#" class="mobile">Menu</a>
     <div id="container">
         <div class="sidebar">
+          <div class="username"><br><span id="username"></span></div>
             <ul id="nav">
               <div class="profile">
                   <img src="img/laravel.png" class="image"><br><br>
@@ -26,13 +27,40 @@
           <div class="panel2">
             <h1>Dashboard</h1>
             <div id="box">
-                <div class="box-top">Request Details</div>
+                <div class="box-top">Ride Offer Details</div>
                 <div class="box-panel">
-                  <div class="card">
-                      <div class="container">
-                        
-                      </div>
-                    </div> 
+                  <div>
+                    <span id="error" class="error"></span>
+                    <span id="success" class="success"></span>
+                  </div>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td data-label="">Location: <span id="location"></span></td>
+                      </tr>
+                      <tr>
+                        <td data-label="">Destination: <span id="destination"></span></td>
+                      </tr>
+                      <tr>
+                        <td data-label="">Date: <span id="date"></span></td>
+                      </tr>
+                      <tr>
+                        <td data-label="">Time: <span id="time"></span></td>
+                      </tr>
+                      <tr>
+                        <td data-label="">Seats Available: <span id="seats"></span></td>
+                      </tr>
+                      <tr>
+                        <td data-label="">Driver: <span id="driver"></span></td>
+                      </tr>
+                      <tr>
+                        <td data-label="">Phone: <span id="phone"></span></td>
+                      </tr>
+                    </tbody>
+                  </table><br>
+                  <input type="hidden" id="rideId">
+                  <button class="btn button_2" onclick="rideOffersPage()">Cancel</button>
+                  <button class="btn button_1" onclick="requestRide()">Request Ride</button>
                 </div>
             </div>
           </div>

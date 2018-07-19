@@ -58,15 +58,52 @@ const usersController = {
     });
   },
 
-  // Get all requests for a ride offer you created
-  rideRequests: (req, res) => {
-    client.query('SELECT * from requests where rideId=($1) AND userid=($2)', [req.params.id, req.decoded.id], (err, result) => {
+  // Get user details
+  getUser: (req, res) => {
+    const userid = parseInt(req.params.userId, 10);
+    client.query(`SELECT name, email, phone from users where id=${userid}`, (err, result) => {
       if (err) {
         res.status(500).send({ status: 'failed', message: err });
       } else if (result.rows < 1) {
-        res.status(200).send({ status: 'failed', message: 'No requests for the ride with this id' });
+        res.status(200).send({ status: 'failed', message: 'Invalid User' });
       } else {
         res.status(200).send({ status: 'success', data: result.rows });
+      }
+    });
+  },
+
+  // Get all rides a user created
+  getUserRides: (req, res) => {
+    const userid = parseInt(req.decoded.id, 10);
+    client.query(`SELECT * from rides where userid=${userid}`, (err, result) => {
+      if (err) {
+        res.status(500).send({ status: 'failed', message: err });
+      } else if (result.rows < 1) {
+        res.status(200).send({ status: 'failed', message: 'You have not created any ride offer' });
+      } else {
+        res.status(200).send({ status: 'success', data: result.rows });
+      }
+    });
+  },
+
+  // Get all requests for a ride offer you created
+  rideRequests: (req, res) => {
+    const userid = parseInt(req.decoded.id, 10);
+    client.query(`select * from rides where id=${req.params.id} and userid=${userid}`, (err, result) => {
+      if (err) {
+        res.status(500).send({ status: 'failed', message: err });
+      } else if (result.rows < 1) {
+        res.status(200).send({ status: 'failed', message: 'You have not created any ride offer' });
+      } else {
+        client.query(`SELECT * from requests where rideid=${req.params.id}`, (err, result) => {
+          if (err) {
+            res.status(500).send({ status: 'failed', message: err });
+          } else if (result.rows < 1) {
+            res.status(200).send({ status: 'failed', message: 'No requests for this ride' });
+          } else {
+            res.status(200).send({ status: 'success', data: result.rows });
+          }
+        });
       }
     });
   },

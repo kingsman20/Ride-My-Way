@@ -80,6 +80,11 @@ div#container {
 .error {
 	color: red;
 }
+.username {
+  text-align: center;
+  font-size: 16px;
+  color: #ffffff;
+}
 ul#nav li {
 	list-style: none;
 }
@@ -212,7 +217,16 @@ table tr {
 table th,
 table td {
   padding: .625em;
-  text-align: center;
+  text-align: left;
+}
+
+table th,
+table td span {
+  font-weight: bold;
+}
+
+table td span {
+  font-style: bold;
 }
 
 table th {
@@ -251,7 +265,7 @@ table th {
     border-bottom: 1px solid #ddd;
     display: block;
     font-size: .8em;
-    text-align: right;
+    text-align: left;
   }
   
   table td::before {
