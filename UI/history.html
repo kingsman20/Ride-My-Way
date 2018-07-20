@@ -1,15 +1,15 @@
 <html>
 <head>
-    <title>Notifications</title>
+    <title>History</title>
     <meta charset="utf-8"/>
-    <meta content="width=device-width" name="viewport"/>
-    <meta content="Affordable Rides Smooth" name="description"/>
-    <meta content="Ride Carpool" name="keywords"/>
-    <meta content="Obot Kingsley" name="author"/>
-      <link rel="stylesheet" type="text/css" href="css/dashboard.css">
-      <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
-  </head>
-<body onload="notifications()">
+  <meta content="width=device-width" name="viewport"/>
+  <meta content="Affordable Rides Smooth" name="description"/>
+  <meta content="Ride Carpool" name="keywords"/>
+  <meta content="Obot Kingsley" name="author"/>
+    <link rel="stylesheet" type="text/css" href="css/dashboard.css">
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+</head>
+<body onload="authUser()">
     <div id="header">
         <div class="logo"><a href="index.html"><span>Ride</span>-My-Way</a></div>
         <a href="#"><div class="left" onclick="userLogout()">Logout</div></a>
@@ -25,19 +25,19 @@
               <li><a href="dashboard.html">Ride Offers</a></li>
               <li><a href="rides.html">Add Ride Offer</a></li>
               <li><a href="requests.html">Ride Requests</a></li>
-              <li><a href="notifications.html" class="selected">Notifications <span class="notify" id="notify"></span></a></li>
-              <li><a href="history.html">History</a></li>
+              <li><a href="notifications.html">Notifications <span class="notify" id="notify">1</span></a></li>
+              <li><a href="history.html" class="selected">History</a></li>
             </ul>
         </div>
         <div class="content">
           <div class="panel2">
             <h1>Dashboard</h1>
             <div id="box">
-                <div class="box-top">Messages</div>
+                <div class="box-top">Ride Offer Details</div>
                 <div class="box-panel">
-                  <div id="notifications">
+                  <div>
                     
-                  </div>  
+                  </div>
                 </div>
             </div>
           </div>

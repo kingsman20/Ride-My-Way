@@ -53,6 +53,9 @@ const registerUser = (event) => {
 };
 
 const getRides = () => {
+  if (sessionStorage.getItem('notify')) {
+    document.getElementById('notify').innerHTML = JSON.parse(sessionStorage.getItem('notify'));
+  }
   const user = JSON.parse(localStorage.getItem('user'));
   if(!user) {
     window.location = './login.html';
@@ -69,24 +72,31 @@ const getRides = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        let rides = '<table><thead><tr><th scope="col">Location</th><th scope="col">Destination</th><th scope="col">Date</th><th scope="col">More Details</th></tr></thead></tbody>';
-        data.data.rides.map((ride) => {
-          rides += `
-          <tr>
-            <td data-label="Location">${ride.location}</td>
-            <td data-label="Destination">${ride.destination}</td>
-            <td data-label="Date">${ride.date}</td>
-            <td data-label="More Details" onclick="rideDetails(${ride.id})"><button class="btn button_1">details</button></td>
-          </tr>
-      `;
-        });
-        rides += '</tbody></table>';
-        document.getElementById('allRides').innerHTML = rides;
+        if (data.data.rides.length > 0) {
+          let rides = '<table><thead><tr><th scope="col">Location</th><th scope="col">Destination</th><th scope="col">Date</th><th scope="col">More Details</th></tr></thead></tbody>';
+          data.data.rides.map((ride) => {
+            rides += `
+            <tr>
+              <td data-label="Location: &nbsp;">${ride.location}</td>
+              <td data-label="Destination: &nbsp;">${ride.destination}</td>
+              <td data-label="Date: &nbsp;">${ride.date}</td>
+              <td data-label="More Details: &nbsp;" onclick="rideDetails(${ride.id})"><button class="btn button_1">details</button></td>
+            </tr>
+        `;
+          });
+          rides += '</tbody></table>';
+          document.getElementById('allRides').innerHTML = rides;
+        } else {
+          document.getElementById('allRides').innerHTML = 'No ride offer available';
+        }
       });
   }
 };
 
 const rideDetails = (rideId) => {
+  if (sessionStorage.getItem('notify')) {
+    document.getElementById('notify').innerHTML = JSON.parse(sessionStorage.getItem('notify'));
+  }
   const user = JSON.parse(localStorage.getItem('user'));
   if(!user) {
     window.location = './login.html';
@@ -157,6 +167,9 @@ const createRideOffer = (event) => {
 };
 
 const authUser = () => {
+  if (sessionStorage.getItem('notify')) {
+    document.getElementById('notify').innerHTML = JSON.parse(sessionStorage.getItem('notify'));
+  }
   const user = JSON.parse(localStorage.getItem('user'));
   if(!user) {
     window.location = './login.html';
@@ -165,6 +178,7 @@ const authUser = () => {
 };
 
 const getRideDetails = () => {
+   document.getElementById('notify').innerHTML = JSON.parse(sessionStorage.getItem('notify'));
   const user = JSON.parse(localStorage.getItem('user'));
   if(!user) {
     window.location = './login.html';
@@ -194,7 +208,44 @@ const getRideDetails = () => {
   document.getElementById('rideId').value = ride[0].id;
 };
 
+const requestRide = () => {
+  const location = document.getElementById('location').innerHTML;
+  const destination = document.getElementById('destination').innerHTML;
+  const date = document.getElementById('date').innerHTML;
+  const rideId = document.getElementById('rideId').value;
+
+  const user = JSON.parse(localStorage.getItem('user'));
+  if(!user) {
+    window.location = './login.html';
+  } else {
+    const token = user.token;
+    const requester = user.data.name;
+    fetch(`${url}/rides/${rideId}/requests`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-type': 'application/json',
+        'x-access-token': token,
+      },
+      body: JSON.stringify({ location, destination, date, requester }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === 'failed') {
+          document.getElementById('error').innerHTML = data.message;
+          document.getElementById('success').innerHTML = '';
+        } else {
+          document.getElementById('success').innerHTML = data.message;
+          document.getElementById('error').innerHTML = '';
+        }
+      });
+  }
+};
+
 const getRideRequests = () => {
+  if (sessionStorage.getItem('notify')) {
+    document.getElementById('notify').innerHTML = JSON.parse(sessionStorage.getItem('notify'));
+  }
   const user = JSON.parse(localStorage.getItem('user'));
   if(!user) {
     window.location = './login.html';
@@ -211,16 +262,15 @@ const getRideRequests = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.status !== 'failed') {
           let yourRides = '<table><thead><tr><th scope="col">Location</th><th scope="col">Destination</th><th scope="col">Date</th><th scope="col">Action</th></tr></thead></tbody>';
           data.data.map((ride) => {
             yourRides += `
             <tr>
-              <td data-label="Location">${ride.location}</td>
-              <td data-label="Destination">${ride.destination}</td>
-              <td data-label="Date">${ride.date}</td>
-              <td data-label="Action" onclick="rideRequests(${ride.id})"><button class="btn button_1">View Requests</button></td>
+              <td data-label="Location: &nbsp;">${ride.location}</td>
+              <td data-label="Destination: &nbsp;">${ride.destination}</td>
+              <td data-label="Date: &nbsp;">${ride.date}</td>
+              <td data-label="Action: &nbsp;" onclick="rideRequests(${ride.id})"><button class="btn button_1">view requests</button></td>
             </tr>
         `;
           });
@@ -233,7 +283,7 @@ const getRideRequests = () => {
   }
 };
 
-const rideRequests = (rideId) => {
+const rideRequests = (rideId, location) => {
   const user = JSON.parse(localStorage.getItem('user'));
   if(!user) {
     window.location = './login.html';
@@ -251,45 +301,101 @@ const rideRequests = (rideId) => {
   })
     .then((res) => res.json())
     .then((data) => {
-      localStorage.setItem('requests', JSON.stringify(data));
+      sessionStorage.setItem('requests', JSON.stringify(data));
     });
   window.location = 'ride_requests.html';
-};
-
-const requestRide = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
-  const token = user.token;
-  const rideId = document.getElementById('rideId').value;
-  fetch(`${url}/rides/${rideId}/requests`, {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json, text/plain, */*',
-      'Content-type': 'application/json',
-      'x-access-token': token,
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.status === 'failed') {
-        document.getElementById('error').innerHTML = data.message;
-        document.getElementById('success').innerHTML = '';
-      } else {
-        document.getElementById('success').innerHTML = data.message;
-        document.getElementById('error').innerHTML = '';
-      }
-    });
 };
 
 const rideOffersPage = () => {
   window.location = './dashboard.html';
 };
 
+let rideId;
+let requestId;
 const rideRequestPage = () => {
-  
+  if (sessionStorage.getItem('notify')) {
+    document.getElementById('notify').innerHTML = JSON.parse(sessionStorage.getItem('notify'));
+  }
+  const user = JSON.parse(localStorage.getItem('user'));
+  if(!user) {
+    window.location = './login.html';
+  }
+  const token = user.token;
+  document.getElementById('username').innerHTML = user.data.name;
+  const requests = JSON.parse(sessionStorage.getItem('requests'));
+  if (requests.status === 'failed') {
+    document.getElementById('rideOfferRequests').innerHTML = 'No request for this ride';
+  } else {
+    let yourRequests = `<h4>${requests.data[0].location} to ${requests.data[0].destination} on ${requests.data[0].date}</h4><br><span id='responseStatus' class='success'></span><br><table><thead><tr><th scope="col">Requested By</th><th scope="col">Action</th></tr></thead></tbody>`;
+    requests.data.map((ride) => {
+      yourRequests += `
+          <tr>
+            <td data-label="Destination: &nbsp;">${ride.requester}</td>
+            <td data-label="Action: &nbsp;"><button class="btn button_1" onclick="respondRequest('Accepted')">Accept</button>&nbsp;<button class="btn button_2" onclick="respondRequest('Rejected')">Reject</button></td>
+          </tr>
+      `;
+      rideId = ride.rideid;
+      requestId = ride.id;
+    });
+    yourRequests += '</tbody></table>';
+    document.getElementById('rideOfferRequests').innerHTML = yourRequests;
+  }
 };
 
-const addRidePage = () => {
-  window.location = './rides.html';
+const respondRequest = (response) => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if(!user) {
+    window.location = './login.html';
+  }
+  const token = user.token;
+  fetch(`${url}/users/rides/${rideId}/requests/${requestId}`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-type': 'application/json',
+      'x-access-token': token,
+    },
+    body: JSON.stringify({ status: response }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      document.getElementById('responseStatus').innerHTML = data.message;
+    });
+};
+
+const notifications = () => {
+  const user = JSON.parse(localStorage.getItem('user'));
+  if(!user) {
+    window.location = './login.html';
+  }
+  document.getElementById('username').innerHTML = user.data.name;
+  const token = user.token;
+  fetch(`${url}/users/requests/notification`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-type': 'application/json',
+      'x-access-token': token,
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.data.length > 0) {
+        sessionStorage.setItem('notify', JSON.stringify(data.data.length));
+        document.getElementById('notify').innerHTML = data.data.length;
+      }
+      let notifications = '<table><thead><tr><th scope="col">Status</th><th scope="col">Messages</th></tr></thead></tbody>';
+    data.data.map((notify) => {
+      notifications += `
+          <tr>
+            <td data-label="Status: &nbsp;"><span>${notify.status}</span></td>
+            <td data-label="Messages: &nbsp;">Your request to join the ride from ${notify.location} to ${notify.destination} is ${notify.status}</td>
+          </tr>
+      `;
+    });
+    notifications += '</tbody></table>';
+    document.getElementById('notifications').innerHTML = notifications;
+    });
 };
 
 const userLogout = () => {

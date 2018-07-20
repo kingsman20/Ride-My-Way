@@ -86,6 +86,20 @@ const usersController = {
     });
   },
 
+  // Get all rides a user created
+  getNotification: (req, res) => {
+    const userid = parseInt(req.decoded.id, 10);
+    client.query(`SELECT * from requests where userid=${userid}`, (err, result) => {
+      if (err) {
+        res.status(500).send({ status: 'failed', message: err });
+      } else if (result.rows < 1) {
+        res.status(200).send({ status: 'failed', message: 'No notifications' });
+      } else {
+        res.status(200).send({ status: 'success', data: result.rows });
+      }
+    });
+  },
+
   // Get all requests for a ride offer you created
   rideRequests: (req, res) => {
     const userid = parseInt(req.decoded.id, 10);
@@ -110,15 +124,17 @@ const usersController = {
 
   // Respond to Ride offer
   requestStatus: (req, res) => {
-    client.query('SELECT * FROM requests where rideid = ($1) AND userid=($2)', [req.params.rideId, req.decoded.id], (err, result) => {
+    client.query('SELECT * FROM rides where id = ($1) AND userid=($2)', [req.params.rideId, req.decoded.id], (err, result) => {
       if (err) {
         res.status(500).send({ status: 'failed', message: 'An unknow error occurred. Try Again' });
-      } else if (result.rows.length < 0) {
+      } else if (result.rows.length < 1) {
         res.status(400).send({ status: 'failed', message: 'You can\'t respond to this ride request' });
       } else {
-        client.query('UPDATE requests SET status=($1) WHERE rideId=($2) AND id=($3)', [req.body.status, req.params.rideId, req.params.requestid], (err, result) => {
+        client.query('UPDATE requests SET status=($1) WHERE rideid=($2) AND id=($3) RETURNING * ', [req.body.status, parseInt(req.params.rideId, 10), parseInt(req.params.requestId, 10)], (err, result) => {
           if (err) {
             res.status(500).send({ status: 'failed', message: err });
+          } else if (result.rows.length < 1) {
+            res.status(404).send({ status: 'failed', message: 'Invalid ride or request id' });
           } else {
             res.status(200).send({ status: 'success', message: 'Responded to ride request succesfully' });
           }

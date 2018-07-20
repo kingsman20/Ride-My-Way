@@ -4,6 +4,9 @@
 
 This is a carpooling application that offers seamless rides to your destination. It is easy to use. Users create an account and then have access to features such as create ride offer, view ride offer, respond to ride offer and many other features.
 
+###Read documention [here](https://kingsman20.github.io/docs/)
+###Visit application on github pages [here](https://kingsman20.github.io/Ride-My-Way/UI/index.html)
+
 ## Features
 * Create account
 * Login

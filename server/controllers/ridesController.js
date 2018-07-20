@@ -52,7 +52,7 @@ const ridesController = {
           } else if (result.rows.length > 0) {
             res.status(400).send({ status: 'failed', message: 'You have already requested this ride. Please wait for responds' });
           } else {
-            client.query('INSERT INTO requests(rideId, userId, status) values($1, $2, $3)', [req.params.id, req.decoded.id, 'Requested'], (err, result) => {
+            client.query('INSERT INTO requests(rideId, userId, status, location, destination, date, requester) values($1, $2, $3, $4, $5, $6, $7)', [req.params.id, req.decoded.id, 'Pending', req.body.location, req.body.destination, req.body.date, req.body.requester], (err, result) => {
               if (err) {
                 res.status(500).send({ status: 'failed', message: 'An unknown error occurred. Try Again' });
               } else {

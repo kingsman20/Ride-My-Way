@@ -14,17 +14,7 @@
         <div class="logo"><a href="index.html"><span>Ride</span>-My-Way</a></div>
         <a href="#"><div class="left" onclick="userLogout()">Logout</div></a>
     </div>
-    <a href="#" class="mobile">
-      <div>
-        Menu
-        <ul>
-          <li><div onclick="rideOffersPage()">Ride Offers</div></li>
-          <li><div onclick="addRidePage()">Add Ride Offer</div></li>
-          <li><div onclick="rideRequestPage()">Ride Request</div></li>
-          <li><div onclick="notificationsPage()">Notifications</div></li>
-        </ul>
-      </div>
-    </a> 
+    <a href="#" class="mobile">Menu</a> 
     <div id="container">
         <div class="sidebar">
           <div class="username"><br><span id="username"></span></div>
@@ -35,7 +25,8 @@
               <li><a href="dashboard.html">Ride Offers</a></li>
               <li><a href="rides.html" class="selected">Add Ride Offer</a></li>
               <li><a href="requests.html">Ride Requests</a></li>
-              <li><a href="notifications.html">Notifications <span class="notify">2</span></a></li>
+              <li><a href="notifications.html">Notifications <span class="notify" id="notify">1</span></a></li>
+              <li><a href="history.html">History</a></li>
             </ul>
         </div>
         <div class="content">
@@ -66,7 +57,8 @@
                     </div>
                     <div>
                       <p class="bold">Number of Rides Given: <span>2</span></p>
-                    </div><br>
+                    </div>
+                    <a href="history.html" class="bold">View Records</a><br>
                 </div>
             </div>
           </div>

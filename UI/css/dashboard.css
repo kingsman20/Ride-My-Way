@@ -5,6 +5,7 @@
 }
 body {
     font-family: 'PT Sans', sans-serif;
+    font-size: 12px;
 }
 a {
     text-decoration: none;
@@ -39,7 +40,6 @@ div#container {
 }
 .sidebar {
 	width: 200px;
-	/*height:	100%; */
 	background-color: #35424a;
 	float: left;
 }
@@ -47,7 +47,6 @@ div#container {
 	width: auto;
 	margin-left: 200px;
 	height: 100%;
-	background-color: #f2f2f2;
 	padding: 15px;
 }
 .content .panel {
@@ -76,9 +75,11 @@ div#container {
 }
 .success {
 	color: green;
+  font-size: 16px;
 }
 .error {
 	color: red;
+  font-size: 16px;
 }
 .username {
   text-align: center;
@@ -176,10 +177,10 @@ form .btn:hover, form .btn:active {
     padding: 2px 16px;
 }
 .bold {
-	font-size: 20px;
+	font-size: 16px;
 }
 .bold span {
-	font-size: 24px;
+	font-size: 20px;
 	color: #3B5998;
 }
 .btn {

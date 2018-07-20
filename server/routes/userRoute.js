@@ -18,6 +18,7 @@ usersRoute.put('/api/v1/users/rides/:rideId/requests/:requestId', validate.valid
 
 usersRoute.get('/api/v1/users/rides', usersController.getUserRides);
 usersRoute.get('/api/v1/users/:userId', usersController.getUser);
+usersRoute.get('/api/v1/users/requests/notification', usersController.getNotification);
 
 const userRoutes = { usersRoute };
 

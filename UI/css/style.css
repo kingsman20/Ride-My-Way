@@ -344,17 +344,17 @@ footer {
         margin-bottom: 5px;
     }
 }
-@media(max-width: 360px) {
+@media(max-width: 375px) {
     #page {
-        min-height: 120%;
-        width: 120%;
+        min-height: 110%;
+        width: 110%;
         position: relative;
     }
 }
 @media(max-width: 360px) {
     #page {
-        min-height: 130%;
-        width: 125%;
+        min-height: 120%;
+        width: 120%;
         position: relative;
     }
 }
