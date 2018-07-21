@@ -51,8 +51,8 @@ const rideRequests = (rideId) => {
     .then((res) => res.json())
     .then((data) => {
       sessionStorage.setItem('requests', JSON.stringify(data));
+      window.location = 'ride_requests.html';
     });
-  window.location = 'ride_requests.html';
 };
 
 let rideId;

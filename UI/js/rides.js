@@ -53,8 +53,8 @@ const rideDetails = (rideId) => {
     .then((res) => res.json())
     .then((data) => {
       sessionStorage.setItem('ride', JSON.stringify(data.data));
+      window.location = 'ride_details.html';
     });
-  window.location = 'ride_details.html';
 };
 
 const getRideDetails = () => {
