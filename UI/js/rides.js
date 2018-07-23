@@ -59,7 +59,9 @@ const getRides = () => {
     messages();
     document.getElementById('username').innerHTML = user.data.name;
     document.getElementById('notify').innerHTML = sessionStorage.getItem('notifications');
-    fetch(`${url}/rides`, {
+    const search = document.getElementById('search').value;
+
+    fetch(`${url}/rides?search=${search}`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json, text/plain, */*',
@@ -69,7 +71,9 @@ const getRides = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.data.rides.length > 0) {
+        if (data.message === 'No Ride Available') {
+          document.getElementById('allRides').innerHTML = 'No ride available for this location or destination';
+        } else if (data.data.rides.length > 0) {
           let rides = '<table><thead><tr><th scope="col">Location</th><th scope="col">Destination</th><th scope="col">Date</th><th scope="col">More Details</th></tr></thead></tbody>';
           data.data.rides.map((ride) => {
             rides += `
@@ -79,7 +83,7 @@ const getRides = () => {
               <td data-label="Date: &nbsp;">${ride.date}</td>
               <td data-label="More Details: &nbsp;" onclick="rideDetails(${ride.id})"><button class="btn button_1">details</button></td>
             </tr>
-        `;
+          `;
           });
           rides += '</tbody></table>';
           document.getElementById('allRides').innerHTML = rides;

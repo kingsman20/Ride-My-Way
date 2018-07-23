@@ -1,9 +1,15 @@
 import client from '../config/database';
 
+let search;
 const ridesController = {
   // Get all ride offer
   allRidesOffer: (req, res) => {
-    client.query('SELECT * from rides', (err, result) => {
+    if (req.query.search) {
+      search = req.query.search;
+    } else {
+      search = '';
+    }
+    client.query(`SELECT * from rides WHERE location like '%${search}%' or destination like '%${search}%'`, (err, result) => {
       if (err) {
         res.status(500).send({ status: 'failed', message: err });
       } else if (result.rows < 1) {
