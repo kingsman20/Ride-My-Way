@@ -5,7 +5,11 @@ const getRides = () => {
   if(!user) {
     window.location = './login.html';
   } else {
+    ridesGiven();
+    ridesTaken();
+    messages();
     document.getElementById('username').innerHTML = user.data.name;
+    document.getElementById('notify').innerHTML = sessionStorage.getItem('notifications');
     fetch(`${url}/rides`, {
       method: 'GET',
       headers: {
@@ -42,6 +46,7 @@ const rideDetails = (rideId) => {
     window.location = './login.html';
   }
   document.getElementById('username').innerHTML = user.data.name;
+  document.getElementById('notify').innerHTML = sessionStorage.getItem('notifications');
   fetch(`${url}/rides/${rideId}`, {
     method: 'GET',
     headers: {
@@ -62,6 +67,7 @@ const getRideDetails = () => {
     window.location = './login.html';
   }
   document.getElementById('username').innerHTML = user.data.name;
+  document.getElementById('notify').innerHTML = sessionStorage.getItem('notifications');
   const ride = JSON.parse(sessionStorage.getItem('ride'));
   fetch(`${url}/users/${ride[0].userid}`, {
     method: 'GET',
@@ -151,6 +157,77 @@ const createRideOffer = (event) => {
     });
 };
 
+const ridesGiven = () => {
+  fetch(`${url}/users/rides/given`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-type': 'application/json',
+      'x-access-token': user.token,
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      localStorage.setItem('ridesGiven', JSON.stringify(data));
+    });
+};
+
+const ridesTaken = () => {
+  fetch(`${url}/users/rides/taken`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-type': 'application/json',
+      'x-access-token': user.token,
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      localStorage.setItem('ridesTaken', JSON.stringify(data));
+    });
+};
+
+const messages = () => {
+  fetch(`${url}/users/requests/notification`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-type': 'application/json',
+      'x-access-token': user.token,
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.status !== 'failed') {
+        sessionStorage.setItem('notifications', JSON.stringify(data.data.length));
+      } else {
+        sessionStorage.setItem('notifications', '0');
+      }
+    });
+};
+
+const authUser = () => {
+  if(!user) {
+    window.location = './login.html';
+  }
+  const ridesTaken = JSON.parse(localStorage.getItem('ridesTaken'));
+  const ridesGiven = JSON.parse(localStorage.getItem('ridesGiven'));
+
+  document.getElementById('username').innerHTML = user.data.name;
+  document.getElementById('notify').innerHTML = sessionStorage.getItem('notifications');
+
+  if (ridesTaken.message === 'No rides taken') {
+    document.getElementById('ridesTaken').innerHTML = 0;
+  } else {
+    document.getElementById('ridesTaken').innerHTML = ridesTaken.message.length;
+  }
+  if (ridesGiven.message === 'No rides given') {
+    document.getElementById('ridesGiven').innerHTML = 0;
+  } else {
+    document.getElementById('ridesGiven').innerHTML = ridesGiven.message.length;
+  }
+};
+
 const rideOffersPage = () => {
   window.location = './dashboard.html';
 };
@@ -160,3 +237,4 @@ const userLogout = () => {
   localStorage.clear();
   window.location = './index.html';
 };
+

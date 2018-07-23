@@ -14,7 +14,16 @@
         <div class="logo"><a href="index.html"><span>Ride</span>-My-Way</a></div>
         <a href="#"><div class="left" onclick="userLogout()">Logout</div></a>
     </div>
-    <a href="#" class="mobile">Menu</a>
+    <button class="collapsible">Menu</button>
+    <div class="collapse-content">
+      <ul>
+        <li><a href="dashboard.html">Ride Offers</a></li>
+        <li><a href="rides.html">Add Ride Offer</a></li>
+        <li><a href="requests.html">Ride Requests</a></li>
+        <li><a href="notifications.html" class="selected">Notifications</a></li>
+        <li><a href="history.html">History</a></li>
+      </ul>
+    </div>
     <div id="container">
         <div class="sidebar">
           <div class="username"><br><span id="username"></span></div>
@@ -25,7 +34,7 @@
               <li><a href="dashboard.html">Ride Offers</a></li>
               <li><a href="rides.html">Add Ride Offer</a></li>
               <li><a href="requests.html">Ride Requests</a></li>
-              <li><a href="notifications.html" class="selected">Notifications <span class="notify" id="notify">1</span></a></li>
+              <li><a href="notifications.html" class="selected">Notifications <span class="notify" id="notify"></span></a></li>
               <li><a href="history.html">History</a></li>
             </ul>
         </div>
@@ -44,5 +53,6 @@
         </div>
     </div>
     <script type="text/javascript" src="js/notifications.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>

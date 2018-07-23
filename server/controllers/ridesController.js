@@ -64,6 +64,30 @@ const ridesController = {
       }
     });
   },
+
+  ridesGiven: (req, res) => {
+    client.query(`SELECT * from rides where userid = ${req.decoded.id}`, (err, result) => {
+      if (err) {
+        res.status(500).send({ status: 'failed', message: err });
+      } else if (result.rows < 1) {
+        res.status(200).send({ status: 'success', message: 'No rides given' });
+      } else {
+        res.status(200).send({ status: 'success', message: result.rows });
+      }
+    });
+  },
+
+  ridesTaken: (req, res) => {
+    client.query(`SELECT * from requests where userid = ${req.decoded.id} AND status = 'Accepted'`, (err, result) => {
+      if (err) {
+        res.status(500).send({ status: 'failed', message: err });
+      } else if (result.rows < 1) {
+        res.status(200).send({ status: 'success', message: 'No rides taken' });
+      } else {
+        res.status(200).send({ status: 'success', message: result.rows });
+      }
+    });
+  },
 };
 
 export default ridesController;

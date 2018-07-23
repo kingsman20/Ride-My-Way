@@ -29,6 +29,27 @@ div#header {
     color: #fff;
     margin: 0 auto;
 }
+.collapsible {
+    background-color: #35424a;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+.collapse-content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f2f2f2;
+}
+.collapse-content ul li {
+  list-style-type: none;
+}
+
 .left {
 	float: right;
 	color: #fff;
@@ -323,6 +344,12 @@ a.mobile:active {
     height: 100%;
   }
   a.mobile {
+    display: none;
+  }
+  .collapsible {
+    display: none;
+  }
+  .collapsible-content {
     display: none;
   }
 }

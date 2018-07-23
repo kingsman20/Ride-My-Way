@@ -6,6 +6,7 @@ const getRideRequests = () => {
     window.location = './login.html';
   } else {
     document.getElementById('username').innerHTML = user.data.name;
+    document.getElementById('notify').innerHTML = sessionStorage.getItem('notifications');
     fetch(`${url}/users/rides`, {
       method: 'GET',
       headers: {
@@ -40,6 +41,7 @@ const getRideRequests = () => {
 const rideRequests = (rideId) => {
   const ride = parseInt(rideId, 10);
   document.getElementById('username').innerHTML = user.data.name;
+  document.getElementById('notify').innerHTML = sessionStorage.getItem('notifications');
   fetch(`${url}/users/rides/${ride}/requests`, {
     method: 'GET',
     headers: {
@@ -62,6 +64,7 @@ const rideRequestPage = () => {
     window.location = './login.html';
   }
   document.getElementById('username').innerHTML = user.data.name;
+  document.getElementById('notify').innerHTML = sessionStorage.getItem('notifications');
   const requests = JSON.parse(sessionStorage.getItem('requests'));
   if (requests.status === 'failed') {
     document.getElementById('rideOfferRequests').innerHTML = 'No request for this ride';

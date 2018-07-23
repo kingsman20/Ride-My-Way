@@ -1,9 +1,12 @@
-const url = 'https://still-basin-40207.herokuapp.com/api/v1';
-const user = JSON.parse(localStorage.getItem('user'));
-
-const authUser = () => {
-  if(!user) {
-    window.location = './login.html';
-  }
-  document.getElementById('username').innerHTML = user.data.name;
-};
+const coll = document.getElementsByClassName('collapsible');
+for (let i = 0; i < coll.length; i++) {
+  coll[i].addEventListener('click', function() {
+    this.classList.toggle('active');
+    let content = this.nextElementSibling;
+    if (content.style.display === 'block') {
+      content.style.display = 'none';
+    } else {
+      content.style.display = 'block';
+    }
+  });
+}

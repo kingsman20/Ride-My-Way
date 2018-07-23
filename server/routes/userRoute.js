@@ -20,6 +20,9 @@ usersRoute.get('/api/v1/users/rides', usersController.getUserRides);
 usersRoute.get('/api/v1/users/:userId', usersController.getUser);
 usersRoute.get('/api/v1/users/requests/notification', usersController.getNotification);
 
+usersRoute.get('/api/v1/users/rides/given', ridesController.ridesGiven);
+usersRoute.get('/api/v1/users/rides/taken', ridesController.ridesTaken);
+
 const userRoutes = { usersRoute };
 
 export default userRoutes;
