@@ -1,6 +1,55 @@
 const url = 'https://still-basin-40207.herokuapp.com/api/v1';
 const user = JSON.parse(localStorage.getItem('user'));
 
+const ridesGiven = () => {
+  fetch(`${url}/users/rides/given`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-type': 'application/json',
+      'x-access-token': user.token,
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      localStorage.setItem('ridesGiven', JSON.stringify(data));
+    });
+};
+
+const ridesTaken = () => {
+  fetch(`${url}/users/rides/taken`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-type': 'application/json',
+      'x-access-token': user.token,
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      localStorage.setItem('ridesTaken', JSON.stringify(data));
+    });
+};
+
+const messages = () => {
+  fetch(`${url}/users/requests/notification`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-type': 'application/json',
+      'x-access-token': user.token,
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.status !== 'failed') {
+        sessionStorage.setItem('notifications', JSON.stringify(data.data.length));
+      } else {
+        sessionStorage.setItem('notifications', '0');
+      }
+    });
+};
+
 const getRides = () => {
   if(!user) {
     window.location = './login.html';
@@ -153,55 +202,6 @@ const createRideOffer = (event) => {
       } else {
         document.getElementById('success').innerHTML = '';
         document.getElementById('error').innerHTML = data.message;
-      }
-    });
-};
-
-const ridesGiven = () => {
-  fetch(`${url}/users/rides/given`, {
-    method: 'GET',
-    headers: {
-      Accept: 'application/json, text/plain, */*',
-      'Content-type': 'application/json',
-      'x-access-token': user.token,
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      localStorage.setItem('ridesGiven', JSON.stringify(data));
-    });
-};
-
-const ridesTaken = () => {
-  fetch(`${url}/users/rides/taken`, {
-    method: 'GET',
-    headers: {
-      Accept: 'application/json, text/plain, */*',
-      'Content-type': 'application/json',
-      'x-access-token': user.token,
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      localStorage.setItem('ridesTaken', JSON.stringify(data));
-    });
-};
-
-const messages = () => {
-  fetch(`${url}/users/requests/notification`, {
-    method: 'GET',
-    headers: {
-      Accept: 'application/json, text/plain, */*',
-      'Content-type': 'application/json',
-      'x-access-token': user.token,
-    },
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.status !== 'failed') {
-        sessionStorage.setItem('notifications', JSON.stringify(data.data.length));
-      } else {
-        sessionStorage.setItem('notifications', '0');
       }
     });
 };
