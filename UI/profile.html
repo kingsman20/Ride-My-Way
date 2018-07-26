@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Ride Requests</title>
+    <title>Profile Page</title>
     <meta charset="utf-8"/>
   <meta content="width=device-width" name="viewport"/>
   <meta content="Affordable Rides Smooth" name="description"/>
@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="css/dashboard.css">
     <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
 </head>
-<body onload="getRideRequests()">
+<body onload="getUserProfile()">
     <div id="header">
         <div class="logo"><a href="index.html"><span>Ride</span>-My-Way</a></div>
         <a href="#"><div class="left" onclick="userLogout()">Logout</div></a>
@@ -19,10 +19,10 @@
       <ul>
         <li><a href="dashboard.html">Ride Offers</a></li>
         <li><a href="rides.html">Add Ride Offer</a></li>
-        <li class="selected"><a href="requests.html">Ride Requests</a></li>
+        <li><a href="requests.html">Ride Requests</a></li>
         <li><a href="notifications.html">Notifications</a></li>
         <li><a href="history.html">History</a></li>
-        <li><a href="profile.html">Profile</a></li>
+        <li class="selected"><a href="profile.html">Profile</a></li>
       </ul>
     </div>
     <div id="container">
@@ -34,27 +34,45 @@
               </div>
               <li><a href="dashboard.html">Ride Offers</a></li>
               <li><a href="rides.html">Add Ride Offer</a></li>
-              <li><a href="requests.html" class="selected">Ride Requests</a></li>
+              <li><a href="requests.html">Ride Requests</a></li>
               <li><a href="notifications.html">Notifications <span class="notify" id="notify"></span></a></li>
               <li><a href="history.html">History</a></li>
-              <li><a href="profile.html">Profile</a></li>
+              <li class="selected"><a href="profile.html">Profile</a></li>
             </ul>
         </div>
         <div class="content">
-          <div class="panel2">
+          <div class="panel3">
             <h1>Dashboard</h1>
             <div id="box">
-                <div class="box-top">Ride offer you created</div>
+                <div class="box-top">Profile Settings</div>
                 <div class="box-panel">
-                  <div id="yourRides">
-                    
-                  </div> 
+                  <div>
+                    <form enctype="multipart/form-data">
+                      <div class="form-group">
+                        <img id="blah" height="100px;" src="img/laravel.png" alt="your image" />
+                        <input type='file' name="photo" id="photo" onchange="readURL(this);" required />
+                      </div>
+                      <div>
+                        <input type="text" name="name" id="name" placeholder="full name" required>
+                      </div>
+                      <div>
+                        <input type="email" name="email" id="email" placeholder="email address" required>
+                      </div>
+                      <div>
+                        <input type="text" name="phone" id="phone" placeholder="phone number" required>
+                      </div>
+                      <div>
+                        <input type="text" name="address" id="address" placeholder="enter your address" required>
+                      </div>
+                      <button class="btn button_1">Save Changes</button>
+                    </form>
+                  </div>
                 </div>
             </div>
           </div>
         </div>
     </div>
-    <script type="text/javascript" src="js/requests.js"></script>
+    <script type="text/javascript" src="js/profile.js"></script>
     <script type="text/javascript" src="js/script.js"></script>
 </body>
 </html>

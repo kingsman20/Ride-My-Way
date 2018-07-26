@@ -24,7 +24,7 @@ app.use(routes.ridesRoute);
 
 // Handle Invalid route
 app.get('/*', (req, res) => {
-  res.status(400).send({ status: 'failed', message: 'Invalid Route' });
+  res.status(401).send({ status: 'failed', message: 'Invalid Route' });
 });
 
 app.listen(port);

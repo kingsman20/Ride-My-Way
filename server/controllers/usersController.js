@@ -11,7 +11,9 @@ const usersController = {
   // Create User
   register: (req, res) => {
     client.query('SELECT * FROM users WHERE email=($1)', [req.body.email], (err, result) => {
-      if (result.rows.length > 0) {
+      if (err) {
+        res.status(500).send({ status: 'failed', message: 'An error occurred. Try again' });
+      } else if (result.rows.length > 0) {
         res.status(400).send({ status: 'failed', message: 'Email already exist' });
       } else {
         const hash = bcrypt.hashSync(req.body.password, 10);
@@ -34,11 +36,11 @@ const usersController = {
   },
 
   login: (req, res) => {
-    client.query('SELECT name, password, id FROM users WHERE email=($1)', [req.body.email], (err, result) => {
+    client.query('SELECT * FROM users WHERE email=($1)', [req.body.email], (err, result) => {
       if (err) {
-        res.status(500).send({ status: 'failed', message: 'Login Failed' });
+        res.status(500).send({ status: 'failed', message: 'Login failed. Try again' });
       } else if (result.rows < 1) {
-        res.status(400).send({ status: 'failed', message: 'Invalid username or password' });
+        res.status(401).send({ status: 'failed', message: 'Invalid username or password' });
       } else {
         const hash = result.rows[0].password;
         const password = bcrypt.compareSync(req.body.password, hash);
@@ -50,9 +52,9 @@ const usersController = {
           const token = jwt.sign(payload, app.get('superSecret'), {
             expiresIn: 86400, // expires in 24 hours
           });
-          res.status(200).send({ status: 'success', message: 'Login Succesful', token, data: { id: result.rows[0].id, name: result.rows[0].name } });
+          res.status(200).send({ status: 'success', message: 'Login Succesful', token, data: { id: result.rows[0].id, name: result.rows[0].name, email: result.rows[0].email, phone: result.rows[0].phone } });
         } else {
-          res.status(401).send({ status: 'failed', message: 'Invalid Username or password' });
+          res.status(401).send({ status: 'failed', message: 'Invalid username or password' });
         }
       }
     });
@@ -65,7 +67,7 @@ const usersController = {
       if (err) {
         res.status(500).send({ status: 'failed', message: err });
       } else if (result.rows < 1) {
-        res.status(200).send({ status: 'failed', message: 'Invalid User' });
+        res.status(400).send({ status: 'failed', message: 'Invalid User' });
       } else {
         res.status(200).send({ status: 'success', data: result.rows });
       }

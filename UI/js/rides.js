@@ -1,4 +1,4 @@
-const url = 'https://still-basin-40207.herokuapp.com/api/v1';
+const url = 'http://localhost:3000/api/v1';
 const user = JSON.parse(localStorage.getItem('user'));
 
 const ridesGiven = () => {
@@ -235,10 +235,3 @@ const authUser = () => {
 const rideOffersPage = () => {
   window.location = './dashboard.html';
 };
-
-const userLogout = () => {
-  sessionStorage.clear();
-  localStorage.clear();
-  window.location = './index.html';
-};
-

@@ -10,3 +10,19 @@ for (let i = 0; i < coll.length; i++) {
     }
   });
 }
+
+const readURL = (input) => {
+  if (input.files && input.files[0]) {
+    let reader = new FileReader();
+    reader.onload = (e) => {
+      document.getElementById('blah').src = e.target.result;
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+};
+
+const userLogout = () => {
+  sessionStorage.clear();
+  localStorage.clear();
+  window.location = './index.html';
+};
