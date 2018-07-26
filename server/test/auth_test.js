@@ -37,8 +37,8 @@ const authTest = {
           expect(res).to.be.json;
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.property('status').eql('success');
-          done();
         });
+        done();
     });
   },
 
@@ -59,8 +59,8 @@ const authTest = {
           expect(res).to.be.json;
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.property('status').eql('failed');
-          done();
         });
+        done();
     });
   },
 
@@ -99,8 +99,8 @@ const authTest = {
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.property('token');
           expect(res.body).to.have.property('status').eql('success');
-          done();
         });
+        done();
     });
   },
 
@@ -118,8 +118,8 @@ const authTest = {
           expect(res).to.be.json;
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.property('status').eql('failed');
-          done();
         });
+        done();
     });
   },
 

@@ -17,8 +17,8 @@ const otherTest = {
           expect(res).to.be.json;
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.property('status').eql('success');
-          done();
         });
+      done();
     });
   },
 
@@ -31,8 +31,8 @@ const otherTest = {
           expect(res).to.be.json;
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.property('status').eql('failed');
-          done();
         });
+      done();
     });
   },
 
@@ -45,8 +45,8 @@ const otherTest = {
           expect(res).to.be.json;
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.property('status').eql('success');
-          done();
         });
+      done();
     });
   },
 
@@ -60,8 +60,8 @@ const otherTest = {
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.property('status').eql('failed');
           expect(res.body).to.have.property('message').eql('No token provided');
-          done();
         });
+      done();
     });
   },
 
@@ -74,8 +74,8 @@ const otherTest = {
           expect(res).to.be.json;
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.property('status').eql('success');
-          done();
         });
+      done();
     });
   },
 
@@ -88,8 +88,8 @@ const otherTest = {
           expect(res).to.be.json;
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.property('status').eql('failed');
-          done();
         });
+      done();
     });
   },
 
@@ -102,8 +102,8 @@ const otherTest = {
           expect(res).to.be.json;
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.property('status').eql('success');
-          done();
         });
+      done();
     });
   },
 
@@ -116,8 +116,8 @@ const otherTest = {
           expect(res).to.be.json;
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.property('status').eql('failed');
-          done();
         });
+      done();
     });
   },
 
@@ -130,8 +130,8 @@ const otherTest = {
           expect(res).to.be.json;
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.property('status').eql('success');
-          done();
         });
+      done();
     });
   },
 
@@ -144,8 +144,8 @@ const otherTest = {
           expect(res).to.be.json;
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.property('status').eql('failed');
-          done();
         });
+      done();
     });
   },
 };

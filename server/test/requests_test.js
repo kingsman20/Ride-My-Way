@@ -17,8 +17,8 @@ const requestsTest = {
           expect(res).to.be.json;
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.property('status').eql('success');
-          done();
         });
+      done();
     });
   },
 
@@ -44,8 +44,8 @@ const requestsTest = {
           expect(res).to.have.status(200);
           expect(res).to.be.json;
           expect(res.body).to.be.an('object');
-          done();
         });
+      done();
     });
   },
 
