@@ -19,6 +19,15 @@ const readURL = (input) => {
     };
     reader.readAsDataURL(input.files[0]);
   }
+  const fileName = document.getElementById('photo').value;
+  const idxDot = fileName.lastIndexOf('.') + 1;
+  const extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+  if (extFile === 'jpg' || extFile === 'jpeg' || extFile === 'png') {
+    document.getElementById('error').innerHTML = '';
+  } else {
+    document.getElementById('photo').value = '';
+    document.getElementById('error').innerHTML = 'Only jpg/jpeg and png files are allowed!';
+  }
 };
 
 const userLogout = () => {

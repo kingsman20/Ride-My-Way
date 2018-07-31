@@ -111,11 +111,11 @@ const usersController = {
       } else if (result.rows < 1) {
         res.status(200).send({ status: 'failed', message: 'You have not created any ride offer' });
       } else {
-        client.query(`SELECT * from requests where rideid=${req.params.id}`, (err, result) => {
+        client.query(`SELECT * from requests where rideid=${req.params.id} AND status='Pending'`, (err, result) => {
           if (err) {
             res.status(500).send({ status: 'failed', message: err });
           } else if (result.rows < 1) {
-            res.status(200).send({ status: 'failed', message: 'No requests for this ride' });
+            res.status(200).send({ status: 'failed', message: 'No pending requests for this ride' });
           } else {
             res.status(200).send({ status: 'success', data: result.rows });
           }
@@ -141,6 +141,19 @@ const usersController = {
             res.status(200).send({ status: 'success', message: 'Responded to ride request succesfully' });
           }
         });
+      }
+    });
+  },
+
+  userProfile: (req, res) => {
+    const userid = parseInt(req.decoded.id, 10);
+    client.query('UPDATE users SET name=($1), email=($2), phone=($3), address=($4), image=($5) WHERE id=($6) RETURNING * ', [req.body.name, req.body.email, req.body.phone, req.body.address, req.body.image, userid], (err, result) => {
+      if (err) {
+        res.status(500).send({ status: 'failed', message: err });
+      } else if (result.rows.length < 1) {
+        res.status(400).send({ status: 'failed', message: 'Update failed. Try Again' });
+      } else {
+        res.status(200).send({ status: 'success', message: 'Profile updated succesfully' });
       }
     });
   },

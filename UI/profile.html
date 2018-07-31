@@ -47,11 +47,14 @@
                 <div class="box-top">Profile Settings</div>
                 <div class="box-panel">
                   <div>
-                    <form enctype="multipart/form-data">
-                      <div class="form-group">
-                        <img id="blah" height="100px;" src="img/laravel.png" alt="your image" />
-                        <input type='file' name="photo" id="photo" onchange="readURL(this);" required />
-                      </div>
+                    <form enctype="multipart/form-data" onsubmit="updateUser(event)">
+                      <div class="image-upload">
+                        <label for="photo">
+                            <img id="blah" height="100px;" src="img/laravel.png" alt="your image" />
+                          </label>
+                          <input type='file' accept=".png, .jpg, .jpeg" name="photo" id="photo" onchange="readURL(this);" required /><br>
+                          <span id="error" class="error"></span>
+                      </div><br>
                       <div>
                         <input type="text" name="name" id="name" placeholder="full name" required>
                       </div>
@@ -64,7 +67,7 @@
                       <div>
                         <input type="text" name="address" id="address" placeholder="enter your address" required>
                       </div>
-                      <button class="btn button_1">Save Changes</button>
+                      <button class="btn button_1" type="submit">Save Changes</button>
                     </form>
                   </div>
                 </div>
