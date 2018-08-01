@@ -5,7 +5,7 @@ import app from '../app';
 chai.use(chaiHttp);
 const { expect } = require('chai');
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsIm5hbWUiOiJNb2NoYSBDaGFpIiwiaWF0IjoxNTMzMDM3MTI0LCJleHAiOjE1MzMxMjM1MjR9.Ccx9axqZU7Z5ERr4_3jjRb__LBarzr7uUuvk_31otis';
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjEsIm5hbWUiOiJNb2NoYSBDaGFpIiwiaWF0IjoxNTMzMTI5MTc4LCJleHAiOjE1MzMyMTU1Nzh9.4-OAGY6fF7gyRvZZuQFhSpxMqfGtHVC-WwTID-vnTbw';
 
 const requestsTest = {
   joinRideOffer: () => {

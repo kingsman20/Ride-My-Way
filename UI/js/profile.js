@@ -21,21 +21,20 @@ const updateUser = (event) => {
   const phone = document.getElementById('phone').value;
   const address = document.getElementById('address').value;
 
-  const reader = new FileReader();
+  const formData = new FormData();
+  formData.append('photo', photo);
 
-  console.log(Date.now() + photo.name);
-
-  // fetch(`${url}/users/update`, {
-  //   method: 'POST',
-  //   headers: {
-  //     Accept: 'application/json, text/plain, */*',
-  //     'Content-type': 'application/json',
-  //     'x-access-token': user.token,
-  //   },
-  //   body: JSON.stringify({ image, name, email, phone, address }),
-  // })
-  //   .then((res) => res.json())
-  //   .then((data) => {
-  //     console.log(data);
-  //   });
+  fetch(`${url}/users/update`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json, text/plain, */*',
+      'Content-type': 'application/json',
+      'x-access-token': user.token,
+    },
+    body: JSON.stringify({ name, email, phone, address }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      document.getElementById('success').innerHTML = data.message;
+    });
 };

@@ -147,7 +147,7 @@ const usersController = {
 
   userProfile: (req, res) => {
     const userid = parseInt(req.decoded.id, 10);
-    client.query('UPDATE users SET name=($1), email=($2), phone=($3), address=($4), image=($5) WHERE id=($6) RETURNING * ', [req.body.name, req.body.email, req.body.phone, req.body.address, req.body.image, userid], (err, result) => {
+    client.query('UPDATE users SET name=($1), email=($2), phone=($3), address=($4) WHERE id=($5) RETURNING * ', [req.body.name, req.body.email, req.body.phone, req.body.address, userid], (err, result) => {
       if (err) {
         res.status(500).send({ status: 'failed', message: err });
       } else if (result.rows.length < 1) {
